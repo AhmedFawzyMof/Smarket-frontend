@@ -144,40 +144,34 @@ if (cartLength() > 0) {
 }
 
 async function delToFav(productId) {
-  const headers = new Headers();
-  headers.append("AuthToken", localStorage.getItem("AuthToken"));
-  headers.append("Content-type", "application/json");
-  const response = await fetch("http://localhost:5500/user/delfav", {
+  const response = await fetch("http://localhost:5500/Delfav", {
     method: "post",
-    headers: headers,
-    body: JSON.stringify({ product: productId }),
+    body: JSON.stringify({
+      product: productId,
+      token: localStorage.getItem("AuthToken"),
+    }),
   });
   const data = await response.json();
   const favlist = JSON.parse(localStorage.getItem("favlist"));
   if (data.err) {
     CreateToast({
       type: "error",
-      message: "لقد حدث خطأ يرجى تسجيل الدخول والمحاولة مرة أخرى",
-      time: 5000,
+      message: "لقد حدث خطأ يرجى تسجيل الدخول",
+      time: 2000,
     });
     localStorage.removeItem("AuthToken");
-    localStorage.removeItem("coupons");
-    localStorage.removeItem("favlist");
-    getCoupon();
-    getFav();
     setTimeout(() => {
       window.location = "/login";
-    }, 5000);
+    }, 2000);
   } else {
     CreateToast({
       type: "success",
       message: "تمت إزالة المنتج من المفضلة",
-      time: 3000,
+      time: 2000,
     });
     localStorage.setItem("favlist", favlist - 1);
-    getFav();
     setTimeout(() => {
       location.reload();
-    }, 1000);
+    }, 2000);
   }
 }

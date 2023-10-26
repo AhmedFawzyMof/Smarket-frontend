@@ -11,27 +11,27 @@ export default class extends AbstractViews {
     loading(true);
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
-        const headers = new Headers();
-        headers.append("AuthToken", localStorage.getItem("AuthToken"));
-        const response = await fetch("http://localhost:5500/user/fav", {
-          method: "get",
-          headers: headers,
-        });
+        const response = await fetch(
+          "http://localhost:5500/fav/" + localStorage.getItem("AuthToken")
+        );
 
         const data = await response.json();
-        if (data.err) {
-          localStorage.removeItem("AuthToken");
-          localStorage.removeItem("coupons");
-          localStorage.removeItem("favlist");
-          window.location = "/";
-          CreateToast({
-            type: "success",
-            msg: "حدث خطأ ما، يرجى تسجيل الدخول والمحاولة مرة أخرى",
-            time: 5000,
-          });
+        if (data.length === 1) {
+          if (data[0].Error) {
+            localStorage.removeItem("AuthToken");
+            window.location = "/";
+            CreateToast({
+              type: "Err",
+              msg: "حدث خطأ ما، يرجى تسجيل الدخول",
+              time: 2000,
+            });
+            setTimeout(() => {
+              location.replace("/login");
+            }, 2000);
+          }
         }
 
-        const products = data.fav;
+        const products = data.products;
 
         const mappedProducts = products
           .map((product, index) => {
@@ -69,7 +69,7 @@ export default class extends AbstractViews {
           <input type="hidden" value="1" id="productQuantity" />
           <button id='addtocart' onclick="addItemToCart(${
             product.id
-          })"><img src="/static/img/addtocart.png" /></button>
+          })"><i class="bx bxs-cart-download"></i></button>
           <button id='addtofav' onclick='delToFav(${
             product.id
           })'><i class='bx bxs-x-circle'></i></button>

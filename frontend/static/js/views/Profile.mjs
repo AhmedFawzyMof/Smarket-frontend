@@ -12,24 +12,21 @@ export default class extends AbstractViews {
       loading(true);
 
       if (localStorage.getItem("AuthToken")) {
-        const headers = new Headers();
-        headers.append("AuthToken", localStorage.getItem("AuthToken"));
-        const response = await fetch("http://localhost:5500/user/profile", {
-          method: "get",
-          headers: headers,
-        });
+        const response = await fetch(
+          "http://localhost:5500/profile/" + localStorage.getItem("AuthToken")
+        );
 
         const data = await response.json();
-        if (data.err) {
+        if (data.Error) {
           localStorage.removeItem("AuthToken");
-          localStorage.removeItem("coupons");
-          localStorage.removeItem("favlist");
-          window.location = "/";
           CreateToast({
             type: "success",
             msg: "حدث خطأ ما، يرجى تسجيل الدخول والمحاولة مرة أخرى",
-            time: 5000,
+            time: 2000,
           });
+          setTimeout(() => {
+            window.location = "/";
+          }, 2);
         }
         fetch("/static/siteJs/profile.js")
           .then(function (response) {
