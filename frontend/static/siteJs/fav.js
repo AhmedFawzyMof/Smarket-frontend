@@ -152,8 +152,7 @@ async function delToFav(productId) {
     }),
   });
   const data = await response.json();
-  const favlist = JSON.parse(localStorage.getItem("favlist"));
-  if (data.err) {
+  if (data.Error) {
     CreateToast({
       type: "error",
       message: "لقد حدث خطأ يرجى تسجيل الدخول",
@@ -169,7 +168,6 @@ async function delToFav(productId) {
       message: "تمت إزالة المنتج من المفضلة",
       time: 2000,
     });
-    localStorage.setItem("favlist", favlist - 1);
     setTimeout(() => {
       location.reload();
     }, 2000);

@@ -17,16 +17,17 @@ export default class extends AbstractViews {
         );
 
         const data = await response.json();
+        console.log(data);
         if (data.Error) {
           localStorage.removeItem("AuthToken");
           CreateToast({
-            type: "success",
-            msg: "حدث خطأ ما، يرجى تسجيل الدخول والمحاولة مرة أخرى",
+            type: "error",
+            msg: "حدث خطأ ما، يرجى تسجيل الدخول",
             time: 2000,
           });
           setTimeout(() => {
             window.location = "/";
-          }, 2);
+          }, 2000);
         }
         fetch("/static/siteJs/profile.js")
           .then(function (response) {

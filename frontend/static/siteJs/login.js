@@ -4,15 +4,23 @@ function login() {
   LoginForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     const formData = new FormData(this);
-    const urlencoded = new URLSearchParams();
+
+    const form = {};
 
     for (const pair of formData) {
-      urlencoded.append(pair[0], pair[1]);
+      switch (pair[0]) {
+        case "email":
+          Object.assign(form, { email: pair[1] });
+          break;
+        default:
+          Object.assign(form, { password: pair[1] });
+          break;
+      }
     }
 
     const response = await fetch("http://localhost:5500/user/login", {
       method: "post",
-      body: urlencoded,
+      body: JSON.stringify(form),
     });
 
     const data = await response.json();
@@ -20,16 +28,18 @@ function login() {
       CreateToast({
         type: "error",
         message: data.Message,
-        time: 7000,
+        time: 5000,
       });
     } else {
       localStorage.setItem("AuthToken", data.token);
       CreateToast({
         type: "success",
         message: "تم تسجيل الدخول بنجاح",
-        time: 7000,
+        time: 2000,
       });
-      location.replace("/");
+      setTimeout(() => {
+        location.replace("/");
+      }, 2000);
     }
   });
 }

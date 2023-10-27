@@ -63,7 +63,7 @@ export default class extends AbstractViews {
             </div>
             <div class='input'>
                 <label>رقم هاتف احتياطي</label>
-                <input type="tel" name="phone" placeholder="رقم هاتف احتياطي" />
+                <input type="tel" name="spare_phone" placeholder="رقم هاتف احتياطي" />
             </div>
             <div class='terms'>
                 <a href='/terms' data-link>هل تقبل الشروط والأحكام</a>

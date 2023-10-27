@@ -1,40 +1,39 @@
 function editName() {
   const EditName = document.getElementById("EditName");
 
-  const headers = new Headers();
-  headers.append("AuthToken", localStorage.getItem("AuthToken"));
-
   EditName.addEventListener("submit", async (e) => {
     e.preventDefault();
     const editNameData = new FormData(EditName);
-    const urlencoded = new URLSearchParams();
+    const form = {};
 
     for (const pair of editNameData) {
-      urlencoded.append(pair[0], pair[1]);
+      const value = pair[1];
+      if (pair[0] === "username") {
+        Object.assign(form, { username: value });
+      } else {
+        Object.assign(form, { password: value });
+      }
     }
 
-    const response = await fetch("http://localhost:5500/user/edit", {
+    Object.assign(form, { token: localStorage.getItem("AuthToken") });
+
+    const response = await fetch("http://localhost:5500/profile", {
       method: "post",
-      body: urlencoded,
-      headers: headers,
+      body: JSON.stringify(form),
     });
 
     const data = await response.json();
 
-    if (data.err) {
+    if (data.Error) {
       CreateToast({
         type: "error",
-        message: "لقد حدث خطأ يرجى تسجيل الدخول والمحاولة مرة أخرى",
-        time: 5000,
+        message: "لقد حدث خطأ يرجى تسجيل الدخول",
+        time: 2000,
       });
       localStorage.removeItem("AuthToken");
-      localStorage.removeItem("coupons");
-      localStorage.removeItem("favlist");
-      getCoupon();
-      getFav();
       setTimeout(() => {
         window.location = "/login";
-      }, 5000);
+      }, 2000);
     } else {
       CreateToast({
         type: "success",
@@ -49,40 +48,39 @@ editName();
 
 function editPassword() {
   const EditPassword = document.getElementById("EditPassword");
-  const headers = new Headers();
-  headers.append("AuthToken", localStorage.getItem("AuthToken"));
-
   EditPassword.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const editPasswordData = new FormData(EditPassword);
-    const urlencoded = new URLSearchParams();
+    const form = {};
 
     for (const pair of editPasswordData) {
-      urlencoded.append(pair[0], pair[1]);
+      const value = pair[1];
+      if (pair[0] === "password") {
+        Object.assign(form, { password: value });
+      } else {
+        Object.assign(form, { password2: value });
+      }
     }
 
-    const response = await fetch("http://localhost:5500/user/edit", {
+    Object.assign(form, { token: localStorage.getItem("AuthToken") });
+
+    const response = await fetch("http://localhost:5500/profile", {
       method: "post",
-      body: urlencoded,
-      headers: headers,
+      body: JSON.stringify(form),
     });
 
     const data = await response.json();
-    if (data.err) {
+    if (data.Error) {
       CreateToast({
         type: "error",
-        message: "لقد حدث خطأ يرجى تسجيل الدخول والمحاولة مرة أخرى",
-        time: 5000,
+        message: "لقد حدث خطأ يرجى تسجيل الدخول",
+        time: 2000,
       });
       localStorage.removeItem("AuthToken");
-      localStorage.removeItem("coupons");
-      localStorage.removeItem("favlist");
-      getCoupon();
-      getFav();
       setTimeout(() => {
         window.location = "/login";
-      }, 5000);
+      }, 2000);
     } else {
       CreateToast({
         type: "success",
@@ -97,39 +95,39 @@ editPassword();
 
 function editEmail() {
   const EditEmail = document.getElementById("EditEmail");
-  const headers = new Headers();
-  headers.append("AuthToken", localStorage.getItem("AuthToken"));
 
   EditEmail.addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(EditEmail);
-    const urlencoded = new URLSearchParams();
+    const form = {};
 
     for (const pair of formData) {
-      urlencoded.append(pair[0], pair[1]);
+      const value = pair[1];
+      if (pair[0] === "email") {
+        Object.assign(form, { email: value });
+      } else {
+        Object.assign(form, { password: value });
+      }
     }
 
-    const response = await fetch("http://localhost:5500/user/edit", {
+    Object.assign(form, { token: localStorage.getItem("AuthToken") });
+
+    const response = await fetch("http://localhost:5500/profile", {
       method: "post",
-      body: urlencoded,
-      headers: headers,
+      body: JSON.stringify(form),
     });
 
     const data = await response.json();
-    if (data.err) {
+    if (data.Error) {
       CreateToast({
         type: "error",
-        message: "لقد حدث خطأ يرجى تسجيل الدخول والمحاولة مرة أخرى",
-        time: 5000,
+        message: "لقد حدث خطأ يرجى تسجيل الدخول",
+        time: 2000,
       });
       localStorage.removeItem("AuthToken");
-      localStorage.removeItem("coupons");
-      localStorage.removeItem("favlist");
-      getCoupon();
-      getFav();
       setTimeout(() => {
         window.location = "/login";
-      }, 5000);
+      }, 2000);
     } else {
       CreateToast({
         type: "success",

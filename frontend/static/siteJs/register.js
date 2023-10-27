@@ -4,15 +4,37 @@ function register() {
   RegisterForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     const formData = new FormData(this);
-    const urlencoded = new URLSearchParams();
+    const form = {};
 
     for (const pair of formData) {
-      urlencoded.append(pair[0], pair[1]);
+      switch (pair[0]) {
+        case "username":
+          Object.assign(form, { username: pair[1] });
+          break;
+        case "email":
+          Object.assign(form, { email: pair[1] });
+          break;
+        case "password":
+          Object.assign(form, { password: pair[1] });
+          break;
+        case "password2":
+          Object.assign(form, { password2: pair[1] });
+          break;
+        case "phone":
+          Object.assign(form, { phone: pair[1] });
+          break;
+        case "spare_phone":
+          Object.assign(form, { spare_phone: pair[1] });
+          break;
+        default:
+          Object.assign(form, { terms: pair[1] });
+          break;
+      }
     }
-
+    console.log(form);
     const response = await fetch("http://localhost:5500/user/register", {
       method: "post",
-      body: urlencoded,
+      body: JSON.stringify(form),
     });
 
     const data = await response.json();
@@ -27,14 +49,16 @@ function register() {
       CreateToast({
         type: "success",
         message: "تم إنشاء الحساب بنجاح",
-        time: 7000,
+        time: 2000,
       });
       CreateToast({
         type: "success",
         message: "تم تسجيل الدخول بنجاح",
-        time: 7000,
+        time: 2000,
       });
-      location.replace('/')
+      setTimeout(() => {
+        location.replace("/");
+      }, 2000);
     }
   });
 }

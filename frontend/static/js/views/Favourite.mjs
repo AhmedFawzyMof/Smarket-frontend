@@ -16,50 +16,52 @@ export default class extends AbstractViews {
         );
 
         const data = await response.json();
-        if (data.length === 1) {
-          if (data[0].Error) {
-            localStorage.removeItem("AuthToken");
-            window.location = "/";
-            CreateToast({
-              type: "Err",
-              msg: "حدث خطأ ما، يرجى تسجيل الدخول",
-              time: 2000,
-            });
-            setTimeout(() => {
-              location.replace("/login");
-            }, 2000);
-          }
+        if (data.Error) {
+          localStorage.removeItem("AuthToken");
+          window.location = "/";
+          CreateToast({
+            type: "Err",
+            msg: "حدث خطأ ما، يرجى تسجيل الدخول",
+            time: 2000,
+          });
+          setTimeout(() => {
+            location.replace("/login");
+          }, 2000);
         }
 
-        const products = data.products;
-
-        const mappedProducts = products
-          .map((product, index) => {
-            function isAvailable() {
-              let ava = "product";
-              if (product.available !== 1 && product.inStock == 0) {
-                ava += " notavailable";
-              } else {
-                ava;
+        let products = data.products;
+        if (!products) {
+          products = [];
+        }
+        console.log(products);
+        if (products.length > 0) {
+          const mappedProducts = products
+            .map((product, index) => {
+              function isAvailable() {
+                let ava = "product";
+                if (product.available !== 1 && product.inStock == 0) {
+                  ava += " notavailable";
+                } else {
+                  ava;
+                }
+                if (product.offer > 0) {
+                  ava += " offer";
+                }
+                return ava;
               }
-              if (product.offer > 0) {
-                ava += " offer";
-              }
-              return ava;
-            }
 
-            function isOffer() {
-              if (product.offer > 0) {
-                return `<p class="price offer">${
-                  product.price + product.offer
-                } ج</p>
+              function isOffer() {
+                if (product.offer > 0) {
+                  return `<p class="price offer">${
+                    product.price + product.offer
+                  } ج</p>
               <p class="price">${product.price} ج</p>
               `;
-              } else {
-                return `<p class="price">${product.price} ج</p>`;
+                } else {
+                  return `<p class="price">${product.price} ج</p>`;
+                }
               }
-            }
-            return `
+              return `
         <div class='${isAvailable()}' id='${product.id}' key='${index}'>
           <input type="hidden" value="${product.id}" id="productId" />
           <input type="hidden" value="${product.name}" id="productName" />
@@ -82,36 +84,47 @@ export default class extends AbstractViews {
           ${isOffer()}
         </div>
         `;
-          })
-          .join("");
-        fetch("/static/siteJs/fav.js")
-          .then(function (response) {
-            if (!response.ok) {
-              return false;
-            }
-            return response.blob();
-          })
-          .then(function (myBlob) {
-            var objectURL = URL.createObjectURL(myBlob);
-            const oldScripts = document.querySelectorAll("[data-script]");
-            oldScripts.forEach((script) => {
-              if (script.src !== objectURL) {
-                document.head.removeChild(script);
+            })
+            .join("");
+
+          fetch("/static/siteJs/fav.js")
+            .then(function (response) {
+              if (!response.ok) {
+                return false;
               }
+              return response.blob();
+            })
+            .then(function (myBlob) {
+              var objectURL = URL.createObjectURL(myBlob);
+              const oldScripts = document.querySelectorAll("[data-script]");
+              oldScripts.forEach((script) => {
+                if (script.src !== objectURL) {
+                  document.head.removeChild(script);
+                }
+              });
+              var sc = document.createElement("script");
+              sc.setAttribute("src", objectURL);
+              sc.setAttribute("defer", "");
+              sc.setAttribute("data-script", "");
+              sc.setAttribute("type", "text/javascript");
+              document.head.appendChild(sc);
             });
-            var sc = document.createElement("script");
-            sc.setAttribute("src", objectURL);
-            sc.setAttribute("defer", "");
-            sc.setAttribute("data-script", "");
-            sc.setAttribute("type", "text/javascript");
-            document.head.appendChild(sc);
-          });
-        loading(false);
-        return `
+          loading(false);
+          return `
         <div class='containerProducts'>
           ${mappedProducts}
         </div>
         `;
+        }
+        if (products.length == 0) {
+          loading(false);
+
+          return `
+          <div class='noProducts'>
+            <p>لا يوجد منتجات في المفضلة</p>
+          </div>
+          `;
+        }
       } else {
         loading(false);
         return `
