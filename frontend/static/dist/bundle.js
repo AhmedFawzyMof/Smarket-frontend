@@ -1035,31 +1035,36 @@ function _toPrimitive(input, hint) {
                           _i = _a.map(function (t, e) {
                             var n = t.id;
                             n = n.substr(0, 8);
-                            var _a3 = t.cart.map(function (t, e) {
-                              return '\n          <div class="orderitem" key="'
-                                .concat(e, '">\n            <img src="/static/')
-                                .concat(t.image, '" alt="')
-                                .concat(
-                                  t.name,
-                                  '">\n            <div class="itemInfo">\n              <p>'
-                                )
-                                .concat(
-                                  t.name,
-                                  "</p>\n              <p>\u0627\u0644\u0643\u0645\u064A\u0629: "
-                                )
-                                .concat(
-                                  t.quantity,
-                                  "</p>\n              <p>\u0627\u0644\u0633\u0639\u0631: "
-                                )
-                                .concat(
-                                  t.price,
-                                  " \u062C</p>\n              <p>\u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A \u0644\u0644\u0645\u0646\u062A\u062C: "
-                                )
-                                .concat(
-                                  t.price * t.quantity,
-                                  " \u062C</p>\n            </div>\n          </div>\n        "
-                                );
-                            });
+                            var _a3 = t.cart
+                              .map(function (t, e) {
+                                return '\n          <div class="orderitem" key="'
+                                  .concat(
+                                    e,
+                                    '">\n            <img src="/static/'
+                                  )
+                                  .concat(t.image, '" alt="')
+                                  .concat(
+                                    t.name,
+                                    '">\n            <div class="itemInfo">\n              <p>'
+                                  )
+                                  .concat(
+                                    t.name,
+                                    "</p>\n              <p>\u0627\u0644\u0643\u0645\u064A\u0629: "
+                                  )
+                                  .concat(
+                                    t.quantity,
+                                    "</p>\n              <p>\u0627\u0644\u0633\u0639\u0631: "
+                                  )
+                                  .concat(
+                                    t.price,
+                                    " \u062C</p>\n              <p>\u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A \u0644\u0644\u0645\u0646\u062A\u062C: "
+                                  )
+                                  .concat(
+                                    t.price * t.quantity,
+                                    " \u062C</p>\n            </div>\n          </div>\n        "
+                                  );
+                              })
+                              .join("");
                             return '\n          <div class="orderRec" key="'
                               .concat(
                                 e,

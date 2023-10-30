@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "bundle": "webpack && gulp babel && gulp webpack"
   },
   "keywords": [],
   "author": "",

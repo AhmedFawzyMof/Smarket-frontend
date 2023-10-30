@@ -92,8 +92,9 @@ export default class extends AbstractViews {
           }
           let orderId = order.id;
           orderId = orderId.substr(0, 8);
-          const mappedItems = order.cart.map((product, index) => {
-            return `
+          const mappedItems = order.cart
+            .map((product, index) => {
+              return `
           <div class="orderitem" key="${index}">
             <img src="/static/${product.image}" alt="${product.name}">
             <div class="itemInfo">
@@ -106,7 +107,8 @@ export default class extends AbstractViews {
             </div>
           </div>
         `;
-          });
+            })
+            .join("");
           return `
           <div class="orderRec" key="${index}">
         <p>معرف الطلب: ${orderId}</p>
