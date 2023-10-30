@@ -85,3 +85,39 @@ a.offer::after {
   font-size: 50px;
   color: var(--sub-color);
 }
+
+.orderRec {
+  width: 300px;
+  margin: 20px 0;
+  background: var(--sub-color);
+  border-radius: 5px;
+  box-shadow: 0 0 5px 3px #3333335e;
+  padding: 0 10px;
+}
+
+.orderitem img {
+  width: 100%;
+  max-height: 280px;
+}
+.orderRec .date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Delivered,
+.Paid {
+  width: 100%;
+  background: #ff00008f;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sub-color);
+  margin: 5px 0;
+}
+
+.Delivered.True,
+.Paid.True {
+  background: #1f32ffad;
+}

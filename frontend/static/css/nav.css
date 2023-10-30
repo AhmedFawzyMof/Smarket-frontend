@@ -367,3 +367,14 @@ div#loadingPage i {
     rotate: -180deg;
   }
 }
+#MO {
+  display: none;
+}
+@media (max-width: 550px) {
+  #PC {
+    display: none;
+  }
+  #MO {
+    display: block;
+  }
+}

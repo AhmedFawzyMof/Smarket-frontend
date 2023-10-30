@@ -6,17 +6,29 @@ export default class extends AbstractViews {
     this.setTitle("My Cart");
     this.setStyle("/static/css/cart.css");
   }
+
   async getHtml() {
     loading(true);
     if (Cart.length > 0) {
+      let width = screen.width;
+
       function Total() {
+        console.log(width);
+
         const productTotal = Cart.reduce((acc, curr) => {
           return acc + curr.quantity * curr.price;
         }, 0);
 
-        if (length !== 0) {
-          quantityInCart.innerHTML = length;
-          cartA.appendChild(quantityInCart);
+        if (width >= 551) {
+          if (length !== 0) {
+            quantityInCart.innerHTML = length;
+            cartA[0].appendChild(quantityInCart);
+          }
+        } else {
+          if (length !== 0) {
+            quantityInCart.innerHTML = length;
+            cartA[1].appendChild(quantityInCart);
+          }
         }
         return productTotal;
       }
@@ -77,7 +89,7 @@ export default class extends AbstractViews {
                 </div>
                 <h2 id='TP'>${Total()} ج</h2>
             </div>
-            <a>الدفع</a>
+            <a href="/OrderMethod" data-link>الدفع</a>
         </div>
     </div>
     `;

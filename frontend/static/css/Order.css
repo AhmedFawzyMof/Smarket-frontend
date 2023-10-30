@@ -1,0 +1,58 @@
+#Order {
+  width: 400px;
+  display: grid;
+  place-items: center;
+  gap: 20px;
+  background: var(--sub-color);
+  box-shadow: 0 0 5px 3px #33333373;
+  padding: 20px 5px;
+  border-radius: 5px;
+}
+.input {
+  width: 100%;
+  display: grid;
+}
+
+.input input {
+  height: 35px;
+  background: var(--background-color);
+  border: 3px solid #1f32ff;
+  border-radius: 5px;
+}
+
+.input label {
+  font-size: 20px;
+  color: var(--main-color);
+}
+
+button {
+  background: var(--main-color);
+  color: var(--sub-color);
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  font-size: 18px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+button:hover {
+  box-shadow: inset 280px 0 0 #eee;
+  color: #1f32ff;
+}
+
+@media (max-width: 500px) {
+  #Order {
+    width: 350px;
+  }
+}
+@media (max-width: 400px) {
+  #Order {
+    width: 300px;
+  }
+}
+@media (max-width: 300px) {
+  #Order {
+    width: 280px;
+  }
+}

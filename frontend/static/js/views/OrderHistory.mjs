@@ -11,73 +11,120 @@ export default class extends AbstractViews {
     loading(true);
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
-        const headers = new Headers();
-        headers.append("AuthToken", localStorage.getItem("AuthToken"));
         const response = await fetch(
-          "http://localhost:5500/user/orderhistory",
-          {
-            method: "get",
-            headers: headers,
-          }
+          "http://localhost:5500/orderhistory/" +
+            localStorage.getItem("AuthToken")
         );
 
         const data = await response.json();
-        const mappedOrder = data.map((order, index) => {
+        const products = data.Products;
+        const orders = data.Order;
+        for (let j = 0; j < orders.length; j++) {
+          const order = orders[j];
+          Object.assign(order, { cart: [] });
+
+          for (let index = 0; index < products.length; index++) {
+            const product = products[index];
+            if (order.id === product.order) {
+              order.cart.push(product);
+            }
+          }
+        }
+
+        if (data.Error) {
+          localStorage.removeItem("AuthToken");
+          CreateToast({
+            type: "error",
+            msg: "حدث خطأ ما، يرجى تسجيل الدخول",
+            time: 2000,
+          });
+          setTimeout(() => {
+            window.location = "/";
+          }, 2000);
+        }
+        if (!data.Error) {
+          if (data.Message == "لا توجد طلبات حتى الآن") {
+            loading(false);
+            return `
+          <div class='noOrders'>
+            <div class='icons'><i class='bx bxs-package'></i><i class='bx bx-sad' ></i></div>
+            <div class='links'>
+              <p>لا توجد طلبات حتى الآن</p>
+              <a href="/" data-link>الرئيسية</a>
+            </div>
+          </div>
+          `;
+          }
+        }
+        const mappedOrder = orders.map((order, index) => {
           function isDilvered() {
             if (order.delivered == 1) {
-              return "نعم";
+              return `
+              <div class="Delivered True">
+                 تسليم الطلب: نعم
+              </div>`;
             } else {
-              return "لا";
+              return `
+              <div class="Delivered">
+                 تسليم الطلب: لا
+              </div>`;
             }
           }
           function isPaid() {
             if (order.paid == 1) {
-              return "نعم";
+              return `
+              <div class="Paid True">
+                 تم الدفع: نعم
+              </div>`;
             } else {
-              return "لا";
+              return `
+              <div class="Paid">
+                 تم الدفع: لا
+              </div>`;
             }
           }
-          const mappedItems = JSON.parse(order.cart).map((product, index) => {
+          function Total() {
+            let Total = 0;
+            order.cart.map((product) => {
+              Total += product.price * product.quantity;
+            });
+            return Total;
+          }
+          let orderId = order.id;
+          orderId = orderId.substr(0, 8);
+          const mappedItems = order.cart.map((product, index) => {
             return `
           <div class="orderitem" key="${index}">
-            <img src="${product.image}" alt="${product.name}">
+            <img src="/static/${product.image}" alt="${product.name}">
             <div class="itemInfo">
               <p>${product.name}</p>
               <p>الكمية: ${product.quantity}</p>
               <p>السعر: ${product.price} ج</p>
-              <p>السعر الإجمالي للطلب: ${product.price * product.quantity} ج</p>
+              <p>السعر الإجمالي للمنتج: ${
+                product.price * product.quantity
+              } ج</p>
             </div>
           </div>
         `;
           });
           return `
           <div class="orderRec" key="${index}">
-        <p>معرف الطلب: ${order.id}</p>
-        <div>
-          تاريخ الطلب:
+        <p>معرف الطلب: ${orderId}</p>
+        <div class="date">
+          <p>
+            تاريخ الطلب:
+          </p>
           <h4 dir="ltr" style="color: #b3b2b2">
-            ${order.date}
+            ${order.date.replace("T", " ").replace("Z", " ")}
           </h4>
         </div>
-        <p>شارع: ${order.addrSt}</p>
-        <p>عماره: ${order.addrB}</p>
-        <p>طابق: ${order.addrF}</p>
-        <p>تسيلم في: ${order.where}</p>
-        <p>المستخدم: ${order.username}</p>
-        <p>رقم الهاتف: ${order.phone}</p>
-        <p>هاتف احتياطي: ${order.spare_phone}</p>
-        <p>المجموع: ${order.total} ج</p>
+        <p>المجموع: ${Total()} ج</p>
         ${mappedItems}
-        <div class="Delivered">
-          تسليم الطلب:  ${isDilvered()}
-        </div>
-        <div class="Paid">
-          تم الدفع:  ${isPaid()} 
-        </div>
+          ${isDilvered()}
+          ${isPaid()}
       </div>
           `;
         });
-        console.log(data);
         fetch("/static/siteJs/orderHistory.js")
           .then(function (response) {
             if (!response.ok) {
@@ -101,20 +148,7 @@ export default class extends AbstractViews {
             document.head.appendChild(sc);
           });
         loading(false);
-        if (data.length > 0) {
-          return mappedOrder;
-        } else {
-          return `
-          <div class='noOrders'>
-            <div class='icons'><i class='bx bxs-package'></i><i class='bx bx-sad' ></i></div>
-            <div class='links'>
-              <p>لا توجد طلبات حتى الآن</p>
-              <a href="/" data-link>الرئيسية</a>
-              <a href=/compony/عروض التوفير" data-link class='offer'><p>اضغط لرؤية العروض</p></a>
-            </div>
-          </div>
-          `;
-        }
+        return mappedOrder;
       } else {
         loading(false);
         return `

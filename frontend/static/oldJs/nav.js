@@ -1,14 +1,13 @@
-"use strict";
+const menuBtn = document.getElementById("menuBtn");
+const menu = document.getElementById("menu");
+const resultSearch = document.querySelector(".resFS");
+const body = document.body;
+const PCnav = document.getElementById("PC");
+const MOnav = document.getElementById("MO");
+const Cart = JSON.parse(localStorage.getItem("cart"));
+let width = screen.width;
 
-var menuBtn = document.getElementById("menuBtn");
-var menu = document.getElementById("menu");
-var resultSearch = document.querySelector(".resFS");
-var body = document.body;
-var PCnav = document.getElementById("PC");
-var MOnav = document.getElementById("MO");
-var Cart = JSON.parse(localStorage.getItem("cart"));
-var width = screen.width;
-menuBtn.addEventListener("click", function () {
+menuBtn.addEventListener("click", () => {
   menu.classList.toggle("active");
   if (menu.classList.contains("active")) {
     menu.style.right = "5px";
@@ -20,14 +19,16 @@ menuBtn.addEventListener("click", function () {
     }
   }
 });
-var cartA = document.querySelectorAll(".cart");
-var quantityInCart = document.createElement("span");
+
+const cartA = document.querySelectorAll(".cart");
+const quantityInCart = document.createElement("span");
 quantityInCart.setAttribute("id", "count");
+
 function cartLength() {
-  var Thecart = JSON.parse(localStorage.getItem("cart"));
-  var length = 0;
+  const Thecart = JSON.parse(localStorage.getItem("cart"));
+  let length = 0;
   if (Thecart.length > 0) {
-    length = Thecart.reduce(function (acc, curr) {
+    length = Thecart.reduce((acc, curr) => {
       return acc + curr.quantity;
     }, 0);
   }
@@ -46,13 +47,16 @@ function cartLength() {
       cartA[1].innerHTML = '<i class="bx bx-cart-alt"></i>';
     }
   }
+
   return length;
 }
+
 cartLength();
-var toastBox = document.getElementById("toastBox");
+let toastBox = document.getElementById("toastBox");
+
 function CreateToast(options) {
-  var toast = document.createElement("div");
-  var toastaf = document.createElement("div");
+  let toast = document.createElement("div");
+  let toastaf = document.createElement("div");
   toast.classList.add("toast");
   toastaf.classList.add("toastafter");
   if (options.type == "success") {
@@ -69,15 +73,16 @@ function CreateToast(options) {
     toastBox.appendChild(toast);
   }
   toast.appendChild(toastaf);
-  var sec = options.time / 1000;
+
+  const sec = options.time / 1000;
   toastaf.style.animation = "anim " + sec + "s linear forwards";
-  setTimeout(function () {
+  setTimeout(() => {
     toast.remove();
   }, options.time);
 }
 function loading(condition) {
-  var app = document.getElementById("app");
-  var loadingPage = document.getElementById("loadingPage");
+  const app = document.getElementById("app");
+  const loadingPage = document.getElementById("loadingPage");
   if (condition == true) {
     app.style.display = "none";
     loadingPage.style.display = "flex";
