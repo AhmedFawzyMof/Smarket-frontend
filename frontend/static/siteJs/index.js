@@ -194,7 +194,7 @@ function _addToFav() {
             break;
           }
           _context.next = 3;
-          return fetch("http://localhost:5500/fav", {
+          return fetch("https://smarket-api-5o9n.onrender.com/fav", {
             method: "post",
             body: JSON.stringify({
               product: productId,

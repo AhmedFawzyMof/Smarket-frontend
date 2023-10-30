@@ -148,59 +148,61 @@ function addToFav(_x) {
 }
 function _addToFav() {
   _addToFav = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(productId) {
-    var headers, response, data, favlist;
+    var response, data;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          headers = new Headers();
-          headers.append("AuthToken", localStorage.getItem("AuthToken"));
-          headers.append("Content-type", "application/json");
-          _context.next = 5;
-          return fetch("http://localhost:5500/user/fav", {
+          if (!localStorage.getItem("AuthToken")) {
+            _context.next = 10;
+            break;
+          }
+          _context.next = 3;
+          return fetch("https://smarket-api-5o9n.onrender.com/fav", {
             method: "post",
-            headers: headers,
             body: JSON.stringify({
-              product: productId
+              product: productId,
+              token: localStorage.getItem("AuthToken")
             })
           });
-        case 5:
+        case 3:
           response = _context.sent;
-          _context.next = 8;
+          _context.next = 6;
           return response.json();
-        case 8:
+        case 6:
           data = _context.sent;
-          favlist = JSON.parse(localStorage.getItem("favlist"));
-          if (data.err) {
+          if (data.Error) {
             CreateToast({
               type: "error",
-              message: "لقد حدث خطأ يرجى تسجيل الدخول والمحاولة مرة أخرى",
+              message: "لقد حدث خطأ يرجى تسجيل الدخول",
               time: 5000
             });
             localStorage.removeItem("AuthToken");
-            localStorage.removeItem("coupons");
-            localStorage.removeItem("favlist");
-            getCoupon();
-            getFav();
             setTimeout(function () {
               window.location = "/login";
             }, 5000);
           } else {
-            if (data.msg === undefined) {
+            if (data.Message === undefined) {
               CreateToast({
                 type: "success",
                 message: "تمت إضافة المنتج إلى المفضلة",
                 time: 3000
               });
-              localStorage.setItem("favlist", favlist + 1);
-              getFav();
             } else {
               CreateToast({
                 type: "error",
-                message: data.msg,
+                message: data.Message,
                 time: 3000
               });
             }
           }
+          _context.next = 11;
+          break;
+        case 10:
+          CreateToast({
+            type: "error",
+            message: "لقد حدث خطأ يرجى تسجيل الدخول",
+            time: 5000
+          });
         case 11:
         case "end":
           return _context.stop();

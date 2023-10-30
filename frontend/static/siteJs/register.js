@@ -33,7 +33,7 @@ function register() {
             }
             console.log(form);
             _context.next = 8;
-            return fetch("http://localhost:5500/user/register", {
+            return fetch("https://smarket-api-5o9n.onrender.com/user/register", {
               method: "post",
               body: JSON.stringify(form)
             });

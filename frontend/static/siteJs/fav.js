@@ -153,7 +153,7 @@ function _delToFav() {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return fetch("http://localhost:5500/Delfav", {
+          return fetch("https://smarket-api-5o9n.onrender.com/Delfav", {
             method: "post",
             body: JSON.stringify({
               product: productId,

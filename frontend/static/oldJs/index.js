@@ -185,37 +185,41 @@ if (cartLength() > 0) {
 }
 
 async function addToFav(productId) {
-  if(localStorage.getItem("AuthToken")){
-  const response = await fetch("http://localhost:5500/fav", {
-    method: "post",
-    body: JSON.stringify({ product: productId, token: localStorage.getItem("AuthToken")}),
-  });
-  const data = await response.json();
-  if (data.Error) {
-    CreateToast({
-      type: "error",
-      message: "لقد حدث خطأ يرجى تسجيل الدخول",
-      time: 5000,
+  if (localStorage.getItem("AuthToken")) {
+    const response = await fetch("https://smarket-api-5o9n.onrender.com/fav", {
+      method: "post",
+      body: JSON.stringify({
+        product: productId,
+        token: localStorage.getItem("AuthToken"),
+      }),
     });
-    localStorage.removeItem("AuthToken");
-    setTimeout(() => {
-      window.location = "/login";
-    }, 5000);
-  } else {
-    if (data.Message === undefined) {
-      CreateToast({
-        type: "success",
-        message: "تمت إضافة المنتج إلى المفضلة",
-        time: 3000,
-      });
-    } else {
+    const data = await response.json();
+    if (data.Error) {
       CreateToast({
         type: "error",
-        message: data.Message,
-        time: 3000,
+        message: "لقد حدث خطأ يرجى تسجيل الدخول",
+        time: 5000,
       });
+      localStorage.removeItem("AuthToken");
+      setTimeout(() => {
+        window.location = "/login";
+      }, 5000);
+    } else {
+      if (data.Message === undefined) {
+        CreateToast({
+          type: "success",
+          message: "تمت إضافة المنتج إلى المفضلة",
+          time: 3000,
+        });
+      } else {
+        CreateToast({
+          type: "error",
+          message: data.Message,
+          time: 3000,
+        });
+      }
     }
-  }} else {
+  } else {
     CreateToast({
       type: "error",
       message: "لقد حدث خطأ يرجى تسجيل الدخول",

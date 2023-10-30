@@ -12,7 +12,7 @@ export default class extends AbstractViews {
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
         const response = await fetch(
-          "http://localhost:5500/orderhistory/" +
+          "https://smarket-api-5o9n.onrender.com/orderhistory/" +
             localStorage.getItem("AuthToken")
         );
 

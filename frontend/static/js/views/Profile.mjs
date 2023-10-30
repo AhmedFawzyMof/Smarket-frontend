@@ -13,7 +13,8 @@ export default class extends AbstractViews {
 
       if (localStorage.getItem("AuthToken")) {
         const response = await fetch(
-          "http://localhost:5500/profile/" + localStorage.getItem("AuthToken")
+          "https://smarket-api-5o9n.onrender.com/profile/" +
+            localStorage.getItem("AuthToken")
         );
 
         const data = await response.json();

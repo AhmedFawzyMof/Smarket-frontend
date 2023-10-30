@@ -4,14 +4,14 @@ OrderForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   loading(true);
   const products = Cart;
-  products.forEach(product => {
-    delete product.inStock
-    delete product.index
-    delete product.name
-    delete product.price
-    delete product.image
+  products.forEach((product) => {
+    delete product.inStock;
+    delete product.index;
+    delete product.name;
+    delete product.price;
+    delete product.image;
   });
- 
+
   const form = {};
   const formData = new FormData(OrderForm);
   for (const pair of formData) {
@@ -19,8 +19,8 @@ OrderForm.addEventListener("submit", async (e) => {
     const value = pair[1];
     form[key] = value;
   }
-  console.log(form)
-  const order = await fetch("http://localhost:5500/order", {
+  console.log(form);
+  const order = await fetch("https://smarket-api-5o9n.onrender.com/order", {
     method: "POST",
     body: JSON.stringify({
       products: products,

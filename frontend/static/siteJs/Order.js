@@ -41,7 +41,7 @@ OrderForm.addEventListener("submit", /*#__PURE__*/function () {
           }
           console.log(form);
           _context.next = 11;
-          return fetch("http://localhost:5500/order", {
+          return fetch("https://smarket-api-5o9n.onrender.com/order", {
             method: "POST",
             body: JSON.stringify({
               products: products,

@@ -11,7 +11,7 @@ function editName() {
   var EditName = document.getElementById("EditName");
   EditName.addEventListener("submit", /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-      var editNameData, form, _iterator, _step, pair, key, value, header, response, data;
+      var editNameData, form, _iterator, _step, pair, key, value, response, data;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
@@ -31,19 +31,16 @@ function editName() {
             } finally {
               _iterator.f();
             }
-            header = new Headers({
-              "Authorization": "Bearer ".concat(localStorage.getItem("AuthToken"))
-            });
-            _context.next = 8;
-            return fetch("http://localhost:5500/profile", {
+            _context.next = 7;
+            return fetch("https://smarket-api-5o9n.onrender.com/profile", {
               method: "post",
               body: JSON.stringify(form)
             });
-          case 8:
+          case 7:
             response = _context.sent;
-            _context.next = 11;
+            _context.next = 10;
             return response.json();
-          case 11:
+          case 10:
             data = _context.sent;
             if (data.Error) {
               CreateToast({
@@ -62,7 +59,7 @@ function editName() {
                 time: 5000
               });
             }
-          case 13:
+          case 12:
           case "end":
             return _context.stop();
         }
@@ -102,7 +99,7 @@ function editPassword() {
               token: localStorage.getItem("AuthToken")
             });
             _context2.next = 8;
-            return fetch("http://localhost:5500/profile", {
+            return fetch("https://smarket-api-5o9n.onrender.com/profile", {
               method: "post",
               body: JSON.stringify(form)
             });
@@ -169,7 +166,7 @@ function editEmail() {
               token: localStorage.getItem("AuthToken")
             });
             _context3.next = 8;
-            return fetch("http://localhost:5500/profile", {
+            return fetch("https://smarket-api-5o9n.onrender.com/profile", {
               method: "post",
               body: JSON.stringify(form)
             });

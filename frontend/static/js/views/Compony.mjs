@@ -12,7 +12,7 @@ export default class extends AbstractViews {
     loading(true);
 
     const response = await fetch(
-      "http://localhost:5500/company/" + this.company
+      "https://smarket-api-5o9n.onrender.com/company/" + this.company
     );
     const data = await response.json();
     const products = data.Products;
@@ -41,7 +41,7 @@ export default class extends AbstractViews {
           } else {
             return `<p class="price">${product.price} ج</p>`;
           }
-        }      
+        }
         let name = product.name.substr(0, 20);
         return `
       <div class='${isAvailable()}' id='${product.id}' key='${index}'>

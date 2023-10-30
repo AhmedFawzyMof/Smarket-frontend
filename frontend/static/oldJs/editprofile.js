@@ -12,12 +12,13 @@ function editName() {
       form[key] = value;
     }
 
-    const header = new Headers({"Authorization": `Bearer ${localStorage.getItem("AuthToken")}`})
-
-    const response = await fetch("http://localhost:5500/profile", {
-      method: "post",
-      body: JSON.stringify(form),
-    });
+    const response = await fetch(
+      "https://smarket-api-5o9n.onrender.com/profile",
+      {
+        method: "post",
+        body: JSON.stringify(form),
+      }
+    );
 
     const data = await response.json();
 
@@ -59,10 +60,13 @@ function editPassword() {
 
     Object.assign(form, { token: localStorage.getItem("AuthToken") });
 
-    const response = await fetch("http://localhost:5500/profile", {
-      method: "post",
-      body: JSON.stringify(form),
-    });
+    const response = await fetch(
+      "https://smarket-api-5o9n.onrender.com/profile",
+      {
+        method: "post",
+        body: JSON.stringify(form),
+      }
+    );
 
     const data = await response.json();
     if (data.Error) {
@@ -103,10 +107,13 @@ function editEmail() {
 
     Object.assign(form, { token: localStorage.getItem("AuthToken") });
 
-    const response = await fetch("http://localhost:5500/profile", {
-      method: "post",
-      body: JSON.stringify(form),
-    });
+    const response = await fetch(
+      "https://smarket-api-5o9n.onrender.com/profile",
+      {
+        method: "post",
+        body: JSON.stringify(form),
+      }
+    );
 
     const data = await response.json();
     if (data.Error) {
