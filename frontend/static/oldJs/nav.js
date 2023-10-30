@@ -91,3 +91,7 @@ function loading(condition) {
     loadingPage.style.display = "none";
   }
 }
+
+if (!localStorage.getItem("cart")) {
+  localStorage.setItem("cart", "[]");
+}
