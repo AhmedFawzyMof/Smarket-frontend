@@ -67,7 +67,6 @@ function removeProduct(Product) {
     return product.id === Product;
   });
   Cart.splice(TheProduct.index, 1);
-  console.log(Cart);
   localStorage.setItem("cart", JSON.stringify(Cart));
   location.reload();
 }

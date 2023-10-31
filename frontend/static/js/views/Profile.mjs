@@ -18,7 +18,6 @@ export default class extends AbstractViews {
         );
 
         const data = await response.json();
-        console.log(data);
         if (data.Error) {
           localStorage.removeItem("AuthToken");
           CreateToast({

@@ -13,7 +13,6 @@ export default class extends AbstractViews {
       let width = screen.width;
 
       function Total() {
-        console.log(width);
 
         const productTotal = Cart.reduce((acc, curr) => {
           return acc + curr.quantity * curr.price;

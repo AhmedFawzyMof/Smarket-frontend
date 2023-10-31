@@ -11,7 +11,6 @@ function register() {
       const value = pair[1];
       form[key] = value;
     }
-    console.log(form);
     const response = await fetch(
       "https://smarket-api-5o9n.onrender.com/user/register",
       {

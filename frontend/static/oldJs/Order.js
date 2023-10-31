@@ -19,7 +19,6 @@ OrderForm.addEventListener("submit", async (e) => {
     const value = pair[1];
     form[key] = value;
   }
-  console.log(form);
   const order = await fetch("https://smarket-api-5o9n.onrender.com/order", {
     method: "POST",
     body: JSON.stringify({

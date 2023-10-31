@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js",
+    "dev": "npm run bundle && nodemon app.js",
     "bundle": "webpack && gulp babel && gulp webpack"
   },
   "keywords": [],

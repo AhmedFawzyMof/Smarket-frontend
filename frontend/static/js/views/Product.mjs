@@ -15,7 +15,6 @@ export default class extends AbstractViews {
     );
     const data = await response.json();
     const product = data.product;
-    console.log(data);
     let opts = "";
 
     for (let i = 0; i < parseInt(product.inStock); i++) {

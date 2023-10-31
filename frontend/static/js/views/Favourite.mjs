@@ -34,7 +34,6 @@ export default class extends AbstractViews {
         if (!products) {
           products = [];
         }
-        console.log(products);
         if (products.length > 0) {
           const mappedProducts = products
             .map((product, index) => {

@@ -155,7 +155,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   return _t6.json();
                 case 7:
                   _e7 = _context3.sent;
-                  return _context3.abrupt("return", (console.log(_e7), _e7.Error && (localStorage.removeItem("AuthToken"), CreateToast({
+                  return _context3.abrupt("return", (_e7.Error && (localStorage.removeItem("AuthToken"), CreateToast({
                     type: "error",
                     msg: "حدث خطأ ما، يرجى تسجيل الدخول",
                     time: 2e3
@@ -213,7 +213,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     break;
                   }
                   _context4.next = 4;
-                  return fetch("https://smarket-api-5o9n.onrender.com/orderhistory/" + localStorage.getItem("AuthToken"));
+                  return fetch("https://smarket-api-5o9n.onrender.com/" + localStorage.getItem("AuthToken"));
                 case 4:
                   _t8 = _context4.sent;
                   _context4.next = 7;
@@ -298,7 +298,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         key: "getHtml",
         value: function () {
           var _getHtml5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-            var t, e, n, a, _t12, _i2;
+            var t, e, n, _t12, a;
             return _regeneratorRuntime().wrap(function _callee5$(_context5) {
               while (1) switch (_context5.prev = _context5.next) {
                 case 0:
@@ -310,18 +310,16 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   _context5.next = 6;
                   return t.json();
                 case 6:
-                  e = _context5.sent;
-                  n = e.product;
-                  console.log(e);
-                  a = "";
-                  for (_t12 = 0; _t12 < parseInt(n.inStock); _t12++) a += "<option value=\"".concat(_t12 + 1, "\">").concat(_t12 + 1, "</option>");
-                  _i2 = "\n    <div class='image'>\n      <img src='/static".concat(n.image, "' />\n    </div>\n    <div class='details'>\n      <div class='box1'>\n        <p class='compony'>\u062A\u0631\u064A\u062F \u0631\u0624\u064A\u0629 \u0645\u0646\u062A\u062C\u0627\u062A \u0623\u062E\u0631\u0649 \u0645\u0646 : <a href='/compony/").concat(n.company, "' data-link class='seemore'>").concat(n.company, "</a></p>\n        <div class='prices'>\n          ").concat(function (t) {
+                  e = _context5.sent.product;
+                  n = "";
+                  for (_t12 = 0; _t12 < parseInt(e.inStock); _t12++) n += "<option value=\"".concat(_t12 + 1, "\">").concat(_t12 + 1, "</option>");
+                  a = "\n    <div class='image'>\n      <img src='/static".concat(e.image, "' />\n    </div>\n    <div class='details'>\n      <div class='box1'>\n        <p class='compony'>\u062A\u0631\u064A\u062F \u0631\u0624\u064A\u0629 \u0645\u0646\u062A\u062C\u0627\u062A \u0623\u062E\u0631\u0649 \u0645\u0646 : <a href='/compony/").concat(e.company, "' data-link class='seemore'>").concat(e.company, "</a></p>\n        <div class='prices'>\n          ").concat(function (t) {
                     var e = t.price + t.offer,
                       n = Math.abs(e - t.price) / e * 100;
                     return t.offer > 0 ? "\n        <h2 class='price'>".concat(t.price, " \u062C</h2>\n        <p class='offer'>").concat(t.price + t.offer, " \u062C</p>\n        <p class='percent'>").concat(Math.trunc(n), "%</p>\n        ") : "\n        <h2 class='price'>".concat(t.price, " \u062C</h2>\n        ");
-                  }(n), "\n        </div>\n        <h2>").concat(n.name, "</h2>\n        <p>").concat(n.description, "</p>\n      </div>\n      <div class='box2'>\n          ").concat(function (t) {
-                    return 1 == t.available ? "\n        <div class='addToCart'>\n          <input type=\"hidden\" value=\"".concat(t.id, "\" id=\"productId\" />\n          <input type=\"hidden\" value=\"").concat(t.name, "\" id=\"productName\" />\n          <input type=\"hidden\" value=\"").concat(t.image, "\" id=\"productImage\" />\n          <input type=\"hidden\" value=\"").concat(t.price, "\" id=\"productPrice\" />\n          <input type=\"hidden\" value=\"").concat(t.inStock, "\" id=\"productInStock\" />\n            <select id='quantity'>\n              ").concat(a, "\n            </select>\n            <button onclick=\"addTo()\">\u0623\u0636\u0641 \u0625\u0644\u0649 \u0627\u0644\u0633\u0644\u0629</button>\n        </div>\n        ") : "\n        <div class='unAvailable'>\n         <h2>غير متاح</h2>\n        </div>";
-                  }(n), "\n      </div>\n    </div>\n    ");
+                  }(e), "\n        </div>\n        <h2>").concat(e.name, "</h2>\n        <p>").concat(e.description, "</p>\n      </div>\n      <div class='box2'>\n          ").concat(function (t) {
+                    return 1 == t.available ? "\n        <div class='addToCart'>\n          <input type=\"hidden\" value=\"".concat(t.id, "\" id=\"productId\" />\n          <input type=\"hidden\" value=\"").concat(t.name, "\" id=\"productName\" />\n          <input type=\"hidden\" value=\"").concat(t.image, "\" id=\"productImage\" />\n          <input type=\"hidden\" value=\"").concat(t.price, "\" id=\"productPrice\" />\n          <input type=\"hidden\" value=\"").concat(t.inStock, "\" id=\"productInStock\" />\n            <select id='quantity'>\n              ").concat(n, "\n            </select>\n            <button onclick=\"addTo()\">\u0623\u0636\u0641 \u0625\u0644\u0649 \u0627\u0644\u0633\u0644\u0629</button>\n        </div>\n        ") : "\n        <div class='unAvailable'>\n         <h2>غير متاح</h2>\n        </div>";
+                  }(e), "\n      </div>\n    </div>\n    ");
                   return _context5.abrupt("return", (fetch("/static/siteJs/product.js").then(function (t) {
                     return !!t.ok && t.blob();
                   }).then(function (t) {
@@ -331,8 +329,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     });
                     var n = document.createElement("script");
                     n.setAttribute("src", e), n.setAttribute("defer", ""), n.setAttribute("data-script", ""), n.setAttribute("type", "text/javascript"), document.head.appendChild(n);
-                  }), loading(!1), _i2));
-                case 13:
+                  }), loading(!1), a));
+                case 11:
                 case "end":
                   return _context5.stop();
               }
@@ -484,7 +482,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     break;
                   }
                   _e10 = function _e10() {
-                    console.log(_t16);
                     var e = Cart.reduce(function (t, e) {
                       return t + e.quantity * e.price;
                     }, 0);
@@ -703,7 +700,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     location.replace("/login");
                   }, 2e3));
                   _n3 = _e11.products;
-                  if (!(_n3 || (_n3 = []), console.log(_n3), _n3.length > 0)) {
+                  if (!(_n3 || (_n3 = []), _n3.length > 0)) {
                     _context12.next = 14;
                     break;
                   }

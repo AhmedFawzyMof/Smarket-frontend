@@ -39,8 +39,7 @@ OrderForm.addEventListener("submit", /*#__PURE__*/function () {
           } finally {
             _iterator.f();
           }
-          console.log(form);
-          _context.next = 11;
+          _context.next = 10;
           return fetch("https://smarket-api-5o9n.onrender.com/order", {
             method: "POST",
             body: JSON.stringify({
@@ -50,11 +49,11 @@ OrderForm.addEventListener("submit", /*#__PURE__*/function () {
               method: localStorage.getItem("method")
             })
           });
-        case 11:
+        case 10:
           order = _context.sent;
-          _context.next = 14;
+          _context.next = 13;
           return order.json();
-        case 14:
+        case 13:
           res = _context.sent;
           if (res.Error) {
             localStorage.removeItem("AuthToken");
@@ -72,7 +71,7 @@ OrderForm.addEventListener("submit", /*#__PURE__*/function () {
           localStorage.removeItem("method");
           localStorage.setItem("cart", "[]");
           location.replace("/order/success");
-        case 20:
+        case 19:
         case "end":
           return _context.stop();
       }

@@ -70,7 +70,6 @@ function removeProduct(Product) {
   });
 
   Cart.splice(TheProduct.index, 1);
-  console.log(Cart);
   localStorage.setItem("cart", JSON.stringify(Cart));
   location.reload();
 }

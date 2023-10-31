@@ -31,17 +31,16 @@ function register() {
             } finally {
               _iterator.f();
             }
-            console.log(form);
-            _context.next = 8;
+            _context.next = 7;
             return fetch("https://smarket-api-5o9n.onrender.com/user/register", {
               method: "post",
               body: JSON.stringify(form)
             });
-          case 8:
+          case 7:
             response = _context.sent;
-            _context.next = 11;
+            _context.next = 10;
             return response.json();
-          case 11:
+          case 10:
             data = _context.sent;
             if (data.Error) {
               CreateToast({
@@ -65,7 +64,7 @@ function register() {
                 location.replace("/");
               }, 2000);
             }
-          case 13:
+          case 12:
           case "end":
             return _context.stop();
         }
