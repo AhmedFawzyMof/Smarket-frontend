@@ -7,7 +7,6 @@ import Category from "./views/Category.mjs";
 import Cart from "./views/Cart.mjs";
 import Login from "./views/Login.mjs";
 import Register from "./views/Register.mjs";
-import EditProfile from "./views/EditProfile.mjs";
 import Favourite from "./views/Favourite.mjs";
 import OrderMethod from "./views/OrderMethod.mjs";
 import Order from "./views/Order.mjs";
@@ -45,7 +44,6 @@ const router = async () => {
     { path: "/compony/:name", view: Compony, auth: false },
     { path: "/category/:name", view: Category, auth: false },
     { path: "/orderHistory", view: OrderHistory, auth: true },
-    { path: "/edit/profile", view: EditProfile, auth: true },
     { path: "/fav", view: Favourite, auth: true },
     { path: "/OrderMethod", view: OrderMethod, auth: true },
     { path: "/Order/:method", view: Order, auth: true },

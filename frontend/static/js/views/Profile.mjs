@@ -12,9 +12,12 @@ export default class extends AbstractViews {
       loading(true);
 
       if (localStorage.getItem("AuthToken")) {
-        const response = await fetch(
-          "http://localhost:5500/profile/get", {method:"post", body: JSON.stringify({authToken: localStorage.getItem("AuthToken")})}
-        );
+        const response = await fetch("http://localhost:5500/profile/get", {
+          method: "post",
+          body: JSON.stringify({
+            authToken: localStorage.getItem("AuthToken"),
+          }),
+        });
 
         const data = await response.json();
         if (data.Error) {
@@ -56,7 +59,6 @@ export default class extends AbstractViews {
             <p>الاسم: ${data.username}</p>
             <p>بريد إلكتروني: ${data.email}</p>
             <button onclick="logout()">تسجيل خروج</button>
-            <a href="/edit/profile" data-link>تعديل الملف الشخصي</a>
           </div>        
         `;
       } else {

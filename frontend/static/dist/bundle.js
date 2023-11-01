@@ -175,7 +175,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     });
                     var n = document.createElement("script");
                     n.setAttribute("src", e), n.setAttribute("defer", ""), n.setAttribute("data-script", ""), n.setAttribute("type", "text/javascript"), document.head.appendChild(n);
-                  }), loading(!1), "\n          <div class=\"profile\">\n            <p>\u0627\u0644\u0627\u0633\u0645: ".concat(_e7.username, "</p>\n            <p>\u0628\u0631\u064A\u062F \u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A: ").concat(_e7.email, "</p>\n            <button onclick=\"logout()\">\u062A\u0633\u062C\u064A\u0644 \u062E\u0631\u0648\u062C</button>\n            <a href=\"/edit/profile\" data-link>\u062A\u0639\u062F\u064A\u0644 \u0627\u0644\u0645\u0644\u0641 \u0627\u0644\u0634\u062E\u0635\u064A</a>\n          </div>        \n        ")));
+                  }), loading(!1), "\n          <div class=\"profile\">\n            <p>\u0627\u0644\u0627\u0633\u0645: ".concat(_e7.username, "</p>\n            <p>\u0628\u0631\u064A\u062F \u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A: ").concat(_e7.email, "</p>\n            <button onclick=\"logout()\">\u062A\u0633\u062C\u064A\u0644 \u062E\u0631\u0648\u062C</button>\n          </div>        \n        ")));
                 case 9:
                   return _context3.abrupt("return", (loading(!1), "\n        <div class='notLoginPop'>\n          <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n          <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n          <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n          <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n        </div>\n        "));
                 case 10:
@@ -631,21 +631,59 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       function l(t, e) {
         var _this10;
         _classCallCheck(this, l);
-        _this10 = _super10.call(this, t, e), _this10.auth = e, _this10.setTitle("my Profile"), _this10.setStyle("/static/css/editprofile.css");
+        _this10 = _super10.call(this, t, e), _this10.auth = e, _this10.setTitle("my Favourite"), _this10.setStyle("/static/css/company.css");
         return _this10;
       }
       _createClass(l, [{
         key: "getHtml",
         value: function () {
           var _getHtml11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+            var _t20, _e11, _n3, _t21;
             return _regeneratorRuntime().wrap(function _callee11$(_context11) {
               while (1) switch (_context11.prev = _context11.next) {
                 case 0:
-                  if (!this.auth) {
-                    _context11.next = 2;
+                  if (!(loading(!0), this.auth)) {
+                    _context11.next = 16;
                     break;
                   }
-                  return _context11.abrupt("return", (loading(!0), localStorage.getItem("AuthToken") ? (fetch("/static/siteJs/editprofile.js").then(function (t) {
+                  if (localStorage.getItem("AuthToken")) {
+                    _context11.next = 3;
+                    break;
+                  }
+                  return _context11.abrupt("return", (loading(!1), "\n          <div class='notLoginPop'>\n            <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n            <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n            <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n            <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n          </div>\n        "));
+                case 3:
+                  _context11.next = 5;
+                  return fetch("http://localhost:5500/fav", {
+                    method: "post",
+                    body: JSON.stringify({
+                      authToken: localStorage.getItem("AuthToken")
+                    })
+                  });
+                case 5:
+                  _t20 = _context11.sent;
+                  _context11.next = 8;
+                  return _t20.json();
+                case 8:
+                  _e11 = _context11.sent;
+                  _e11.Error && (localStorage.removeItem("AuthToken"), window.location = "/", CreateToast({
+                    type: "Err",
+                    msg: "حدث خطأ ما، يرجى تسجيل الدخول",
+                    time: 2e3
+                  }), setTimeout(function () {
+                    location.replace("/login");
+                  }, 2e3));
+                  _n3 = _e11.products;
+                  if (!(_n3 || (_n3 = []), _n3.length > 0)) {
+                    _context11.next = 14;
+                    break;
+                  }
+                  _t21 = _n3.map(function (t, e) {
+                    return "\n        <div class='".concat(function () {
+                      var e = "product";
+                      return 1 !== t.available && 0 == t.inStock && (e += " notavailable"), t.offer > 0 && (e += " offer"), e;
+                    }(), "' id='").concat(t.id, "' key='").concat(e, "'>\n          <input type=\"hidden\" value=\"").concat(t.id, "\" id=\"productId\" />\n          <input type=\"hidden\" value=\"").concat(t.name, "\" id=\"productName\" />\n          <input type=\"hidden\" value=\"").concat(t.image, "\" id=\"productImage\" />\n          <input type=\"hidden\" value=\"").concat(t.price, "\" id=\"productPrice\" />\n          <input type=\"hidden\" value=\"").concat(t.inStock, "\" id=\"productInStock\" />\n          <input type=\"hidden\" value=\"1\" id=\"productQuantity\" />\n          <button id='addtocart' onclick=\"addItemToCart(").concat(t.id, ")\"><i class=\"bx bxs-cart-download\"></i></button>\n          <button id='addtofav' onclick='delToFav(").concat(t.id, ")'><i class='bx bxs-x-circle'></i></button>\n          <a href='/product/").concat(t.id, "' data-link>\n              <img class='image' src='/static/").concat(t.image, "' />\n            <div class='body'>\n              <p>").concat(t.name, "</p>\n            </div>\n          </a>\n          ").concat(t.offer > 0 ? "<p class=\"price offer\">".concat(t.price + t.offer, " \u062C</p>\n              <p class=\"price\">").concat(t.price, " \u062C</p>\n              ") : "<p class=\"price\">".concat(t.price, " \u062C</p>"), "\n        </div>\n        ");
+                  }).join("");
+                  return _context11.abrupt("return", (fetch("/static/siteJs/fav.js").then(function (t) {
                     return !!t.ok && t.blob();
                   }).then(function (t) {
                     var e = URL.createObjectURL(t);
@@ -654,8 +692,14 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     });
                     var n = document.createElement("script");
                     n.setAttribute("src", e), n.setAttribute("defer", ""), n.setAttribute("data-script", ""), n.setAttribute("type", "text/javascript"), document.head.appendChild(n);
-                  }), loading(!1), '\n          <div class="EditProfile">\n            <form id="EditName" class=\'editform\'>\n            <h2>تعديل اسم المستخدم</h2>\n            <div class="input">\n                <label>اسم مستخدم جديد</label>\n                <input type="text" name="username" />\n            </div>\n            <div class="input">\n                <label>كلمة السر الحالية</label>\n                <input type="password" name="password" />\n            </div>\n            <div class="input">\n                <button type="submit">تعديل</button>\n            </div>\n            </form>\n            <form id="EditEmail" class=\'editform\'>\n            <h2>تعديل البريد الإلكتروني</h2>\n            <div class="input">\n                <label>بريد إلكتروني جديد</label>\n                <input type="email" name="email" />\n            </div>\n            <div class="input">\n                <label>كلمة السر الحالية</label>\n                <input type="password" name="password" />\n            </div>\n            <div class="input">\n                <button type="submit">تعديل</button>\n            </div>\n            </form>\n            <form id="EditPassword" class=\'editform\'>\n            <h2>تعديل كلمة المرور</h2>\n            <div class="input">\n                <label>كلمة السر الحالية</label>\n                <input type="password" name="password" />\n            </div>\n            <div class="input">\n                <label>كلمة المرور الجديدة</label>\n                <input type="password" name="password2" />\n            </div>\n            <div class="input">\n                <button type="submit">تعديل</button>\n            </div>\n            </form>\n        </div>        \n        ') : (loading(!1), "\n        <div class='notLoginPop'>\n          <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n          <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n          <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n          <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n        </div>\n        ")));
-                case 2:
+                  }), loading(!1), "\n        <div class='containerProducts'>\n          ".concat(_t21, "\n        </div>\n        ")));
+                case 14:
+                  if (!(0 == _n3.length)) {
+                    _context11.next = 16;
+                    break;
+                  }
+                  return _context11.abrupt("return", (loading(!1), "\n          <div class='noProducts'>\n            <p>لا يوجد منتجات في المفضلة</p>\n          </div>\n          "));
+                case 16:
                 case "end":
                   return _context11.stop();
               }
@@ -669,65 +713,27 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       }]);
       return l;
     }(t),
-    u = /*#__PURE__*/function (_t20) {
-      _inherits(u, _t20);
+    u = /*#__PURE__*/function (_t22) {
+      _inherits(u, _t22);
       var _super11 = _createSuper(u);
       function u(t, e) {
         var _this11;
         _classCallCheck(this, u);
-        _this11 = _super11.call(this, t, e), _this11.auth = e, _this11.setTitle("my Favourite"), _this11.setStyle("/static/css/company.css");
+        _this11 = _super11.call(this, t, e), _this11.auth = e, _this11.setTitle("Chose Method"), _this11.setStyle("/static/css/orderMethod.css");
         return _this11;
       }
       _createClass(u, [{
         key: "getHtml",
         value: function () {
           var _getHtml12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
-            var _t21, _e11, _n3, _t22;
             return _regeneratorRuntime().wrap(function _callee12$(_context12) {
               while (1) switch (_context12.prev = _context12.next) {
                 case 0:
                   if (!(loading(!0), this.auth)) {
-                    _context12.next = 16;
+                    _context12.next = 2;
                     break;
                   }
-                  if (localStorage.getItem("AuthToken")) {
-                    _context12.next = 3;
-                    break;
-                  }
-                  return _context12.abrupt("return", (loading(!1), "\n          <div class='notLoginPop'>\n            <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n            <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n            <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n            <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n          </div>\n        "));
-                case 3:
-                  _context12.next = 5;
-                  return fetch("http://localhost:5500/fav", {
-                    method: "post",
-                    body: JSON.stringify({
-                      authToken: localStorage.getItem("AuthToken")
-                    })
-                  });
-                case 5:
-                  _t21 = _context12.sent;
-                  _context12.next = 8;
-                  return _t21.json();
-                case 8:
-                  _e11 = _context12.sent;
-                  _e11.Error && (localStorage.removeItem("AuthToken"), window.location = "/", CreateToast({
-                    type: "Err",
-                    msg: "حدث خطأ ما، يرجى تسجيل الدخول",
-                    time: 2e3
-                  }), setTimeout(function () {
-                    location.replace("/login");
-                  }, 2e3));
-                  _n3 = _e11.products;
-                  if (!(_n3 || (_n3 = []), _n3.length > 0)) {
-                    _context12.next = 14;
-                    break;
-                  }
-                  _t22 = _n3.map(function (t, e) {
-                    return "\n        <div class='".concat(function () {
-                      var e = "product";
-                      return 1 !== t.available && 0 == t.inStock && (e += " notavailable"), t.offer > 0 && (e += " offer"), e;
-                    }(), "' id='").concat(t.id, "' key='").concat(e, "'>\n          <input type=\"hidden\" value=\"").concat(t.id, "\" id=\"productId\" />\n          <input type=\"hidden\" value=\"").concat(t.name, "\" id=\"productName\" />\n          <input type=\"hidden\" value=\"").concat(t.image, "\" id=\"productImage\" />\n          <input type=\"hidden\" value=\"").concat(t.price, "\" id=\"productPrice\" />\n          <input type=\"hidden\" value=\"").concat(t.inStock, "\" id=\"productInStock\" />\n          <input type=\"hidden\" value=\"1\" id=\"productQuantity\" />\n          <button id='addtocart' onclick=\"addItemToCart(").concat(t.id, ")\"><i class=\"bx bxs-cart-download\"></i></button>\n          <button id='addtofav' onclick='delToFav(").concat(t.id, ")'><i class='bx bxs-x-circle'></i></button>\n          <a href='/product/").concat(t.id, "' data-link>\n              <img class='image' src='/static/").concat(t.image, "' />\n            <div class='body'>\n              <p>").concat(t.name, "</p>\n            </div>\n          </a>\n          ").concat(t.offer > 0 ? "<p class=\"price offer\">".concat(t.price + t.offer, " \u062C</p>\n              <p class=\"price\">").concat(t.price, " \u062C</p>\n              ") : "<p class=\"price\">".concat(t.price, " \u062C</p>"), "\n        </div>\n        ");
-                  }).join("");
-                  return _context12.abrupt("return", (fetch("/static/siteJs/fav.js").then(function (t) {
+                  return _context12.abrupt("return", localStorage.getItem("AuthToken") ? (fetch("/static/siteJs/orderMethod.js").then(function (t) {
                     return !!t.ok && t.blob();
                   }).then(function (t) {
                     var e = URL.createObjectURL(t);
@@ -736,14 +742,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     });
                     var n = document.createElement("script");
                     n.setAttribute("src", e), n.setAttribute("defer", ""), n.setAttribute("data-script", ""), n.setAttribute("type", "text/javascript"), document.head.appendChild(n);
-                  }), loading(!1), "\n        <div class='containerProducts'>\n          ".concat(_t22, "\n        </div>\n        ")));
-                case 14:
-                  if (!(0 == _n3.length)) {
-                    _context12.next = 16;
-                    break;
-                  }
-                  return _context12.abrupt("return", (loading(!1), "\n          <div class='noProducts'>\n            <p>لا يوجد منتجات في المفضلة</p>\n          </div>\n          "));
-                case 16:
+                  }), loading(!1), '\n        <div class="wraper">\n            <a href="/Order/cash" data-link id="cash">نقدي</a>\n            <a href="/Order/cash" data-link id="cash">نقدي</a>\n            <a href="/Order/cash" data-link id="cash">نقدي</a>\n        </div>') : (loading(!1), "\n        <div class='notLoginPop'>\n          <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n          <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n          <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n          <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n        </div>\n        "));
+                case 2:
                 case "end":
                   return _context12.stop();
               }
@@ -763,7 +763,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       function p(t, e) {
         var _this12;
         _classCallCheck(this, p);
-        _this12 = _super12.call(this, t, e), _this12.auth = e, _this12.setTitle("Chose Method"), _this12.setStyle("/static/css/orderMethod.css");
+        _this12 = _super12.call(this, t, e), _this12.method = t.method, _this12.auth = e, _this12.setTitle("Orders"), _this12.setStyle("/static/css/Order.css");
         return _this12;
       }
       _createClass(p, [{
@@ -773,11 +773,17 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             return _regeneratorRuntime().wrap(function _callee13$(_context13) {
               while (1) switch (_context13.prev = _context13.next) {
                 case 0:
-                  if (!(loading(!0), this.auth)) {
-                    _context13.next = 2;
+                  if (!(localStorage.setItem("method", this.method), loading(!0), this.auth)) {
+                    _context13.next = 6;
                     break;
                   }
-                  return _context13.abrupt("return", localStorage.getItem("AuthToken") ? (fetch("/static/siteJs/orderMethod.js").then(function (t) {
+                  if (localStorage.getItem("AuthToken")) {
+                    _context13.next = 3;
+                    break;
+                  }
+                  return _context13.abrupt("return", (loading(!1), "\n        <div class='notLoginPop'>\n          <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n          <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n          <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n          <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n        </div>\n        "));
+                case 3:
+                  if (!(fetch("/static/siteJs/Order.js").then(function (t) {
                     return !!t.ok && t.blob();
                   }).then(function (t) {
                     var e = URL.createObjectURL(t);
@@ -786,8 +792,20 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     });
                     var n = document.createElement("script");
                     n.setAttribute("src", e), n.setAttribute("defer", ""), n.setAttribute("data-script", ""), n.setAttribute("type", "text/javascript"), document.head.appendChild(n);
-                  }), loading(!1), '\n        <div class="wraper">\n            <a href="/Order/cash" data-link id="cash">نقدي</a>\n            <a href="/Order/cash" data-link id="cash">نقدي</a>\n            <a href="/Order/cash" data-link id="cash">نقدي</a>\n        </div>') : (loading(!1), "\n        <div class='notLoginPop'>\n          <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n          <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n          <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n          <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n        </div>\n        "));
-                case 2:
+                  }), loading(!1), Cart.length > 0)) {
+                    _context13.next = 5;
+                    break;
+                  }
+                  return _context13.abrupt("return", '\n        <form id="Order">\n            <div class="input">\n                <label>محافظة</label>\n                <input type="text" name="governorate" required/>\n            </div>\n            <div class="input">\n                <label>المدينة</label>\n                <input type="text" name="city" required/>\n            </div>\n            <div class="input">\n                <label>الشارع</label>\n                <input type="text" name="street" required/>\n            </div>\n            <div class="input">\n                <label>المبنى</label>\n                <input type="text" name="building" required/>\n            </div>\n            <div class="input">\n                <label>طابق</label>\n                <input type="text" name="floor" required/>\n            </div>\n            <div class="input">\n                <button type="submit">اطلب الان</button>\n            </div>\n        </form>\n        ');
+                case 5:
+                  CreateToast({
+                    type: "error",
+                    message: "عربة التسوق فارغة",
+                    time: 2e3
+                  }), setTimeout(function () {
+                    location.replace("/");
+                  }, 2e3);
+                case 6:
                 case "end":
                   return _context13.stop();
               }
@@ -807,7 +825,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       function h(t, e) {
         var _this13;
         _classCallCheck(this, h);
-        _this13 = _super13.call(this, t, e), _this13.method = t.method, _this13.auth = e, _this13.setTitle("Orders"), _this13.setStyle("/static/css/Order.css");
+        _this13 = _super13.call(this, t, e), _this13.auth = e, _this13.setTitle("Chose Method"), _this13.setStyle("/static/css/orderMethod.css");
         return _this13;
       }
       _createClass(h, [{
@@ -817,39 +835,12 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             return _regeneratorRuntime().wrap(function _callee14$(_context14) {
               while (1) switch (_context14.prev = _context14.next) {
                 case 0:
-                  if (!(localStorage.setItem("method", this.method), loading(!0), this.auth)) {
-                    _context14.next = 6;
+                  if (!(loading(!0), this.auth)) {
+                    _context14.next = 2;
                     break;
                   }
-                  if (localStorage.getItem("AuthToken")) {
-                    _context14.next = 3;
-                    break;
-                  }
-                  return _context14.abrupt("return", (loading(!1), "\n        <div class='notLoginPop'>\n          <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n          <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n          <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n          <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n        </div>\n        "));
-                case 3:
-                  if (!(fetch("/static/siteJs/Order.js").then(function (t) {
-                    return !!t.ok && t.blob();
-                  }).then(function (t) {
-                    var e = URL.createObjectURL(t);
-                    document.querySelectorAll("[data-script]").forEach(function (t) {
-                      t.src !== e && document.head.removeChild(t);
-                    });
-                    var n = document.createElement("script");
-                    n.setAttribute("src", e), n.setAttribute("defer", ""), n.setAttribute("data-script", ""), n.setAttribute("type", "text/javascript"), document.head.appendChild(n);
-                  }), loading(!1), Cart.length > 0)) {
-                    _context14.next = 5;
-                    break;
-                  }
-                  return _context14.abrupt("return", '\n        <form id="Order">\n            <div class="input">\n                <label>محافظة</label>\n                <input type="text" name="governorate" required/>\n            </div>\n            <div class="input">\n                <label>المدينة</label>\n                <input type="text" name="city" required/>\n            </div>\n            <div class="input">\n                <label>الشارع</label>\n                <input type="text" name="street" required/>\n            </div>\n            <div class="input">\n                <label>المبنى</label>\n                <input type="text" name="building" required/>\n            </div>\n            <div class="input">\n                <label>طابق</label>\n                <input type="text" name="floor" required/>\n            </div>\n            <div class="input">\n                <button type="submit">اطلب الان</button>\n            </div>\n        </form>\n        ');
-                case 5:
-                  CreateToast({
-                    type: "error",
-                    message: "عربة التسوق فارغة",
-                    time: 2e3
-                  }), setTimeout(function () {
-                    location.replace("/");
-                  }, 2e3);
-                case 6:
+                  return _context14.abrupt("return", localStorage.getItem("AuthToken") ? (loading(!1), '\n        <div class="suc">\n            <div class="cir">\n                <i class=\'bx bx-check\'></i>\n            </div>            \n            <p>تم تسجيل طلبك بنجاح</p>\n            <p>سنتواصل معك قريبًا</p>\n        </div>') : (loading(!1), "\n        <div class='notLoginPop'>\n          <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n          <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n          <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n          <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n        </div>\n        "));
+                case 2:
                 case "end":
                   return _context14.stop();
               }
@@ -863,49 +854,14 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       }]);
       return h;
     }(t),
-    m = /*#__PURE__*/function (_t25) {
-      _inherits(m, _t25);
-      var _super14 = _createSuper(m);
-      function m(t, e) {
-        var _this14;
-        _classCallCheck(this, m);
-        _this14 = _super14.call(this, t, e), _this14.auth = e, _this14.setTitle("Chose Method"), _this14.setStyle("/static/css/orderMethod.css");
-        return _this14;
-      }
-      _createClass(m, [{
-        key: "getHtml",
-        value: function () {
-          var _getHtml15 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
-            return _regeneratorRuntime().wrap(function _callee15$(_context15) {
-              while (1) switch (_context15.prev = _context15.next) {
-                case 0:
-                  if (!(loading(!0), this.auth)) {
-                    _context15.next = 2;
-                    break;
-                  }
-                  return _context15.abrupt("return", localStorage.getItem("AuthToken") ? (loading(!1), '\n        <div class="suc">\n            <div class="cir">\n                <i class=\'bx bx-check\'></i>\n            </div>            \n            <p>تم تسجيل طلبك بنجاح</p>\n            <p>سنتواصل معك قريبًا</p>\n        </div>') : (loading(!1), "\n        <div class='notLoginPop'>\n          <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n          <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n          <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n          <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n        </div>\n        "));
-                case 2:
-                case "end":
-                  return _context15.stop();
-              }
-            }, _callee15, this);
-          }));
-          function getHtml() {
-            return _getHtml15.apply(this, arguments);
-          }
-          return getHtml;
-        }()
-      }]);
-      return m;
-    }(t),
-    v = function v(t) {
-      history.pushState(null, null, t), b();
+    m = function m(t) {
+      history.pushState(null, null, t), v();
     },
-    b = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16() {
-        var t, v, b;
-        return _regeneratorRuntime().wrap(function _callee16$(_context16) {
-          while (1) switch (_context16.prev = _context16.next) {
+    v = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
+        var t, m, v;
+        return _regeneratorRuntime().wrap(function _callee15$(_context15) {
+          while (1) switch (_context15.prev = _context15.next) {
             case 0:
               t = [{
                 path: "/",
@@ -944,27 +900,23 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 view: a,
                 auth: !0
               }, {
-                path: "/edit/profile",
+                path: "/fav",
                 view: l,
                 auth: !0
               }, {
-                path: "/fav",
+                path: "/OrderMethod",
                 view: u,
                 auth: !0
               }, {
-                path: "/OrderMethod",
+                path: "/Order/:method",
                 view: p,
                 auth: !0
               }, {
-                path: "/Order/:method",
+                path: "/order/success",
                 view: h,
                 auth: !0
-              }, {
-                path: "/order/success",
-                view: m,
-                auth: !0
               }];
-              v = t.map(function (t) {
+              m = t.map(function (t) {
                 return {
                   route: t,
                   result: location.pathname.match((e = t.path, new RegExp("^" + e.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$")))
@@ -973,11 +925,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               }).find(function (t) {
                 return null !== t.result;
               });
-              v || (v = {
+              m || (m = {
                 route: t[0],
                 result: [location.pathname]
               });
-              b = new v.route.view(function (t) {
+              v = new m.route.view(function (t) {
                 var e = t.result.slice(1),
                   n = Array.from(t.route.path.matchAll(/:(\w+)/g)).map(function (t) {
                     return t[1];
@@ -985,36 +937,36 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 return Object.fromEntries(n.map(function (t, n) {
                   return [t, e[n]];
                 }));
-              }(v), v.route.auth);
-              if (!v.route.auth) {
-                _context16.next = 11;
+              }(m), m.route.auth);
+              if (!m.route.auth) {
+                _context15.next = 11;
                 break;
               }
               localStorage.getItem("AuthToken");
-              _context16.next = 8;
-              return b.getHtml();
+              _context15.next = 8;
+              return v.getHtml();
             case 8:
-              document.querySelector("#app").innerHTML = _context16.sent;
-              _context16.next = 14;
+              document.querySelector("#app").innerHTML = _context15.sent;
+              _context15.next = 14;
               break;
             case 11:
-              _context16.next = 13;
-              return b.getHtml();
+              _context15.next = 13;
+              return v.getHtml();
             case 13:
-              document.querySelector("#app").innerHTML = _context16.sent;
+              document.querySelector("#app").innerHTML = _context15.sent;
             case 14:
             case "end":
-              return _context16.stop();
+              return _context15.stop();
           }
-        }, _callee16);
+        }, _callee15);
       }));
-      return function b() {
+      return function v() {
         return _ref.apply(this, arguments);
       };
     }();
-  window.addEventListener("popstate", b), document.addEventListener("DOMContentLoaded", function () {
+  window.addEventListener("popstate", v), document.addEventListener("DOMContentLoaded", function () {
     document.body.addEventListener("click", function (t) {
-      t.target.matches("[data-link]") ? (t.preventDefault(), v(t.target.href)) : t.target.parentElement.matches("[data-link]") && (t.preventDefault(), v(t.target.parentElement.href));
-    }), b();
+      t.target.matches("[data-link]") ? (t.preventDefault(), m(t.target.href)) : t.target.parentElement.matches("[data-link]") && (t.preventDefault(), m(t.target.parentElement.href));
+    }), v();
   });
 })();
