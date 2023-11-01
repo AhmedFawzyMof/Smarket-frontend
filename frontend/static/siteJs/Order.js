@@ -40,7 +40,7 @@ OrderForm.addEventListener("submit", /*#__PURE__*/function () {
             _iterator.f();
           }
           _context.next = 10;
-          return fetch("https://smarket-api-5o9n.onrender.com/order", {
+          return fetch("http://localhost:5500/order", {
             method: "POST",
             body: JSON.stringify({
               products: products,

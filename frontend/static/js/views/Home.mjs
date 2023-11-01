@@ -9,7 +9,7 @@ export default class extends AbstractViews {
 
   async getHtml() {
     loading(true);
-    const response = await fetch("https://smarket-api-5o9n.onrender.com/");
+    const response = await fetch("http://localhost:5500/");
     const data = await response.json();
 
     const Categories = data.Categories;

@@ -13,7 +13,7 @@ function editName() {
     }
 
     const response = await fetch(
-      "https://smarket-api-5o9n.onrender.com/profile",
+      "http://localhost:5500/profile",
       {
         method: "post",
         body: JSON.stringify(form),
@@ -61,7 +61,7 @@ function editPassword() {
     Object.assign(form, { token: localStorage.getItem("AuthToken") });
 
     const response = await fetch(
-      "https://smarket-api-5o9n.onrender.com/profile",
+      "http://localhost:5500/profile",
       {
         method: "post",
         body: JSON.stringify(form),
@@ -108,7 +108,7 @@ function editEmail() {
     Object.assign(form, { token: localStorage.getItem("AuthToken") });
 
     const response = await fetch(
-      "https://smarket-api-5o9n.onrender.com/profile",
+      "http://localhost:5500/profile",
       {
         method: "post",
         body: JSON.stringify(form),

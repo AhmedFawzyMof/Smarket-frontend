@@ -14,7 +14,7 @@ function login() {
     }
 
     const response = await fetch(
-      "https://smarket-api-5o9n.onrender.com/user/login",
+      "http://localhost:5500/user/login",
       {
         method: "post",
         body: JSON.stringify(form),

@@ -32,7 +32,7 @@ function login() {
               _iterator.f();
             }
             _context.next = 7;
-            return fetch("https://smarket-api-5o9n.onrender.com/user/login", {
+            return fetch("http://localhost:5500/user/login", {
               method: "post",
               body: JSON.stringify(form)
             });

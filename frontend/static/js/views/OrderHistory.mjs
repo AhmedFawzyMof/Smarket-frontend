@@ -11,14 +11,29 @@ export default class extends AbstractViews {
     loading(true);
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
-        const response = await fetch(
-          "https://smarket-api-5o9n.onrender.com/" +
-            localStorage.getItem("AuthToken")
-        );
+        const response = await fetch("http://localhost:5500/orderhistory", {
+          method: "post",
+          body: JSON.stringify({
+            authToken: localStorage.getItem("AuthToken"),
+          }),
+        });
 
         const data = await response.json();
         const products = data.Products;
         const orders = data.Order;
+
+        if (orders === null) {
+          loading(false);
+          return `
+          <div class='noOrders'>
+            <div class='icons'><i class='bx bxs-package'></i><i class='bx bx-sad' ></i></div>
+            <div class='links'>
+              <p>لا توجد طلبات حتى الآن</p>
+              <a href="/" data-link>الرئيسية</a>
+            </div>
+          </div>
+          `;
+        }
         for (let j = 0; j < orders.length; j++) {
           const order = orders[j];
           Object.assign(order, { cart: [] });
@@ -41,20 +56,6 @@ export default class extends AbstractViews {
           setTimeout(() => {
             window.location = "/";
           }, 2000);
-        }
-        if (!data.Error) {
-          if (data.Message == "لا توجد طلبات حتى الآن") {
-            loading(false);
-            return `
-          <div class='noOrders'>
-            <div class='icons'><i class='bx bxs-package'></i><i class='bx bx-sad' ></i></div>
-            <div class='links'>
-              <p>لا توجد طلبات حتى الآن</p>
-              <a href="/" data-link>الرئيسية</a>
-            </div>
-          </div>
-          `;
-          }
         }
         const mappedOrder = orders.map((order, index) => {
           function isDilvered() {
@@ -83,6 +84,17 @@ export default class extends AbstractViews {
               </div>`;
             }
           }
+          function isConfirmed() {
+            if (order.confirmed == 0) {
+              return `
+              <button class="cancel_order" onclick="CancelOrder('${order.id}', ${order.confirmed})">الغاء الطلب</button>
+              `;
+            } else {
+              return `
+              <div class="cancel_order">الغاء الطلب</div>
+              `;
+            }
+          }
           function Total() {
             let Total = 0;
             order.cart.map((product) => {
@@ -92,6 +104,7 @@ export default class extends AbstractViews {
           }
           let orderId = order.id;
           orderId = orderId.substr(0, 8);
+          let date = order.date.replace("T", " ").replace("Z", " ");
           const mappedItems = order.cart
             .map((product, index) => {
               return `
@@ -111,13 +124,14 @@ export default class extends AbstractViews {
             .join("");
           return `
           <div class="orderRec" key="${index}">
+            ${isConfirmed()}
         <p>معرف الطلب: ${orderId}</p>
         <div class="date">
           <p>
             تاريخ الطلب:
           </p>
           <h4 dir="ltr" style="color: #b3b2b2">
-            ${order.date.replace("T", " ").replace("Z", " ")}
+            ${date.substr([], 19)}
           </h4>
         </div>
         <p>المجموع: ${Total()} ج</p>

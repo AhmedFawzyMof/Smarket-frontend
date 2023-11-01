@@ -144,7 +144,7 @@ if (cartLength() > 0) {
 }
 
 async function delToFav(productId) {
-  const response = await fetch("https://smarket-api-5o9n.onrender.com/Delfav", {
+  const response = await fetch("http://localhost:5500/Delfav", {
     method: "post",
     body: JSON.stringify({
       product: productId,

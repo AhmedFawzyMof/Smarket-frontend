@@ -32,7 +32,7 @@ function editName() {
               _iterator.f();
             }
             _context.next = 7;
-            return fetch("https://smarket-api-5o9n.onrender.com/profile", {
+            return fetch("http://localhost:5500/profile", {
               method: "post",
               body: JSON.stringify(form)
             });
@@ -99,7 +99,7 @@ function editPassword() {
               token: localStorage.getItem("AuthToken")
             });
             _context2.next = 8;
-            return fetch("https://smarket-api-5o9n.onrender.com/profile", {
+            return fetch("http://localhost:5500/profile", {
               method: "post",
               body: JSON.stringify(form)
             });
@@ -166,7 +166,7 @@ function editEmail() {
               token: localStorage.getItem("AuthToken")
             });
             _context3.next = 8;
-            return fetch("https://smarket-api-5o9n.onrender.com/profile", {
+            return fetch("http://localhost:5500/profile", {
               method: "post",
               body: JSON.stringify(form)
             });

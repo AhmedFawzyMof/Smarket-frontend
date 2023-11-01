@@ -140,7 +140,7 @@ nav #menu li a {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--black);
+  color: var(--sub-color);
 }
 
 nav #menu .active {

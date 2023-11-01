@@ -87,6 +87,7 @@ a.offer::after {
 }
 
 .orderRec {
+  position: relative;
   width: 300px;
   margin: 20px 0;
   background: var(--sub-color);
@@ -120,4 +121,32 @@ a.offer::after {
 .Delivered.True,
 .Paid.True {
   background: #1f32ffad;
+}
+
+.cancel_order {
+  position: absolute;
+  left: 5px;
+  width: 100px;
+  background: var(--main-color);
+  color: var(--sub-color);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 4px 3px #3336;
+  top: 5px;
+}
+
+div.cancel_order {
+  position: absolute;
+  left: 5px;
+  width: 100px;
+  background: gray;
+  color: var(--sub-color);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 4px 3px #3336;
+  top: 5px;
 }

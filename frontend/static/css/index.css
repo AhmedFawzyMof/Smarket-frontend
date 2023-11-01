@@ -57,7 +57,7 @@
 .carousel img {
   height: 200px;
   object-fit: cover;
-  width: calc(100% / 2);
+  width: calc(100% / 2.25);
   border-radius: 5px;
   margin-left: 10px;
   -webkit-box-shadow: -3px 3px 10px #3333335c;
@@ -92,6 +92,22 @@
 
 /* ---------------------------------------------------------------------------------------- */
 
+@media (max-width: 700px) {
+  .carousel img {
+    height: 150px;
+    width: calc(100% / 1.5);
+  }
+  .category {
+    margin: 5px;
+    border-radius: 5px;
+    background: var(--sup-color);
+    width: calc(90% / 3);
+  }
+  .category a {
+    height: 100px;
+  }
+}
+
 @media (max-width: 550px) {
   .carousel img {
     height: 150px;
@@ -107,6 +123,7 @@
     height: 100px;
   }
 }
+
 
 @media (max-width: 330px) {
   .category {
