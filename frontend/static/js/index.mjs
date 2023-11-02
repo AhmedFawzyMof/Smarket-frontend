@@ -11,6 +11,7 @@ import Favourite from "./views/Favourite.mjs";
 import OrderMethod from "./views/OrderMethod.mjs";
 import Order from "./views/Order.mjs";
 import OrderSuccess from "./views/OrderSuccess.mjs";
+import Offers from "./views/Offers.mjs";
 
 const pathToRegex = (path) =>
   new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
@@ -45,6 +46,7 @@ const router = async () => {
     { path: "/category/:name", view: Category, auth: false },
     { path: "/orderHistory", view: OrderHistory, auth: true },
     { path: "/fav", view: Favourite, auth: true },
+    { path: "/offers", view: Offers, auth: false },
     { path: "/OrderMethod", view: OrderMethod, auth: true },
     { path: "/Order/:method", view: Order, auth: true },
     { path: "/order/success", view: OrderSuccess, auth: true },

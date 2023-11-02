@@ -414,18 +414,18 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       }]);
       return s;
     }(t),
-    r = /*#__PURE__*/function (_t14) {
-      _inherits(r, _t14);
-      var _super6 = _createSuper(r);
-      function r(t, e) {
+    c = /*#__PURE__*/function (_t14) {
+      _inherits(c, _t14);
+      var _super6 = _createSuper(c);
+      function c(t, e) {
         var _this6;
-        _classCallCheck(this, r);
+        _classCallCheck(this, c);
         _this6 = _super6.call(this, t, e);
         var n = decodeURI(t.name);
         _this6.category = n, _this6.setTitle(n), _this6.setStyle("/static/css/company.css");
         return _this6;
       }
-      _createClass(r, [{
+      _createClass(c, [{
         key: "getHtml",
         value: function () {
           var _getHtml7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
@@ -470,18 +470,18 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           return getHtml;
         }()
       }]);
-      return r;
+      return c;
     }(t),
-    c = /*#__PURE__*/function (_t15) {
-      _inherits(c, _t15);
-      var _super7 = _createSuper(c);
-      function c(t, e) {
+    r = /*#__PURE__*/function (_t15) {
+      _inherits(r, _t15);
+      var _super7 = _createSuper(r);
+      function r(t, e) {
         var _this7;
-        _classCallCheck(this, c);
+        _classCallCheck(this, r);
         _this7 = _super7.call(this, t, e), _this7.setTitle("My Cart"), _this7.setStyle("/static/css/cart.css");
         return _this7;
       }
-      _createClass(c, [{
+      _createClass(r, [{
         key: "getHtml",
         value: function () {
           var _getHtml8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
@@ -531,7 +531,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           return getHtml;
         }()
       }]);
-      return c;
+      return r;
     }(t),
     d = /*#__PURE__*/function (_t17) {
       _inherits(d, _t17);
@@ -854,14 +854,70 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       }]);
       return h;
     }(t),
-    m = function m(t) {
-      history.pushState(null, null, t), v();
+    m = /*#__PURE__*/function (_t25) {
+      _inherits(m, _t25);
+      var _super14 = _createSuper(m);
+      function m(t, e) {
+        var _this14;
+        _classCallCheck(this, m);
+        _this14 = _super14.call(this, t, e), _this14.auth = e, _this14.setTitle("Chose Method"), _this14.setStyle("/static/css/company.css");
+        return _this14;
+      }
+      _createClass(m, [{
+        key: "getHtml",
+        value: function () {
+          var _getHtml15 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
+            var t, e;
+            return _regeneratorRuntime().wrap(function _callee15$(_context15) {
+              while (1) switch (_context15.prev = _context15.next) {
+                case 0:
+                  loading(!0);
+                  _context15.next = 3;
+                  return fetch("http://localhost:5500/offers");
+                case 3:
+                  t = _context15.sent;
+                  _context15.next = 6;
+                  return t.json();
+                case 6:
+                  e = _context15.sent.map(function (t, e) {
+                    var n = t.name.substr(0, 20);
+                    return "\n      <div class='".concat(function () {
+                      var e = "product";
+                      return 1 !== t.available && 0 == t.inStock && (e += " notavailable"), t.offer > 0 && (e += " offer"), e;
+                    }(), "' id='").concat(t.id, "' key='").concat(e, "'>\n        <input type=\"hidden\" value=\"").concat(t.id, "\" id=\"productId\" />\n        <input type=\"hidden\" value=\"").concat(t.name, "\" id=\"productName\" />\n        <input type=\"hidden\" value=\"").concat(t.image, "\" id=\"productImage\" />\n        <input type=\"hidden\" value=\"").concat(t.price, "\" id=\"productPrice\" />\n        <input type=\"hidden\" value=\"").concat(t.inStock, "\" id=\"productInStock\" />\n        <input type=\"hidden\" value=\"1\" id=\"productQuantity\" />\n        <button id='addtocart' onclick=\"addItemToCart(").concat(t.id, ")\"><i class='bx bxs-cart-download'></i></button>\n        <button id='addtofav' onclick='addToFav(").concat(t.id, ")'><i class=\"bx bxs-heart\"></i></button>\n        <a href='/product/").concat(t.id, "' data-link>\n            <img class='image' src='/static/").concat(t.image, "' />\n          <div class='body'>\n            <p>").concat(n, "</p>\n          </div>\n        </a>\n        ").concat(t.offer > 0 ? "<p class=\"price offer\">".concat(t.price + t.offer, " \u062C</p>\n            <p class=\"price\">").concat(t.price, " \u062C</p>\n            ") : "<p class=\"price\">".concat(t.price, " \u062C</p>"), "\n      </div>\n      ");
+                  }).join("");
+                  return _context15.abrupt("return", (fetch("/static/siteJs/compony.js").then(function (t) {
+                    return !!t.ok && t.blob();
+                  }).then(function (t) {
+                    var e = URL.createObjectURL(t);
+                    document.querySelectorAll("[data-script]").forEach(function (t) {
+                      t.src !== e && document.head.removeChild(t);
+                    });
+                    var n = document.createElement("script");
+                    n.setAttribute("src", e), n.setAttribute("defer", ""), n.setAttribute("data-script", ""), n.setAttribute("type", "text/javascript"), document.head.appendChild(n);
+                  }), loading(!1), " <div class='containerProducts'>\n     ".concat(e, "\n    </div>")));
+                case 8:
+                case "end":
+                  return _context15.stop();
+              }
+            }, _callee15);
+          }));
+          function getHtml() {
+            return _getHtml15.apply(this, arguments);
+          }
+          return getHtml;
+        }()
+      }]);
+      return m;
+    }(t),
+    v = function v(t) {
+      history.pushState(null, null, t), b();
     },
-    v = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
-        var t, m, v;
-        return _regeneratorRuntime().wrap(function _callee15$(_context15) {
-          while (1) switch (_context15.prev = _context15.next) {
+    b = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16() {
+        var t, v, b;
+        return _regeneratorRuntime().wrap(function _callee16$(_context16) {
+          while (1) switch (_context16.prev = _context16.next) {
             case 0:
               t = [{
                 path: "/",
@@ -869,7 +925,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 auth: !1
               }, {
                 path: "/cart",
-                view: c,
+                view: r,
                 auth: !1
               }, {
                 path: "/login",
@@ -893,7 +949,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 auth: !1
               }, {
                 path: "/category/:name",
-                view: r,
+                view: c,
                 auth: !1
               }, {
                 path: "/orderHistory",
@@ -903,6 +959,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 path: "/fav",
                 view: l,
                 auth: !0
+              }, {
+                path: "/offers",
+                view: m,
+                auth: !1
               }, {
                 path: "/OrderMethod",
                 view: u,
@@ -916,7 +976,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 view: h,
                 auth: !0
               }];
-              m = t.map(function (t) {
+              v = t.map(function (t) {
                 return {
                   route: t,
                   result: location.pathname.match((e = t.path, new RegExp("^" + e.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$")))
@@ -925,11 +985,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               }).find(function (t) {
                 return null !== t.result;
               });
-              m || (m = {
+              v || (v = {
                 route: t[0],
                 result: [location.pathname]
               });
-              v = new m.route.view(function (t) {
+              b = new v.route.view(function (t) {
                 var e = t.result.slice(1),
                   n = Array.from(t.route.path.matchAll(/:(\w+)/g)).map(function (t) {
                     return t[1];
@@ -937,36 +997,36 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 return Object.fromEntries(n.map(function (t, n) {
                   return [t, e[n]];
                 }));
-              }(m), m.route.auth);
-              if (!m.route.auth) {
-                _context15.next = 11;
+              }(v), v.route.auth);
+              if (!v.route.auth) {
+                _context16.next = 11;
                 break;
               }
               localStorage.getItem("AuthToken");
-              _context15.next = 8;
-              return v.getHtml();
+              _context16.next = 8;
+              return b.getHtml();
             case 8:
-              document.querySelector("#app").innerHTML = _context15.sent;
-              _context15.next = 14;
+              document.querySelector("#app").innerHTML = _context16.sent;
+              _context16.next = 14;
               break;
             case 11:
-              _context15.next = 13;
-              return v.getHtml();
+              _context16.next = 13;
+              return b.getHtml();
             case 13:
-              document.querySelector("#app").innerHTML = _context15.sent;
+              document.querySelector("#app").innerHTML = _context16.sent;
             case 14:
             case "end":
-              return _context15.stop();
+              return _context16.stop();
           }
-        }, _callee15);
+        }, _callee16);
       }));
-      return function v() {
+      return function b() {
         return _ref.apply(this, arguments);
       };
     }();
-  window.addEventListener("popstate", v), document.addEventListener("DOMContentLoaded", function () {
+  window.addEventListener("popstate", b), document.addEventListener("DOMContentLoaded", function () {
     document.body.addEventListener("click", function (t) {
-      t.target.matches("[data-link]") ? (t.preventDefault(), m(t.target.href)) : t.target.parentElement.matches("[data-link]") && (t.preventDefault(), m(t.target.parentElement.href));
-    }), v();
+      t.target.matches("[data-link]") ? (t.preventDefault(), v(t.target.href)) : t.target.parentElement.matches("[data-link]") && (t.preventDefault(), v(t.target.parentElement.href));
+    }), b();
   });
 })();
