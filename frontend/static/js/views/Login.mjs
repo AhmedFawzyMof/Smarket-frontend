@@ -36,7 +36,7 @@ export default class extends AbstractViews {
         });
       loading(false);
       // add when you complete th OAuth
-      // <div class="media">
+      //  <div class="media">
       //       <p>أو قم بتسجيل الدخول باستخدام</p>
       //       <div class="mediaBtns">
       //           <button><i class='bx bxl-facebook'></i></button>

@@ -9,14 +9,25 @@ export default class extends AbstractViews {
 
   async getHtml() {
     loading(true);
-    const response = await fetch("http://localhost:5500/");
+    const response = await fetch("https://smarket-api-5o9n.onrender.com/");
+
     const data = await response.json();
 
-    const Categories = data.Categories;
-    const Offers = data.Offers;
-    const Products = data.Products;
-
-    const mappedOfferImage = Offers.map((offer, index) => {
+    delete data.exp;
+    var Categories, Offers, Products;
+    if (data.Home) {
+      Categories = data.Home.Categories;
+      Offers = data.Home.Offers;
+      Products = data.Home.Products;
+    } else {
+      Categories = data.Categories;
+      Offers = data.Offers;
+      Products = data.Products;
+    }
+    let mappedOfferImage = "";
+    let mappedOfferDot = "";
+    for (let index = 0; index < Offers.length; index++) {
+      const offer = Offers[index];
       function isProduct() {
         if (offer.product !== null) {
           return "/product/" + offer.product;
@@ -24,20 +35,22 @@ export default class extends AbstractViews {
           return "/compony/" + offer.company;
         }
       }
-      return `
+      mappedOfferImage += `
           <a data-link href='${isProduct()}' key='${index}'>
             <img id='carousel' src="/static${offer.image}" />
           </a>
       `;
-    }).join("");
-    const mappedOfferDot = Offers.map((offer, index) => {
-      return `
+
+      mappedOfferDot += `
       <div class='dot' id='d${index + 1}'></div>
       `;
-    }).join("");
+    }
 
-    const mappedCategories = Categories.map((category, index) => {
-      return `
+    let mappedCategories = "";
+
+    for (let index = 0; index < Categories.length; index++) {
+      const category = Categories[index];
+      mappedCategories += `
       <div class='category' key="${index}">
         <a data-link href="/category/${category.name}">
           <img src="/static${category.image}" />
@@ -45,8 +58,12 @@ export default class extends AbstractViews {
         <p>${category.name}</p>
       </div>
       `;
-    }).join("");
-    const mappedProducts = Products.map((product, index) => {
+    }
+
+    let mappedProducts = "";
+
+    for (let index = 0; index < Products.length; index++) {
+      const product = Products[index];
       function isAvailable() {
         let ava = "product";
         if (product.available !== 1 && product.inStock == 0) {
@@ -70,7 +87,7 @@ export default class extends AbstractViews {
         }
       }
       let name = product.name.substr(0, 20);
-      return `
+      mappedProducts += `
       <div class='${isAvailable()}' id='${product.id}' key='${index}'>
         <input type="hidden" value="${product.id}" id="productId" />
         <input type="hidden" value="${product.name}" id="productName" />
@@ -93,7 +110,7 @@ export default class extends AbstractViews {
         ${isOffer()}
       </div>
       `;
-    }).join("");
+    }
 
     const page = `
        <div class="wrapper">

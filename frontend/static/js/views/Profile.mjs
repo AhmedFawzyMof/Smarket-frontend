@@ -12,12 +12,15 @@ export default class extends AbstractViews {
       loading(true);
 
       if (localStorage.getItem("AuthToken")) {
-        const response = await fetch("http://localhost:5500/profile/get", {
-          method: "post",
-          body: JSON.stringify({
-            authToken: localStorage.getItem("AuthToken"),
-          }),
-        });
+        const response = await fetch(
+          "https://smarket-api-5o9n.onrender.com/profile/get",
+          {
+            method: "post",
+            body: JSON.stringify({
+              authToken: localStorage.getItem("AuthToken"),
+            }),
+          }
+        );
 
         const data = await response.json();
         if (data.Error) {

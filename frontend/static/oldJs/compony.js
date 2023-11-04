@@ -145,13 +145,16 @@ if (cartLength() > 0) {
 
 async function addToFav(productId) {
   if (localStorage.getItem("AuthToken")) {
-    const response = await fetch("http://localhost:5500/fav/add", {
-      method: "post",
-      body: JSON.stringify({
-        product: productId,
-        token: localStorage.getItem("AuthToken"),
-      }),
-    });
+    const response = await fetch(
+      "https://smarket-api-5o9n.onrender.com/fav/add",
+      {
+        method: "post",
+        body: JSON.stringify({
+          product: productId,
+          token: localStorage.getItem("AuthToken"),
+        }),
+      }
+    );
     const data = await response.json();
     if (data.Error) {
       CreateToast({

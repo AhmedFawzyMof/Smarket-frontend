@@ -11,7 +11,7 @@ export default class extends AbstractViews {
   async getHtml() {
     loading(true);
     const response = await fetch(
-      "http://localhost:5500/product/" + this.productId
+      "https://smarket-api-5o9n.onrender.com/product/" + this.productId
     );
     const data = await response.json();
     const product = data.product;

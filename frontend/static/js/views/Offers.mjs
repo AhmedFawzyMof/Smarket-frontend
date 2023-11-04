@@ -9,9 +9,11 @@ export default class extends AbstractViews {
   }
   async getHtml() {
     loading(true);
-    const getOffer = await fetch("http://localhost:5500/offers");
+    const getOffer = await fetch(
+      "https://smarket-api-5o9n.onrender.com/offers"
+    );
     const data = await getOffer.json();
-const mappedProducts = data
+    const mappedProducts = data
       .map((product, index) => {
         function isAvailable() {
           let ava = "product";
@@ -63,7 +65,7 @@ const mappedProducts = data
       `;
       })
       .join("");
-      fetch("/static/siteJs/compony.js")
+    fetch("/static/siteJs/compony.js")
       .then(function (response) {
         if (!response.ok) {
           return false;

@@ -1,12 +1,15 @@
 async function CancelOrder(OrderId, Confirmed) {
-  const deleteOrder = await fetch("http://localhost:5500/order/delete", {
-    method: "post",
-    body: JSON.stringify({
-      token: localStorage.getItem("AuthToken"),
-      order: OrderId,
-      confirmed: `${Confirmed}`,
-    }),
-  });
+  const deleteOrder = await fetch(
+    "https://smarket-api-5o9n.onrender.com/order/delete",
+    {
+      method: "post",
+      body: JSON.stringify({
+        token: localStorage.getItem("AuthToken"),
+        order: OrderId,
+        confirmed: `${Confirmed}`,
+      }),
+    }
+  );
 
   const response = await deleteOrder.json();
 
