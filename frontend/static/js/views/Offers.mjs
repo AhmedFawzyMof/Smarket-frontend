@@ -13,34 +13,61 @@ export default class extends AbstractViews {
       "https://smarket-api-5o9n.onrender.com/offers"
     );
     const data = await getOffer.json();
-    const mappedProducts = data
-      .map((product, index) => {
-        function isAvailable() {
-          let ava = "product";
-          if (product.available !== 1 && product.inStock == 0) {
-            ava += " notavailable";
-          } else {
-            ava;
-          }
-          if (product.offer > 0) {
-            ava += " offer";
-          }
-          return ava;
-        }
+    const category = [];
+    let products;
+    if (data.Offers) {
+      products = data.Offers.products;
+    } else {
+      products = data.products;
+    }
 
-        function isOffer() {
-          if (product.offer > 0) {
-            return `<p class="price offer">${
-              product.price + product.offer
-            } ج</p>
+    for (let index = 0; index < products.length; index++) {
+      const product = products[index];
+      const dub = category.find((cate) => {
+        return cate.name === product.category;
+      });
+      if (!dub) {
+        category.push({ name: product.category, products: [] });
+      }
+
+      for (let i = 0; i < category.length; i++) {
+        const cate = category[i];
+        if (product.category === cate.name) {
+          cate.products.push(product);
+        }
+      }
+    }
+
+    const mappedCategory = category
+      .map((cate, index) => {
+        const mappedProducts = cate.products
+          .map((product, index) => {
+            function isAvailable() {
+              let ava = "Product";
+              if (product.available !== 1 && product.inStock == 0) {
+                ava += " Notavailable";
+              } else {
+                ava;
+              }
+              if (product.offer > 0) {
+                ava += " offer";
+              }
+              return ava;
+            }
+
+            function isOffer() {
+              if (product.offer > 0) {
+                return `<p class="price offer">${
+                  product.price + product.offer
+                } ج</p>
             <p class="price">${product.price} ج</p>
             `;
-          } else {
-            return `<p class="price">${product.price} ج</p>`;
-          }
-        }
-        let name = product.name.substr(0, 20);
-        return `
+              } else {
+                return `<p class="price">${product.price} ج</p>`;
+              }
+            }
+            let name = product.name.substr(0, 20);
+            return `
       <div class='${isAvailable()}' id='${product.id}' key='${index}'>
         <input type="hidden" value="${product.id}" id="productId" />
         <input type="hidden" value="${product.name}" id="productName" />
@@ -63,8 +90,19 @@ export default class extends AbstractViews {
         ${isOffer()}
       </div>
       `;
+          })
+          .join("");
+        return `
+      <div class="category">
+        <h3>${cate.name}</h3>
+        <div id="${cate.name}" class="CategoryProducts" key="${index}">
+          ${mappedProducts}
+        </div>
+      </div>
+      `;
       })
       .join("");
+
     fetch("/static/siteJs/compony.js")
       .then(function (response) {
         if (!response.ok) {
@@ -88,8 +126,6 @@ export default class extends AbstractViews {
         document.head.appendChild(sc);
       });
     loading(false);
-    return ` <div class='containerProducts'>
-     ${mappedProducts}
-    </div>`;
+    return `${mappedCategory}`;
   }
 }

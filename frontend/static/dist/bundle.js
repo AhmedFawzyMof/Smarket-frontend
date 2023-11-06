@@ -645,16 +645,16 @@ function _toPrimitive(input, hint) {
                   a,
                   i,
                   s,
-                  r,
+                  c,
                   _loop,
                   _l,
-                  c,
+                  r,
                   _h,
                   _m,
-                  d,
+                  o,
                   _loop2,
                   _v,
-                  o;
+                  d;
                 return _regeneratorRuntime().wrap(function _callee2$(
                   _context4
                 ) {
@@ -678,7 +678,7 @@ function _toPrimitive(input, hint) {
                             : ((n = _e2.Categories),
                               (a = _e2.Offers),
                               (i = _e2.Products));
-                        (s = ""), (r = "");
+                        (s = ""), (c = "");
                         _loop = /*#__PURE__*/ _regeneratorRuntime().mark(
                           function _loop() {
                             var u, p;
@@ -704,7 +704,7 @@ function _toPrimitive(input, hint) {
                                         u.image,
                                         '" />\n          </a>\n      '
                                       )),
-                                      (r +=
+                                      (c +=
                                         "\n      <div class='dot' id='d".concat(
                                           _l + 1,
                                           "'></div>\n      "
@@ -729,10 +729,10 @@ function _toPrimitive(input, hint) {
                         _context4.next = 11;
                         break;
                       case 16:
-                        c = "";
+                        r = "";
                         for (_h = 0; _h < n.length; _h++) {
                           _m = n[_h];
-                          c += "\n      <div class='category' key=\""
+                          r += "\n      <div class='category' key=\""
                             .concat(
                               _h,
                               '">\n        <a data-link href="/category/'
@@ -741,10 +741,10 @@ function _toPrimitive(input, hint) {
                             .concat(_m.image, '" />\n        </a>\n        <p>')
                             .concat(_m.name, "</p>\n      </div>\n      ");
                         }
-                        d = "";
+                        o = "";
                         _loop2 = /*#__PURE__*/ _regeneratorRuntime().mark(
                           function _loop2() {
-                            var b, f, g, y;
+                            var f, b, g, y;
                             return _regeneratorRuntime().wrap(function _loop2$(
                               _context3
                             ) {
@@ -752,74 +752,74 @@ function _toPrimitive(input, hint) {
                                 switch ((_context3.prev = _context3.next)) {
                                   case 0:
                                     g = function _g() {
-                                      return b.offer > 0
+                                      return f.offer > 0
                                         ? '<p class="price offer">'
                                             .concat(
-                                              b.price + b.offer,
+                                              f.price + f.offer,
                                               ' \u062C</p>\n            <p class="price">'
                                             )
                                             .concat(
-                                              b.price,
+                                              f.price,
                                               " \u062C</p>\n            "
                                             )
                                         : '<p class="price">'.concat(
-                                            b.price,
+                                            f.price,
                                             " \u062C</p>"
                                           );
                                     };
-                                    f = function _f() {
+                                    b = function _b() {
                                       var t = "product";
                                       return (
-                                        1 !== b.available &&
-                                          0 == b.inStock &&
+                                        1 !== f.available &&
+                                          0 == f.inStock &&
                                           (t += " notavailable"),
-                                        b.offer > 0 && (t += " offer"),
+                                        f.offer > 0 && (t += " offer"),
                                         t
                                       );
                                     };
-                                    b = i[_v];
-                                    y = b.name.substr(0, 20);
-                                    d += "\n      <div class='"
-                                      .concat(f(), "' id='")
-                                      .concat(b.id, "' key='")
+                                    f = i[_v];
+                                    y = f.name.substr(0, 20);
+                                    o += "\n      <div class='"
+                                      .concat(b(), "' id='")
+                                      .concat(f.id, "' key='")
                                       .concat(
                                         _v,
                                         '\'>\n        <input type="hidden" value="'
                                       )
                                       .concat(
-                                        b.id,
+                                        f.id,
                                         '" id="productId" />\n        <input type="hidden" value="'
                                       )
                                       .concat(
-                                        b.name,
+                                        f.name,
                                         '" id="productName" />\n        <input type="hidden" value="'
                                       )
                                       .concat(
-                                        b.image,
+                                        f.image,
                                         '" id="productImage" />\n        <input type="hidden" value="'
                                       )
                                       .concat(
-                                        b.price,
+                                        f.price,
                                         '" id="productPrice" />\n        <input type="hidden" value="'
                                       )
                                       .concat(
-                                        b.inStock,
+                                        f.inStock,
                                         '" id="productInStock" />\n        <input type="hidden" value="1" id="productQuantity" />\n        <button id=\'addtocart\' onclick="addItemToCart('
                                       )
                                       .concat(
-                                        b.id,
+                                        f.id,
                                         ")\"><i class='bx bxs-cart-download'></i></button>\n        <button id='addtofav' onclick='addToFav("
                                       )
                                       .concat(
-                                        b.id,
+                                        f.id,
                                         ")'><i class=\"bx bxs-heart\"></i></button>\n        <a href='/product/"
                                       )
                                       .concat(
-                                        b.id,
+                                        f.id,
                                         "' data-link>\n            <img class='image' src='/static"
                                       )
                                       .concat(
-                                        b.image,
+                                        f.image,
                                         "' />\n          <div class='body'>\n            <p>"
                                       )
                                       .concat(
@@ -847,21 +847,21 @@ function _toPrimitive(input, hint) {
                         _context4.next = 21;
                         break;
                       case 26:
-                        o =
+                        d =
                           '\n       <div class="wrapper">\n    <div class="carousel">\n    '
                             .concat(
                               s,
                               "\n    </div>\n    <div class='dots'>\n    "
                             )
                             .concat(
-                              r,
+                              c,
                               "\n    </div>\n    </div>\n    <div class='container'>\n    "
                             )
                             .concat(
-                              c,
+                              r,
                               '\n    </div>\n    <div class="containerProducts">\n    '
                             )
-                            .concat(d, "\n    </div>\n    ");
+                            .concat(o, "\n    </div>\n    ");
                         return _context4.abrupt(
                           "return",
                           (localStorage.getItem("cart") ||
@@ -884,7 +884,7 @@ function _toPrimitive(input, hint) {
                                 document.head.appendChild(n);
                             }),
                           loading(!1),
-                          o)
+                          d)
                         );
                       case 28:
                       case "end":
@@ -1547,12 +1547,12 @@ function _toPrimitive(input, hint) {
       ]);
       return s;
     })(t),
-    r = /*#__PURE__*/ (function (_t14) {
-      _inherits(r, _t14);
-      var _super6 = _createSuper(r);
-      function r(t, e) {
+    c = /*#__PURE__*/ (function (_t14) {
+      _inherits(c, _t14);
+      var _super6 = _createSuper(c);
+      function c(t, e) {
         var _this6;
-        _classCallCheck(this, r);
+        _classCallCheck(this, c);
         _this6 = _super6.call(this, t, e);
         var n = decodeURI(t.name);
         (_this6.category = n),
@@ -1560,7 +1560,7 @@ function _toPrimitive(input, hint) {
           _this6.setStyle("/static/css/company.css");
         return _this6;
       }
-      _createClass(r, [
+      _createClass(c, [
         {
           key: "getHtml",
           value: (function () {
@@ -1705,20 +1705,20 @@ function _toPrimitive(input, hint) {
           })(),
         },
       ]);
-      return r;
+      return c;
     })(t),
-    c = /*#__PURE__*/ (function (_t15) {
-      _inherits(c, _t15);
-      var _super7 = _createSuper(c);
-      function c(t, e) {
+    r = /*#__PURE__*/ (function (_t15) {
+      _inherits(r, _t15);
+      var _super7 = _createSuper(r);
+      function r(t, e) {
         var _this7;
-        _classCallCheck(this, c);
+        _classCallCheck(this, r);
         (_this7 = _super7.call(this, t, e)),
           _this7.setTitle("My Cart"),
           _this7.setStyle("/static/css/cart.css");
         return _this7;
       }
-      _createClass(c, [
+      _createClass(r, [
         {
           key: "getHtml",
           value: (function () {
@@ -1856,21 +1856,21 @@ function _toPrimitive(input, hint) {
           })(),
         },
       ]);
-      return c;
+      return r;
     })(t),
-    d = /*#__PURE__*/ (function (_t17) {
-      _inherits(d, _t17);
-      var _super8 = _createSuper(d);
-      function d(t, e) {
+    o = /*#__PURE__*/ (function (_t17) {
+      _inherits(o, _t17);
+      var _super8 = _createSuper(o);
+      function o(t, e) {
         var _this8;
-        _classCallCheck(this, d);
+        _classCallCheck(this, o);
         (_this8 = _super8.call(this, t, e)),
           (_this8.auth = e),
           _this8.setTitle("Login"),
           _this8.setStyle("/static/css/login.css");
         return _this8;
       }
-      _createClass(d, [
+      _createClass(o, [
         {
           key: "getHtml",
           value: (function () {
@@ -1928,21 +1928,21 @@ function _toPrimitive(input, hint) {
           })(),
         },
       ]);
-      return d;
+      return o;
     })(t),
-    o = /*#__PURE__*/ (function (_t18) {
-      _inherits(o, _t18);
-      var _super9 = _createSuper(o);
-      function o(t, e) {
+    d = /*#__PURE__*/ (function (_t18) {
+      _inherits(d, _t18);
+      var _super9 = _createSuper(d);
+      function d(t, e) {
         var _this9;
-        _classCallCheck(this, o);
+        _classCallCheck(this, d);
         (_this9 = _super9.call(this, t, e)),
           (_this9.auth = e),
           _this9.setTitle("Register"),
           _this9.setStyle("/static/css/login.css");
         return _this9;
       }
-      _createClass(o, [
+      _createClass(d, [
         {
           key: "getHtml",
           value: (function () {
@@ -2000,7 +2000,7 @@ function _toPrimitive(input, hint) {
           })(),
         },
       ]);
-      return o;
+      return d;
     })(t),
     l = /*#__PURE__*/ (function (_t19) {
       _inherits(l, _t19);
@@ -2451,105 +2451,165 @@ function _toPrimitive(input, hint) {
           value: (function () {
             var _getHtml15 = _asyncToGenerator(
               /*#__PURE__*/ _regeneratorRuntime().mark(function _callee15() {
-                var t, e;
+                var t, e, n, a, _loop3, _t26, i;
                 return _regeneratorRuntime().wrap(function _callee15$(
-                  _context17
+                  _context18
                 ) {
                   while (1)
-                    switch ((_context17.prev = _context17.next)) {
+                    switch ((_context18.prev = _context18.next)) {
                       case 0:
                         loading(!0);
-                        _context17.next = 3;
+                        _context18.next = 3;
                         return fetch(
                           "https://smarket-api-5o9n.onrender.com/offers"
                         );
                       case 3:
-                        t = _context17.sent;
-                        _context17.next = 6;
+                        t = _context18.sent;
+                        _context18.next = 6;
                         return t.json();
                       case 6:
-                        e = _context17.sent
+                        e = _context18.sent;
+                        n = [];
+                        a = e.Offers ? e.Offers.products : e.products;
+                        _loop3 = /*#__PURE__*/ _regeneratorRuntime().mark(
+                          function _loop3() {
+                            var e, _t27, _a4;
+                            return _regeneratorRuntime().wrap(function _loop3$(
+                              _context17
+                            ) {
+                              while (1)
+                                switch ((_context17.prev = _context17.next)) {
+                                  case 0:
+                                    e = a[_t26];
+                                    n.find(function (t) {
+                                      return t.name === e.category;
+                                    }) ||
+                                      n.push({
+                                        name: e.category,
+                                        products: [],
+                                      });
+                                    for (_t27 = 0; _t27 < n.length; _t27++) {
+                                      _a4 = n[_t27];
+                                      e.category === _a4.name &&
+                                        _a4.products.push(e);
+                                    }
+                                  case 3:
+                                  case "end":
+                                    return _context17.stop();
+                                }
+                            },
+                            _loop3);
+                          }
+                        );
+                        _t26 = 0;
+                      case 11:
+                        if (!(_t26 < a.length)) {
+                          _context18.next = 16;
+                          break;
+                        }
+                        return _context18.delegateYield(_loop3(), "t0", 13);
+                      case 13:
+                        _t26++;
+                        _context18.next = 11;
+                        break;
+                      case 16:
+                        i = n
                           .map(function (t, e) {
-                            var n = t.name.substr(0, 20);
-                            return "\n      <div class='"
-                              .concat(
-                                (function () {
-                                  var e = "product";
-                                  return (
-                                    1 !== t.available &&
-                                      0 == t.inStock &&
-                                      (e += " notavailable"),
-                                    t.offer > 0 && (e += " offer"),
-                                    e
+                            var n = t.products
+                              .map(function (t, e) {
+                                var n = t.name.substr(0, 20);
+                                return "\n      <div class='"
+                                  .concat(
+                                    (function () {
+                                      var e = "Product";
+                                      return (
+                                        1 !== t.available &&
+                                          0 == t.inStock &&
+                                          (e += " Notavailable"),
+                                        t.offer > 0 && (e += " offer"),
+                                        e
+                                      );
+                                    })(),
+                                    "' id='"
+                                  )
+                                  .concat(t.id, "' key='")
+                                  .concat(
+                                    e,
+                                    '\'>\n        <input type="hidden" value="'
+                                  )
+                                  .concat(
+                                    t.id,
+                                    '" id="productId" />\n        <input type="hidden" value="'
+                                  )
+                                  .concat(
+                                    t.name,
+                                    '" id="productName" />\n        <input type="hidden" value="'
+                                  )
+                                  .concat(
+                                    t.image,
+                                    '" id="productImage" />\n        <input type="hidden" value="'
+                                  )
+                                  .concat(
+                                    t.price,
+                                    '" id="productPrice" />\n        <input type="hidden" value="'
+                                  )
+                                  .concat(
+                                    t.inStock,
+                                    '" id="productInStock" />\n        <input type="hidden" value="1" id="productQuantity" />\n        <button id=\'addtocart\' onclick="addItemToCart('
+                                  )
+                                  .concat(
+                                    t.id,
+                                    ")\"><i class='bx bxs-cart-download'></i></button>\n        <button id='addtofav' onclick='addToFav("
+                                  )
+                                  .concat(
+                                    t.id,
+                                    ")'><i class=\"bx bxs-heart\"></i></button>\n        <a href='/product/"
+                                  )
+                                  .concat(
+                                    t.id,
+                                    "' data-link>\n            <img class='image' src='/static/"
+                                  )
+                                  .concat(
+                                    t.image,
+                                    "' />\n          <div class='body'>\n            <p>"
+                                  )
+                                  .concat(
+                                    n,
+                                    "</p>\n          </div>\n        </a>\n        "
+                                  )
+                                  .concat(
+                                    t.offer > 0
+                                      ? '<p class="price offer">'
+                                          .concat(
+                                            t.price + t.offer,
+                                            ' \u062C</p>\n            <p class="price">'
+                                          )
+                                          .concat(
+                                            t.price,
+                                            " \u062C</p>\n            "
+                                          )
+                                      : '<p class="price">'.concat(
+                                          t.price,
+                                          " \u062C</p>"
+                                        ),
+                                    "\n      </div>\n      "
                                   );
-                                })(),
-                                "' id='"
-                              )
-                              .concat(t.id, "' key='")
-                              .concat(
-                                e,
-                                '\'>\n        <input type="hidden" value="'
-                              )
-                              .concat(
-                                t.id,
-                                '" id="productId" />\n        <input type="hidden" value="'
-                              )
+                              })
+                              .join("");
+                            return '\n      <div class="category">\n        <h3>'
+                              .concat(t.name, '</h3>\n        <div id="')
                               .concat(
                                 t.name,
-                                '" id="productName" />\n        <input type="hidden" value="'
+                                '" class="CategoryProducts" key="'
                               )
-                              .concat(
-                                t.image,
-                                '" id="productImage" />\n        <input type="hidden" value="'
-                              )
-                              .concat(
-                                t.price,
-                                '" id="productPrice" />\n        <input type="hidden" value="'
-                              )
-                              .concat(
-                                t.inStock,
-                                '" id="productInStock" />\n        <input type="hidden" value="1" id="productQuantity" />\n        <button id=\'addtocart\' onclick="addItemToCart('
-                              )
-                              .concat(
-                                t.id,
-                                ")\"><i class='bx bxs-cart-download'></i></button>\n        <button id='addtofav' onclick='addToFav("
-                              )
-                              .concat(
-                                t.id,
-                                ")'><i class=\"bx bxs-heart\"></i></button>\n        <a href='/product/"
-                              )
-                              .concat(
-                                t.id,
-                                "' data-link>\n            <img class='image' src='/static/"
-                              )
-                              .concat(
-                                t.image,
-                                "' />\n          <div class='body'>\n            <p>"
-                              )
+                              .concat(e, '">\n          ')
                               .concat(
                                 n,
-                                "</p>\n          </div>\n        </a>\n        "
-                              )
-                              .concat(
-                                t.offer > 0
-                                  ? '<p class="price offer">'
-                                      .concat(
-                                        t.price + t.offer,
-                                        ' \u062C</p>\n            <p class="price">'
-                                      )
-                                      .concat(
-                                        t.price,
-                                        " \u062C</p>\n            "
-                                      )
-                                  : '<p class="price">'.concat(
-                                      t.price,
-                                      " \u062C</p>"
-                                    ),
-                                "\n      </div>\n      "
+                                "\n        </div>\n      </div>\n      "
                               );
                           })
                           .join("");
-                        return _context17.abrupt(
+                        return _context18.abrupt(
                           "return",
                           (fetch("/static/siteJs/compony.js")
                             .then(function (t) {
@@ -2570,14 +2630,11 @@ function _toPrimitive(input, hint) {
                                 document.head.appendChild(n);
                             }),
                           loading(!1),
-                          " <div class='containerProducts'>\n     ".concat(
-                            e,
-                            "\n    </div>"
-                          ))
+                          "".concat(i))
                         );
-                      case 8:
+                      case 18:
                       case "end":
-                        return _context17.stop();
+                        return _context18.stop();
                     }
                 },
                 _callee15);
@@ -2592,16 +2649,257 @@ function _toPrimitive(input, hint) {
       ]);
       return m;
     })(t),
-    v = function v(t) {
+    v = /*#__PURE__*/ (function (_t28) {
+      _inherits(v, _t28);
+      var _super15 = _createSuper(v);
+      function v(t, e) {
+        var _this15;
+        _classCallCheck(this, v);
+        (_this15 = _super15.call(this, t, e)),
+          (_this15.auth = e),
+          _this15.setTitle("my Favourite"),
+          _this15.setStyle("/static/css/company.css");
+        return _this15;
+      }
+      _createClass(v, [
+        {
+          key: "getHtml",
+          value: (function () {
+            var _getHtml16 = _asyncToGenerator(
+              /*#__PURE__*/ _regeneratorRuntime().mark(function _callee16() {
+                var _t29, _e8, n, _loop4, _t30, a;
+                return _regeneratorRuntime().wrap(
+                  function _callee16$(_context20) {
+                    while (1)
+                      switch ((_context20.prev = _context20.next)) {
+                        case 0:
+                          if (!(loading(!0), this.auth)) {
+                            _context20.next = 19;
+                            break;
+                          }
+                          if (!localStorage.getItem("AuthToken")) {
+                            _context20.next = 18;
+                            break;
+                          }
+                          _context20.next = 4;
+                          return fetch(
+                            "https://smarket-api-5o9n.onrender.com/foryou",
+                            {
+                              method: "post",
+                              body: JSON.stringify({
+                                authToken: localStorage.getItem("AuthToken"),
+                              }),
+                            }
+                          );
+                        case 4:
+                          _t29 = _context20.sent;
+                          _e8 = [];
+                          _context20.next = 8;
+                          return _t29.json();
+                        case 8:
+                          n = _context20.sent.Products;
+                          _loop4 = /*#__PURE__*/ _regeneratorRuntime().mark(
+                            function _loop4() {
+                              var a, _t31, _n;
+                              return _regeneratorRuntime().wrap(
+                                function _loop4$(_context19) {
+                                  while (1)
+                                    switch (
+                                      (_context19.prev = _context19.next)
+                                    ) {
+                                      case 0:
+                                        a = n[_t30];
+                                        _e8.find(function (t) {
+                                          return t.name === a.category;
+                                        }) ||
+                                          _e8.push({
+                                            name: a.category,
+                                            products: [],
+                                          });
+                                        for (
+                                          _t31 = 0;
+                                          _t31 < _e8.length;
+                                          _t31++
+                                        ) {
+                                          _n = _e8[_t31];
+                                          a.category === _n.name &&
+                                            _n.products.push(a);
+                                        }
+                                      case 3:
+                                      case "end":
+                                        return _context19.stop();
+                                    }
+                                },
+                                _loop4
+                              );
+                            }
+                          );
+                          _t30 = 0;
+                        case 11:
+                          if (!(_t30 < n.length)) {
+                            _context20.next = 16;
+                            break;
+                          }
+                          return _context20.delegateYield(_loop4(), "t0", 13);
+                        case 13:
+                          _t30++;
+                          _context20.next = 11;
+                          break;
+                        case 16:
+                          a = _e8
+                            .map(function (t, e) {
+                              var n = t.products
+                                .map(function (t, e) {
+                                  var n = t.name.substr(0, 20);
+                                  return "\n      <div class='"
+                                    .concat(
+                                      (function () {
+                                        var e = "Product";
+                                        return (
+                                          1 !== t.available &&
+                                            0 == t.inStock &&
+                                            (e += " Notavailable"),
+                                          t.offer > 0 && (e += " offer"),
+                                          e
+                                        );
+                                      })(),
+                                      "' id='"
+                                    )
+                                    .concat(t.id, "' key='")
+                                    .concat(
+                                      e,
+                                      '\'>\n        <input type="hidden" value="'
+                                    )
+                                    .concat(
+                                      t.id,
+                                      '" id="productId" />\n        <input type="hidden" value="'
+                                    )
+                                    .concat(
+                                      t.name,
+                                      '" id="productName" />\n        <input type="hidden" value="'
+                                    )
+                                    .concat(
+                                      t.image,
+                                      '" id="productImage" />\n        <input type="hidden" value="'
+                                    )
+                                    .concat(
+                                      t.price,
+                                      '" id="productPrice" />\n        <input type="hidden" value="'
+                                    )
+                                    .concat(
+                                      t.inStock,
+                                      '" id="productInStock" />\n        <input type="hidden" value="1" id="productQuantity" />\n        <button id=\'addtocart\' onclick="addItemToCart('
+                                    )
+                                    .concat(
+                                      t.id,
+                                      ")\"><i class='bx bxs-cart-download'></i></button>\n        <button id='addtofav' onclick='addToFav("
+                                    )
+                                    .concat(
+                                      t.id,
+                                      ")'><i class=\"bx bxs-heart\"></i></button>\n        <a href='/product/"
+                                    )
+                                    .concat(
+                                      t.id,
+                                      "' data-link>\n            <img class='image' src='/static/"
+                                    )
+                                    .concat(
+                                      t.image,
+                                      "' />\n          <div class='body'>\n            <p>"
+                                    )
+                                    .concat(
+                                      n,
+                                      "</p>\n          </div>\n        </a>\n        "
+                                    )
+                                    .concat(
+                                      t.offer > 0
+                                        ? '<p class="price offer">'
+                                            .concat(
+                                              t.price + t.offer,
+                                              ' \u062C</p>\n            <p class="price">'
+                                            )
+                                            .concat(
+                                              t.price,
+                                              " \u062C</p>\n            "
+                                            )
+                                        : '<p class="price">'.concat(
+                                            t.price,
+                                            " \u062C</p>"
+                                          ),
+                                      "\n      </div>\n      "
+                                    );
+                                })
+                                .join("");
+                              return '\n      <div class="category">\n        <h3>'
+                                .concat(t.name, '</h3>\n        <div id="')
+                                .concat(
+                                  t.name,
+                                  '" class="CategoryProducts" key="'
+                                )
+                                .concat(e, '">\n          ')
+                                .concat(
+                                  n,
+                                  "\n        </div>\n      </div>\n      "
+                                );
+                            })
+                            .join("");
+                          return _context20.abrupt(
+                            "return",
+                            (fetch("/static/siteJs/compony.js")
+                              .then(function (t) {
+                                return !!t.ok && t.blob();
+                              })
+                              .then(function (t) {
+                                var e = URL.createObjectURL(t);
+                                document
+                                  .querySelectorAll("[data-script]")
+                                  .forEach(function (t) {
+                                    t.src !== e && document.head.removeChild(t);
+                                  });
+                                var n = document.createElement("script");
+                                n.setAttribute("src", e),
+                                  n.setAttribute("defer", ""),
+                                  n.setAttribute("data-script", ""),
+                                  n.setAttribute("type", "text/javascript"),
+                                  document.head.appendChild(n);
+                              }),
+                            loading(!1),
+                            "".concat(a))
+                          );
+                        case 18:
+                          return _context20.abrupt(
+                            "return",
+                            (loading(!1),
+                            "\n          <div class='notLoginPop'>\n            <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n            <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n            <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n            <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n          </div>\n        ")
+                          );
+                        case 19:
+                        case "end":
+                          return _context20.stop();
+                      }
+                  },
+                  _callee16,
+                  this
+                );
+              })
+            );
+            function getHtml() {
+              return _getHtml16.apply(this, arguments);
+            }
+            return getHtml;
+          })(),
+        },
+      ]);
+      return v;
+    })(t),
+    f = function f(t) {
       history.pushState(null, null, t), b();
     },
     b = /*#__PURE__*/ (function () {
       var _ref = _asyncToGenerator(
-        /*#__PURE__*/ _regeneratorRuntime().mark(function _callee16() {
-          var t, v, b;
-          return _regeneratorRuntime().wrap(function _callee16$(_context18) {
+        /*#__PURE__*/ _regeneratorRuntime().mark(function _callee17() {
+          var t, f, b;
+          return _regeneratorRuntime().wrap(function _callee17$(_context21) {
             while (1)
-              switch ((_context18.prev = _context18.next)) {
+              switch ((_context21.prev = _context21.next)) {
                 case 0:
                   t = [
                     {
@@ -2611,17 +2909,17 @@ function _toPrimitive(input, hint) {
                     },
                     {
                       path: "/cart",
-                      view: c,
+                      view: r,
                       auth: !1,
                     },
                     {
                       path: "/login",
-                      view: d,
+                      view: o,
                       auth: !1,
                     },
                     {
                       path: "/register",
-                      view: o,
+                      view: d,
                       auth: !1,
                     },
                     {
@@ -2641,7 +2939,7 @@ function _toPrimitive(input, hint) {
                     },
                     {
                       path: "/category/:name",
-                      view: r,
+                      view: c,
                       auth: !1,
                     },
                     {
@@ -2674,8 +2972,13 @@ function _toPrimitive(input, hint) {
                       view: h,
                       auth: !0,
                     },
+                    {
+                      path: "/foryou",
+                      view: v,
+                      auth: !0,
+                    },
                   ];
-                  v = t
+                  f = t
                     .map(function (t) {
                       return {
                         route: t,
@@ -2693,12 +2996,12 @@ function _toPrimitive(input, hint) {
                     .find(function (t) {
                       return null !== t.result;
                     });
-                  v ||
-                    (v = {
+                  f ||
+                    (f = {
                       route: t[0],
                       result: [location.pathname],
                     });
-                  b = new v.route.view(
+                  b = new f.route.view(
                     (function (t) {
                       var e = t.result.slice(1),
                         n = Array.from(t.route.path.matchAll(/:(\w+)/g)).map(
@@ -2711,30 +3014,30 @@ function _toPrimitive(input, hint) {
                           return [t, e[n]];
                         })
                       );
-                    })(v),
-                    v.route.auth
+                    })(f),
+                    f.route.auth
                   );
-                  if (!v.route.auth) {
-                    _context18.next = 11;
+                  if (!f.route.auth) {
+                    _context21.next = 11;
                     break;
                   }
                   localStorage.getItem("AuthToken");
-                  _context18.next = 8;
+                  _context21.next = 8;
                   return b.getHtml();
                 case 8:
-                  document.querySelector("#app").innerHTML = _context18.sent;
-                  _context18.next = 14;
+                  document.querySelector("#app").innerHTML = _context21.sent;
+                  _context21.next = 14;
                   break;
                 case 11:
-                  _context18.next = 13;
+                  _context21.next = 13;
                   return b.getHtml();
                 case 13:
-                  document.querySelector("#app").innerHTML = _context18.sent;
+                  document.querySelector("#app").innerHTML = _context21.sent;
                 case 14:
                 case "end":
-                  return _context18.stop();
+                  return _context21.stop();
               }
-          }, _callee16);
+          }, _callee17);
         })
       );
       return function b() {
@@ -2745,9 +3048,9 @@ function _toPrimitive(input, hint) {
     document.addEventListener("DOMContentLoaded", function () {
       document.body.addEventListener("click", function (t) {
         t.target.matches("[data-link]")
-          ? (t.preventDefault(), v(t.target.href))
+          ? (t.preventDefault(), f(t.target.href))
           : t.target.parentElement.matches("[data-link]") &&
-            (t.preventDefault(), v(t.target.parentElement.href));
+            (t.preventDefault(), f(t.target.parentElement.href));
       }),
         b();
     });
