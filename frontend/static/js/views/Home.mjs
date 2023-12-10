@@ -3,13 +3,19 @@ import AbstractViews from "./AbstractViews.mjs";
 export default class extends AbstractViews {
   constructor(params, auth) {
     super(params, auth);
-    this.setTitle("smarket");
+    this.setTitle("Alwadi | Home");
     this.setStyle("/static/css/index.css");
   }
 
   async getHtml() {
     loading(true);
-    const response = await fetch("https://smarket-api-5o9n.onrender.com/");
+    if (localStorage.getItem("home")) {
+      localStorage.removeItem("home");
+      location.reload();
+    } else {
+      localStorage.setItem("home", "loded");
+    }
+    const response = await fetch("http://192.168.1.5:5500/");
 
     const data = await response.json();
 
@@ -28,16 +34,12 @@ export default class extends AbstractViews {
     let mappedOfferDot = "";
     for (let index = 0; index < Offers.length; index++) {
       const offer = Offers[index];
-      function isProduct() {
-        if (offer.product !== null) {
-          return "/product/" + offer.product;
-        } else {
-          return "/compony/" + offer.company;
-        }
-      }
+
+      const imageId = "https://drive.google.com/uc?export=view&id=" + offer.Image.split("/")[5];
+
       mappedOfferImage += `
-          <a data-link href='${isProduct()}' key='${index}'>
-            <img id='carousel' src="/static${offer.image}" />
+          <a data-link href='/product/${offer.Id}' key='${index}'>
+            <img id='carousel' src="${imageId}" />
           </a>
       `;
 
@@ -50,12 +52,15 @@ export default class extends AbstractViews {
 
     for (let index = 0; index < Categories.length; index++) {
       const category = Categories[index];
+
+      const imageId = "https://drive.google.com/uc?export=view&id=" + category.Image.split("/")[5];
+
       mappedCategories += `
       <div class='category' key="${index}">
-        <a data-link href="/category/${category.name}">
-          <img src="/static${category.image}" />
+        <a data-link href="/category/${category.Name}">
+          <img src="${imageId}" />
         </a>
-        <p>${category.name}</p>
+        <p>${category.Name}</p>
       </div>
       `;
     }
@@ -66,45 +71,40 @@ export default class extends AbstractViews {
       const product = Products[index];
       function isAvailable() {
         let ava = "product";
-        if (product.available !== 1 && product.inStock == 0) {
+        if (product.Available !== 1) {
           ava += " notavailable";
         } else {
           ava;
         }
-        if (product.offer > 0) {
+        if (product.Offer > 0) {
           ava += " offer";
         }
         return ava;
       }
 
       function isOffer() {
-        if (product.offer > 0) {
-          return `<p class="price offer">${product.price + product.offer} ج</p>
-            <p class="price">${product.price} ج</p>
+        if (product.Offer > 0) {
+          return `<p class="price offer">${product.Price + product.Offer} ج</p>
+            <p class="price">${product.Price} ج</p>
             `;
         } else {
-          return `<p class="price">${product.price} ج</p>`;
+        return `<p class="price">${product.Price} ج</p>`;
         }
       }
-      let name = product.name.substr(0, 20);
+
+      const name = product.Name.substr(0, 17) + "...";
+
+      const imageId = "https://drive.google.com/uc?export=view&id=" + product.Image.split("/")[5];
+
       mappedProducts += `
-      <div class='${isAvailable()}' id='${product.id}' key='${index}'>
-        <input type="hidden" value="${product.id}" id="productId" />
-        <input type="hidden" value="${product.name}" id="productName" />
-        <input type="hidden" value="${product.image}" id="productImage" />
-        <input type="hidden" value="${product.price}" id="productPrice" />
-        <input type="hidden" value="${product.inStock}" id="productInStock" />
-        <input type="hidden" value="1" id="productQuantity" />
-        <button id='addtocart' onclick="addItemToCart(${
-          product.id
-        })"><i class='bx bxs-cart-download'></i></button>
-        <button id='addtofav' onclick='addToFav(${
-          product.id
-        })'><i class="bx bxs-heart"></i></button>
-        <a href='/product/${product.id}' data-link>
-            <img class='image' src='/static${product.image}' />
+      <div class='${isAvailable()}' id='${product.Id}' key='${index}'>
+        <button id='addtofav' onclick='addToFav(${product.Id})'>
+        <i class="bx bxs-heart"></i>
+        </button>
+        <a href='/product/${product.Id}' data-link>
+            <img class='image' src='${imageId}' />
           <div class='body'>
-            <p>${name.substr(0, 24)}</p>
+            <p>${name}</p>
           </div>
         </a>
         ${isOffer()}
@@ -150,7 +150,11 @@ export default class extends AbstractViews {
         sc.setAttribute("src", objectURL);
         sc.setAttribute("data-script", "");
         sc.setAttribute("type", "text/javascript");
+
         document.head.appendChild(sc);
+        sc.onload = () => {
+          URL.revokeObjectURL(objectURL);
+        };
       });
     loading(false);
     return page;

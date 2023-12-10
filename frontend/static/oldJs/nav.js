@@ -26,12 +26,13 @@ quantityInCart.setAttribute("id", "count");
 
 function cartLength() {
   const Thecart = JSON.parse(localStorage.getItem("cart"));
-  let length = 0;
+  var length = 0;
   if (Thecart.length > 0) {
-    length = Thecart.reduce((acc, curr) => {
-      return acc + curr.quantity;
-    }, 0);
+    Thecart.forEach(p => {
+      length += parseInt(p.quantity);
+    });
   }
+  console.log(length)
   if (width >= 551) {
     if (length !== 0) {
       quantityInCart.innerHTML = length;

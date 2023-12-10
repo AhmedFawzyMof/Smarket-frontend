@@ -4,50 +4,76 @@ export default class extends AbstractViews {
   constructor(params, auth) {
     super(params, auth);
     this.auth = auth;
-    this.setTitle("my Orders");
+    this.setTitle("Alwadi | تاريخ الطلب");
     this.setStyle("/static/css/orderHistory.css");
   }
   async getHtml() {
     loading(true);
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
-        const response = await fetch(
-          "https://smarket-api-5o9n.onrender.com/orderhistory",
-          {
-            method: "post",
-            body: JSON.stringify({
-              authToken: localStorage.getItem("AuthToken"),
-            }),
-          }
-        );
+        const response = await fetch("http://192.168.1.5:5500/orderhistory", {
+          method: "post",
+          body: JSON.stringify({
+            token: localStorage.getItem("AuthToken"),
+          }),
+        });
 
         const data = await response.json();
-        const products = data.Products;
-        const orders = data.Order;
+        const orders = data.Orders;
 
-        if (orders === null) {
-          loading(false);
-          return `
-          <div class='noOrders'>
-            <div class='icons'><i class='bx bxs-package'></i><i class='bx bx-sad' ></i></div>
-            <div class='links'>
-              <p>لا توجد طلبات حتى الآن</p>
-              <a href="/" data-link>الرئيسية</a>
-            </div>
-          </div>
-          `;
-        }
-        for (let j = 0; j < orders.length; j++) {
-          const order = orders[j];
-          Object.assign(order, { cart: [] });
-
-          for (let index = 0; index < products.length; index++) {
-            const product = products[index];
-            if (order.id === product.order) {
-              order.cart.push(product);
+        const mapedOrders = orders.map((o) => {
+          function IsConfirmed() {
+            if (o.Confirmed == 1) {
+              return `<p class="cancel off">الغاء الطلب</p>`;
+            } else {
+              return `<button class="cancel" onclick="CancelOrder('${o.Id}', ${o.Confirmed})">الغاء الطلب</button>`;
             }
           }
-        }
+          function Confirmed() {
+            if (o.Confirmed == 1) {
+              return `نعم`;
+            } else {
+              return `لا`;
+            }
+          }
+          function Delivered() {
+            if (o.Delivered == 1) {
+              return `نعم`;
+            } else {
+              return `لا`;
+            }
+          }
+          function Paid() {
+            if (o.Paid == 1) {
+              return `نعم`;
+            } else {
+              return `لا`;
+            }
+          }
+
+          const id = o.Id.substr(0, 8);
+          const date = o.Date.replace("T", " ").replace(".", " ").substr(0, 20);
+          return `<div class="order">
+            <div class="TH">
+              <h3>رقم الطلب</h3>
+              <h3>التاريخ</h3>
+              <h3>طريقة الدفع</h3>
+              <h3>مدفوع</h3>
+              <h3>تم التوصيل</h3>
+              <h3>تم تأكيد</h3>
+              <a href="/order/${o.Id}">تفاصيل</a>
+            </div>
+            <div class="TB">
+              <p>${id}</p>
+              <p>${date}</p>
+              <p>${o.Method}</p>
+              <p>${Paid()}</p>
+              <p>${Delivered()}</p>
+              <p>${Confirmed()}</p>
+              ${IsConfirmed()}
+            </div>
+           </div>`;
+        });
 
         if (data.Error) {
           localStorage.removeItem("AuthToken");
@@ -60,90 +86,6 @@ export default class extends AbstractViews {
             window.location = "/";
           }, 2000);
         }
-        const mappedOrder = orders.map((order, index) => {
-          function isDilvered() {
-            if (order.delivered == 1) {
-              return `
-              <div class="Delivered True">
-                 تسليم الطلب: نعم
-              </div>`;
-            } else {
-              return `
-              <div class="Delivered">
-                 تسليم الطلب: لا
-              </div>`;
-            }
-          }
-          function isPaid() {
-            if (order.paid == 1) {
-              return `
-              <div class="Paid True">
-                 تم الدفع: نعم
-              </div>`;
-            } else {
-              return `
-              <div class="Paid">
-                 تم الدفع: لا
-              </div>`;
-            }
-          }
-          function isConfirmed() {
-            if (order.confirmed == 0) {
-              return `
-              <button class="cancel_order" onclick="CancelOrder('${order.id}', ${order.confirmed})">الغاء الطلب</button>
-              `;
-            } else {
-              return `
-              <div class="cancel_order">الغاء الطلب</div>
-              `;
-            }
-          }
-          function Total() {
-            let Total = 0;
-            order.cart.map((product) => {
-              Total += product.price * product.quantity;
-            });
-            return Total;
-          }
-          let orderId = order.id;
-          orderId = orderId.substr(0, 8);
-          let date = order.date.replace("T", " ").replace("Z", " ");
-          const mappedItems = order.cart
-            .map((product, index) => {
-              return `
-          <div class="orderitem" key="${index}">
-            <img src="/static/${product.image}" alt="${product.name}">
-            <div class="itemInfo">
-              <p>${product.name}</p>
-              <p>الكمية: ${product.quantity}</p>
-              <p>السعر: ${product.price} ج</p>
-              <p>السعر الإجمالي للمنتج: ${
-                product.price * product.quantity
-              } ج</p>
-            </div>
-          </div>
-        `;
-            })
-            .join("");
-          return `
-          <div class="orderRec" key="${index}">
-            ${isConfirmed()}
-        <p>معرف الطلب: ${orderId}</p>
-        <div class="date">
-          <p>
-            تاريخ الطلب:
-          </p>
-          <h4 dir="ltr" style="color: #b3b2b2">
-            ${date.substr([], 19)}
-          </h4>
-        </div>
-        <p>المجموع: ${Total()} ج</p>
-        ${mappedItems}
-          ${isDilvered()}
-          ${isPaid()}
-      </div>
-          `;
-        });
         fetch("/static/siteJs/orderHistory.js")
           .then(function (response) {
             if (!response.ok) {
@@ -164,10 +106,18 @@ export default class extends AbstractViews {
             sc.setAttribute("defer", "");
             sc.setAttribute("data-script", "");
             sc.setAttribute("type", "text/javascript");
+
             document.head.appendChild(sc);
+            sc.onload = () => {
+              URL.revokeObjectURL(objectURL);
+            };
           });
         loading(false);
-        return mappedOrder;
+        return `
+          <div class="table">
+          ${mapedOrders}
+          </div>
+        `;
       } else {
         loading(false);
         return `

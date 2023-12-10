@@ -71,10 +71,10 @@ button {
 }
 
 #productFunc {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
 }
 
 #productFunc #inc {
@@ -103,18 +103,28 @@ button {
   font-size: 20px;
 }
 
+#productFunc #quan {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
 .quantityDiv {
   display: flex;
   align-items: center;
   gap: 25px;
 }
-
 #productTotal {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 80% 20%;
+  gap: 5px;
+  place-content: center;
+  width: 100%;
 }
 
+#productTotal p {
+  display: grid;
+  place-items: center;
+}
 #productTotal button {
   direction: ltr;
   display: flex;

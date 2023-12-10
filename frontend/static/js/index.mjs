@@ -12,7 +12,8 @@ import OrderMethod from "./views/OrderMethod.mjs";
 import Order from "./views/Order.mjs";
 import OrderSuccess from "./views/OrderSuccess.mjs";
 import Offers from "./views/Offers.mjs";
-import Foryou from "./views/Foryou.mjs";
+import SubCategories from "./views/SubCategories.mjs";
+import OrderPage from "./views/OrderPage.mjs";
 
 const pathToRegex = (path) =>
   new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
@@ -45,13 +46,14 @@ const router = async () => {
     { path: "/product/:id", view: Product, auth: false },
     { path: "/compony/:name", view: Compony, auth: false },
     { path: "/category/:name", view: Category, auth: false },
+    { path: "/subcategory/:name", view: SubCategories, auth: false },
     { path: "/orderHistory", view: OrderHistory, auth: true },
     { path: "/fav", view: Favourite, auth: true },
     { path: "/offers", view: Offers, auth: false },
     { path: "/OrderMethod", view: OrderMethod, auth: true },
     { path: "/Order/:method", view: Order, auth: true },
     { path: "/order/success", view: OrderSuccess, auth: true },
-    { path: "/foryou", view: Foryou, auth: true },
+    { path: "/order/:id", view: OrderPage, auth: true },
   ];
 
   // Test each route for potential match

@@ -13,7 +13,6 @@ export default class extends AbstractViews {
       let width = screen.width;
 
       function Total() {
-
         const productTotal = Cart.reduce((acc, curr) => {
           return acc + curr.quantity * curr.price;
         }, 0);
@@ -32,23 +31,27 @@ export default class extends AbstractViews {
         return productTotal;
       }
       function productsIncart() {
+        const width = screen.width;
+        function isLong(product) {
+          if (width >= 551) {
+            return product.name;
+          } else {
+            return product.name.substr(0, 15) + "...";
+          }
+        }
         let Products = "";
         Cart.forEach((product) => {
-          function IsLong() {
-            if (product.name.length > 40) {
-              return `<h3>${
-                product.name.substr(0, product.name.length / 2) + "..."
-              }</h3> `;
-            } else {
-              return `<h3>${product.name}</h3> `;
-            }
-          }
+      const imageId = "https://drive.google.com/uc?export=view&id=" + product.image.split("/")[5];
+
           return (Products += `
         <div id='${product.id}' class='productB'>
-            <img src="/static${product.image}"/>
-            <a data-link href="/product/${product.id}">
-            ${IsLong()}
-            </a>
+            <img src="${imageId}"/>
+            <div class="ditails">
+              <a data-link href="/product/${product.id}">
+                ${isLong(product)}
+              </a>
+              <p class="weight">الوزن: ${product.size}</p>
+            </div>
             <div class='quantityDiv'>
                 <div id="productFunc">
                     <button id='inc' onclick='inc(${product.id})'>
@@ -61,9 +64,9 @@ export default class extends AbstractViews {
                 </div>
                 <div id="productTotal">
                     <p id='PT'>${product.price * product.quantity} ج<p>
-                    <button onclick="removeProduct(${
-                      product.id
-                    })"><i class='bx bxs-trash'></i></button>
+                    <button onclick="removeProduct(${product.id})">
+                    <i class='bx bxs-trash'></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -111,7 +114,11 @@ export default class extends AbstractViews {
           sc.setAttribute("src", objectURL);
           sc.setAttribute("data-script", "");
           sc.setAttribute("type", "text/javascript");
+
           document.head.appendChild(sc);
+          sc.onload = () => {
+            URL.revokeObjectURL(objectURL);
+          };
         });
       loading(false);
       return cartDiv;

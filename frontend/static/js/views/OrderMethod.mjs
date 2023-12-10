@@ -4,7 +4,7 @@ export default class extends AbstractViews {
   constructor(params, auth) {
     super(params, auth);
     this.auth = auth;
-    this.setTitle("Chose Method");
+    this.setTitle("Alwadi | الدفع");
     this.setStyle("/static/css/orderMethod.css");
   }
   async getHtml() {
@@ -31,7 +31,11 @@ export default class extends AbstractViews {
             sc.setAttribute("defer", "");
             sc.setAttribute("data-script", "");
             sc.setAttribute("type", "text/javascript");
+
             document.head.appendChild(sc);
+            sc.onload = () => {
+              URL.revokeObjectURL(objectURL);
+            };
           });
         loading(false);
         return `

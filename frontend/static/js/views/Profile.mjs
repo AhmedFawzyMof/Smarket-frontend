@@ -4,7 +4,7 @@ export default class extends AbstractViews {
   constructor(params, auth) {
     super(params, auth);
     this.auth = auth;
-    this.setTitle("my Profile");
+    this.setTitle("Alwadi | Profile");
     this.setStyle("/static/css/profile.css");
   }
   async getHtml() {
@@ -12,17 +12,15 @@ export default class extends AbstractViews {
       loading(true);
 
       if (localStorage.getItem("AuthToken")) {
-        const response = await fetch(
-          "https://smarket-api-5o9n.onrender.com/profile/get",
-          {
-            method: "post",
-            body: JSON.stringify({
-              authToken: localStorage.getItem("AuthToken"),
-            }),
-          }
-        );
+        const response = await fetch("http://192.168.1.5:5500/profile", {
+          method: "post",
+          body: JSON.stringify({
+            token: localStorage.getItem("AuthToken"),
+          }),
+        });
 
         const data = await response.json();
+        const user = data.User
         if (data.Error) {
           localStorage.removeItem("AuthToken");
           CreateToast({
@@ -54,13 +52,19 @@ export default class extends AbstractViews {
             sc.setAttribute("defer", "");
             sc.setAttribute("data-script", "");
             sc.setAttribute("type", "text/javascript");
+
             document.head.appendChild(sc);
+            sc.onload = () => {
+              URL.revokeObjectURL(objectURL);
+            };
           });
         loading(false);
         return `
           <div class="profile">
-            <p>الاسم: ${data.username}</p>
-            <p>بريد إلكتروني: ${data.email}</p>
+            <p>الاسم: ${user.Username}</p>
+            <p>بريد إلكتروني: ${user.Email}</p>
+            <p>رقم الهاتف: ${user.Phone}</p>
+            <p>الهاتف الاحتياطي: ${user.Spare_phone}</p>
             <button onclick="logout()">تسجيل خروج</button>
           </div>        
         `;

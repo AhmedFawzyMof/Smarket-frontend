@@ -7,10 +7,8 @@ function inc(productId) {
     const productDiv = document.getElementById(productId.toString());
     const PT = productDiv.querySelector("#PT");
     const quan = productDiv.querySelector("#quan");
-    if (inCart.quantity <= inCart.inStock - 1) {
+    if (inCart.quantity <= 20) {
       inCart.quantity += 1;
-    } else {
-      inCart.quantity = inCart.inStock;
     }
 
     localStorage.setItem("cart", JSON.stringify(Cart));
@@ -72,4 +70,13 @@ function removeProduct(Product) {
   Cart.splice(TheProduct.index, 1);
   localStorage.setItem("cart", JSON.stringify(Cart));
   location.reload();
+}
+
+let images = document.querySelectorAll("img");
+for (let i = 0; i < images.length; i++) {
+  let src = images[i].src;
+
+  if (src.startsWith("blob:")) {
+    URL.revokeObjectURL(src);
+  }
 }

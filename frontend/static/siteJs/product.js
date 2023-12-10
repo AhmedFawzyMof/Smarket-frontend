@@ -1,34 +1,77 @@
 "use strict";
 
-function addTo() {
-  var product = JSON.parse(document.getElementById("productId").value);
-  var productName = JSON.parse(document.getElementById("productName").value);
-  var productImage = JSON.parse(document.getElementById("productImage").value);
-  var productPrice = JSON.parse(document.getElementById("productPrice").value);
-  var productInStock = JSON.parse(document.getElementById("productInStock").value);
-  var quantity = JSON.parse(document.getElementById("quantity").value);
-  var item = {
-    id: product,
-    name: productName,
-    price: productPrice,
-    image: productImage,
-    inStock: productInStock,
-    quantity: quantity
+var labels = document.querySelectorAll(".types label");
+var radios = document.querySelectorAll('.types input[type="radio"]');
+radios.forEach(function (radio, i) {
+  var label = labels[i];
+  radio.addEventListener("change", function () {
+    labels.forEach(function (label) {
+      label.style.transition = "0.3s";
+      label.style.border = "none";
+    });
+    // Add border to the selected label
+    if (radio.checked) {
+      label.style.border = "4px solid #f8931f";
+    }
+  });
+});
+function addTo(id, image, name) {
+  var Portions = document.querySelectorAll('.types input[type="radio"]');
+  var checkedRadio;
+  Portions.forEach(function (radio) {
+    if (radio.checked) {
+      checkedRadio = radio;
+    }
+  });
+  if (!checkedRadio) {
+    CreateToast({
+      type: "error",
+      message: "من فضلك اختر الوزن",
+      time: 3000
+    });
+    return;
+  }
+  var product = checkedRadio.parentElement;
+  var ProductId = id;
+  var weightId = product.id;
+  var price = product.querySelector("#price").value;
+  var size = product.querySelector("#size").value;
+  var CartProduct = {
+    id: parseInt(ProductId),
+    name: name,
+    price: parseInt(price),
+    image: image,
+    size: size,
+    typeId: parseInt(weightId),
+    quantity: 1
   };
   if (!Cart.length > 0) {
-    Cart.push(item);
+    Cart.push(CartProduct);
+    CreateToast({
+      type: "success",
+      message: "تمت إضافة المنتج إلى سلة التسوق",
+      time: 3000
+    });
   } else {
     var CartItem = Cart.find(function (element, index) {
       Object.assign(element, {
         index: index
       });
-      return element.id == item.id;
+      return element.id == CartProduct.id;
     });
-    if (CartItem === undefined) {
-      Cart.push(item);
+    if (CartItem == undefined) {
+      Cart.push(CartProduct);
+      CreateToast({
+        type: "success",
+        message: "تمت إضافة المنتج إلى سلة التسوق",
+        time: 3000
+      });
     } else {
-      Cart.splice(CartItem.index, 1);
-      Cart.push(item);
+      CreateToast({
+        type: "error",
+        message: "المنتج موجود بالفعل في سلة التسوق",
+        time: 3000
+      });
     }
   }
   localStorage.setItem("cart", JSON.stringify(Cart));

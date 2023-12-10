@@ -27,10 +27,11 @@ function cartLength() {
   var Thecart = JSON.parse(localStorage.getItem("cart"));
   var length = 0;
   if (Thecart.length > 0) {
-    length = Thecart.reduce(function (acc, curr) {
-      return acc + curr.quantity;
-    }, 0);
+    Thecart.forEach(function (p) {
+      length += parseInt(p.quantity);
+    });
   }
+  console.log(length);
   if (width >= 551) {
     if (length !== 0) {
       quantityInCart.innerHTML = length;

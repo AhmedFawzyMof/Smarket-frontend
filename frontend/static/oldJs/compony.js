@@ -5,12 +5,16 @@ function addItemToCart(productId) {
   var price = Product.querySelector("#productPrice").value;
   var inStock = Product.querySelector("#productInStock").value;
   var image = Product.querySelector("#productImage").value;
+  var unit = Product.querySelector("#unit").value;
+  var unitNumber = Product.querySelector("#unitNumber").value;
   var quantity = 1;
   var product = {
     id: parseInt(id),
     name: name,
     price: parseInt(price),
     image: image,
+    unit: unit,
+    unitNumber: parseInt(unitNumber),
     inStock: parseInt(inStock),
     quantity: quantity,
   };
@@ -53,6 +57,7 @@ function getProductsInCart() {
       }
     });
   });
+  console.log(ProductsInCart);
   replaceBtns(ProductsInCart);
 }
 
@@ -70,6 +75,7 @@ function replaceBtns(products) {
     Quantity.setAttribute("id", "Quantity");
     newBtnDiv.append(PlusBtn, Quantity, MinusBtn);
     const p = document.getElementById(product.id.toString());
+    console.log(p);
     if (p !== null) {
       const button = p.querySelector("#addtocart");
       const fav = p.querySelector("#addtofav");
@@ -145,16 +151,13 @@ if (cartLength() > 0) {
 
 async function addToFav(productId) {
   if (localStorage.getItem("AuthToken")) {
-    const response = await fetch(
-      "https://smarket-api-5o9n.onrender.com/fav/add",
-      {
-        method: "post",
-        body: JSON.stringify({
-          product: productId,
-          token: localStorage.getItem("AuthToken"),
-        }),
-      }
-    );
+    const response = await fetch("http://192.168.1.5:5500/fav/add", {
+      method: "post",
+      body: JSON.stringify({
+        product: productId,
+        token: localStorage.getItem("AuthToken"),
+      }),
+    });
     const data = await response.json();
     if (data.Error) {
       CreateToast({
@@ -187,5 +190,14 @@ async function addToFav(productId) {
       message: "لقد حدث خطأ يرجى تسجيل الدخول",
       time: 5000,
     });
+  }
+}
+
+let images = document.querySelectorAll("img");
+for (let i = 0; i < images.length; i++) {
+  let src = images[i].src;
+
+  if (src.startsWith("blob:")) {
+    URL.revokeObjectURL(src);
   }
 }

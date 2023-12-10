@@ -16,7 +16,7 @@
 .input input {
   height: 35px;
   background: var(--background-color);
-  border: 3px solid #1f32ff;
+  border: 3px solid #f8931f;
   border-radius: 5px;
 }
 
@@ -38,7 +38,7 @@ button {
 
 button:hover {
   box-shadow: inset 280px 0 0 #eee;
-  color: #1f32ff;
+  color: #f8931f;
 }
 
 @media (max-width: 500px) {

@@ -5,35 +5,51 @@ export default class extends AbstractViews {
     super(params, auth);
     const productId = decodeURI(params.id);
     this.productId = productId;
-    this.setTitle("Product: " + this.productId);
     this.setStyle("/static/css/product.css");
   }
   async getHtml() {
     loading(true);
     const response = await fetch(
-      "https://smarket-api-5o9n.onrender.com/product/" + this.productId
+      "http://192.168.1.5:5500/product/" + this.productId
     );
     const data = await response.json();
-    const product = data.product;
-    let opts = "";
+    const product = data.Product;
+    this.setTitle("Alwadi | " + product.Name);
 
-    for (let i = 0; i < parseInt(product.inStock); i++) {
-      opts += `<option value="${i + 1}">${i + 1}</option>`;
-    }
     function productIsAvailable(product) {
-      if (product.available == 1) {
-        return `
-        <div class='addToCart'>
-          <input type="hidden" value="${product.id}" id="productId" />
-          <input type="hidden" value="${product.name}" id="productName" />
-          <input type="hidden" value="${product.image}" id="productImage" />
-          <input type="hidden" value="${product.price}" id="productPrice" />
-          <input type="hidden" value="${product.inStock}" id="productInStock" />
-            <select id='quantity'>
-              ${opts}
-            </select>
-            <button onclick="addTo()">أضف إلى السلة</button>
+      if (product.Available == 1) {
+        let types = "";
+        const imageId = "https://drive.google.com/uc?export=view&id=" + product.Image.split("/")[5];
+        product.Types.forEach((pt, i) => {
+          function isOffer() {
+            if (pt.Offer > 0) {
+              return `<p class="price offer">السعر: ${pt.Price + pt.Offer} ج</p>
+                <p class="price">${pt.Price} ج</p>
+                `;
+            } else {
+              return `<p class="price">السعر: ${pt.Price} ج</p>`;
+            }
+          }
+          types += `
+        <div class="type" id="${pt.Id}">
+          <label for="pt${i}">
+          <img src="${imageId}" />
+           ${isOffer()}
+          <p class="weight">الوزن: ${pt.Portion} ${pt.Uint}</p>
+          </label>
+          <input type="radio" id="pt${i}" name="pt1">
+          <input type="hidden" id="price" value="${pt.Price}">
+          <input type="hidden" id="size" value="${pt.Portion} ${pt.Uint}">
         </div>
+        `;
+        });
+        return `
+        <div class="types">
+        ${types}
+        </div>
+        <button class="addToCart" onclick="addTo(${product.Id}, '${product.Image}', '${product.Name}')">
+        أضف إلى سلة التسوق <i class='bx bxs-cart-add'></i>
+        </button>
         `;
       } else {
         return `
@@ -43,37 +59,39 @@ export default class extends AbstractViews {
       }
     }
     function IsOffer(product) {
-      let withOf = product.price + product.offer;
-      let st = Math.abs(withOf - product.price) / withOf;
+      let withOf = product.Price + product.Offer;
+      let st = Math.abs(withOf - product.Price) / withOf;
       let percent = st * 100;
 
-      if (product.offer > 0) {
+      if (product.Offer > 0) {
         return `
-        <h2 class='price'>${product.price} ج</h2>
-        <p class='offer'>${product.price + product.offer} ج</p>
+        <h2 class='price'>${product.Price} ج</h2>
+        <p class='offer'>${product.Price + product.Offer} ج</p>
         <p class='percent'>${Math.trunc(percent)}%</p>
         `;
       } else {
-        return `
-        <h2 class='price'>${product.price} ج</h2>
+      return `
+        <h2 class='price'>${product.Price} ج</h2>
         `;
       }
     }
 
+    const imageId = product.Image.split("/")[5];
+
     const theProduct = `
     <div class='image'>
-      <img src='/static${product.image}' />
+      <img src='https://drive.google.com/uc?export=view&id=${imageId}' />
     </div>
     <div class='details'>
       <div class='box1'>
         <p class='compony'>تريد رؤية منتجات أخرى من : <a href='/compony/${
-          product.company
-        }' data-link class='seemore'>${product.company}</a></p>
+          product.Company
+        }' data-link class='seemore'>${product.Company}</a></p>
         <div class='prices'>
           ${IsOffer(product)}
         </div>
-        <h2>${product.name}</h2>
-        <p>${product.description}</p>
+        <h2>${product.Name}</h2>
+        <p>${product.Description}</p>
       </div>
       <div class='box2'>
           ${productIsAvailable(product)}
@@ -100,7 +118,11 @@ export default class extends AbstractViews {
         sc.setAttribute("defer", "");
         sc.setAttribute("data-script", "");
         sc.setAttribute("type", "text/javascript");
+
         document.head.appendChild(sc);
+        sc.onload = () => {
+          URL.revokeObjectURL(objectURL);
+        };
       });
     loading(false);
     return theProduct;

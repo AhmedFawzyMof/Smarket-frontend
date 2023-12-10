@@ -1,36 +1,80 @@
-function addTo() {
-  const product = JSON.parse(document.getElementById("productId").value);
-  const productName = JSON.parse(document.getElementById("productName").value);
-  const productImage = JSON.parse(
-    document.getElementById("productImage").value
-  );
-  const productPrice = JSON.parse(
-    document.getElementById("productPrice").value
-  );
-  const productInStock = JSON.parse(
-    document.getElementById("productInStock").value
-  );
-  const quantity = JSON.parse(document.getElementById("quantity").value);
-  const item = {
-    id: product,
-    name: productName,
-    price: productPrice,
-    image: productImage,
-    inStock: productInStock,
-    quantity: quantity,
+var labels = document.querySelectorAll(".types label");
+var radios = document.querySelectorAll('.types input[type="radio"]');
+
+radios.forEach(function (radio, i) {
+  const label = labels[i];
+
+  radio.addEventListener("change", function () {
+    labels.forEach(function (label) {
+      label.style.transition = "0.3s";
+      label.style.border = "none";
+    });
+    // Add border to the selected label
+    if (radio.checked) {
+      label.style.border = "4px solid #f8931f";
+    }
+  });
+});
+
+function addTo(id, image, name) {
+  var Portions = document.querySelectorAll('.types input[type="radio"]');
+  var checkedRadio;
+
+  Portions.forEach(function (radio) {
+    if (radio.checked) {
+      checkedRadio = radio;
+    }
+  });
+
+  if (!checkedRadio) {
+    CreateToast({
+      type: "error",
+      message: "من فضلك اختر الوزن",
+      time: 3000,
+    });
+    return;
+  }
+
+  const product = checkedRadio.parentElement;
+  const ProductId = id;
+  const weightId = product.id;
+  const price = product.querySelector("#price").value;
+  const size = product.querySelector("#size").value;
+  const CartProduct = {
+    id: parseInt(ProductId),
+    name: name,
+    price: parseInt(price),
+    image: image,
+    size: size,
+    typeId: parseInt(weightId),
+    quantity: 1,
   };
+
   if (!Cart.length > 0) {
-    Cart.push(item);
+    Cart.push(CartProduct);
+    CreateToast({
+      type: "success",
+      message: "تمت إضافة المنتج إلى سلة التسوق",
+      time: 3000,
+    });
   } else {
     var CartItem = Cart.find(function (element, index) {
       Object.assign(element, { index: index });
-      return element.id == item.id;
+      return element.id == CartProduct.id;
     });
-    if (CartItem === undefined) {
-      Cart.push(item);
+    if (CartItem == undefined) {
+      Cart.push(CartProduct);
+      CreateToast({
+        type: "success",
+        message: "تمت إضافة المنتج إلى سلة التسوق",
+        time: 3000,
+      });
     } else {
-      Cart.splice(CartItem.index, 1);
-      Cart.push(item);
+      CreateToast({
+        type: "error",
+        message: "المنتج موجود بالفعل في سلة التسوق",
+        time: 3000,
+      });
     }
   }
   localStorage.setItem("cart", JSON.stringify(Cart));

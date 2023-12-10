@@ -1,44 +1,3 @@
-var num = 0;
-
-function Scroll() {
-  const images = document.querySelectorAll("#carousel");
-  let width = -379.25;
-  const carousel = document.querySelector(".carousel");
-  num++;
-  const dot = document.getElementById("d" + num);
-
-  if (dot !== null) {
-    dot.classList.add("active");
-  }
-  if (num === 1) {
-    carousel.scrollTo(width, 0);
-    setTimeout(() => {
-      Scroll();
-    }, 2000);
-  } else if (num <= images.length) {
-    carousel.scroll(width * num, 0);
-    setTimeout(() => {
-      Scroll();
-    }, 2000);
-  } else if (num >= images.length + 1) {
-    const dots = document.querySelectorAll(".dot");
-    dots.forEach((dot) => {
-      dot.classList.remove("active");
-    });
-    carousel.scrollTo(0, 0);
-    num = 0;
-    setTimeout(() => {
-      Scroll();
-    }, 2000);
-  } else {
-    return;
-  }
-}
-
-setTimeout(() => {
-  Scroll();
-}, 2000);
-
 async function addToFav(productId) {
   if (localStorage.getItem("AuthToken")) {
     const response = await fetch("http://192.168.1.5:5500/fav/add", {
@@ -80,5 +39,14 @@ async function addToFav(productId) {
       message: "لقد حدث خطأ يرجى تسجيل الدخول",
       time: 5000,
     });
+  }
+}
+
+let images = document.querySelectorAll("img");
+for (let i = 0; i < images.length; i++) {
+  let src = images[i].src;
+
+  if (src.startsWith("blob:")) {
+    URL.revokeObjectURL(src);
   }
 }

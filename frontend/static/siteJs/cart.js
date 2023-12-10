@@ -11,10 +11,8 @@ function inc(productId) {
     var productDiv = document.getElementById(productId.toString());
     var PT = productDiv.querySelector("#PT");
     var quan = productDiv.querySelector("#quan");
-    if (inCart.quantity <= inCart.inStock - 1) {
+    if (inCart.quantity <= 20) {
       inCart.quantity += 1;
-    } else {
-      inCart.quantity = inCart.inStock;
     }
     localStorage.setItem("cart", JSON.stringify(Cart));
     PT.innerHTML = inCart.price * inCart.quantity + " ج";
@@ -69,4 +67,11 @@ function removeProduct(Product) {
   Cart.splice(TheProduct.index, 1);
   localStorage.setItem("cart", JSON.stringify(Cart));
   location.reload();
+}
+var images = document.querySelectorAll("img");
+for (var i = 0; i < images.length; i++) {
+  var src = images[i].src;
+  if (src.startsWith("blob:")) {
+    URL.revokeObjectURL(src);
+  }
 }

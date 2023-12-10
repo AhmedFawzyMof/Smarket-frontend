@@ -4,7 +4,7 @@ export default class extends AbstractViews {
   constructor(params, auth) {
     super(params, auth);
     this.auth = auth;
-    this.setTitle("Login");
+    this.setTitle("Alwadi | تسجيل الدخول");
     this.setStyle("/static/css/login.css");
   }
   async getHtml() {
@@ -32,18 +32,15 @@ export default class extends AbstractViews {
           sc.setAttribute("defer", "");
           sc.setAttribute("data-script", "");
           sc.setAttribute("type", "text/javascript");
+
           document.head.appendChild(sc);
+          sc.onload = () => {
+            URL.revokeObjectURL(objectURL);
+          };
         });
       loading(false);
       // add when you complete th OAuth
-      //  <div class="media">
-      //       <p>أو قم بتسجيل الدخول باستخدام</p>
-      //       <div class="mediaBtns">
-      //           <button><i class='bx bxl-facebook'></i></button>
-      //           <button><i class='bx bxl-twitter'></i></button>
-      //           <button><i class='bx bxl-google'></i></button>
-      //       </div>
-      //   </div>
+
       return `
       <div class='logIn'>
         <div class="logo">            
@@ -62,7 +59,14 @@ export default class extends AbstractViews {
                 <button type="submit">تسجيل الدخول</button>
             </div>
         </form>
-        
+          <div class="media">
+            <p>أو قم بتسجيل الدخول باستخدام</p>
+            <div class="mediaBtns">
+                <button><i class='bx bxl-facebook'></i></button>
+                <button><i class='bx bxl-twitter'></i></button>
+                <button><i class='bx bxl-google'></i></button>
+            </div>
+        </div>
         <div class="signup">
             <a href="/register" data-link>أو قم بتسجيل حساب</a>
         </div>

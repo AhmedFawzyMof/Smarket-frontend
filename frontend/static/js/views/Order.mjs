@@ -5,7 +5,7 @@ export default class extends AbstractViews {
     super(params, auth);
     this.method = params.method;
     this.auth = auth;
-    this.setTitle("Orders");
+    this.setTitle("Alwadi | طلب");
     this.setStyle("/static/css/Order.css");
   }
   async getHtml() {
@@ -33,7 +33,11 @@ export default class extends AbstractViews {
             sc.setAttribute("defer", "");
             sc.setAttribute("data-script", "");
             sc.setAttribute("type", "text/javascript");
+
             document.head.appendChild(sc);
+            sc.onload = () => {
+              URL.revokeObjectURL(objectURL);
+            };
           });
         loading(false);
         if (Cart.length > 0) {

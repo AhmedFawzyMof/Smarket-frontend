@@ -41,24 +41,6 @@
   color: var(--sub-color);
 }
 
-#addtocart {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  border-radius: 5px;
-  background: var(--sub-color);
-  border: none;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  -webkit-box-shadow: 0px 4px 5px #33333370;
-  font-size: 25px;
-}
-.product.notavailable #addtocart {
-  z-index: -1;
-}
 #addtocart img {
   width: 25px;
   height: 25px;
@@ -67,7 +49,7 @@
 #addtofav {
   position: absolute;
   transition: 0.3s;
-  top: 50px;
+  top: 5px;
   left: 5px;
   border-radius: 5px;
   background: var(--sub-color);
@@ -243,4 +225,101 @@
 
 .Product .body {
   padding: 0 2.5px;
+}
+
+.container {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: auto;
+}
+.category p {
+  display: flex;
+  align-items: center;
+  color: var(--main-color);
+  justify-content: center;
+  width: 100%;
+  background: var(--sub-color);
+}
+
+.category {
+  position: relative;
+  margin: 5px;
+  border-radius: 5px;
+  background: var(--sup-color);
+  -webkit-box-shadow: -5px 5px 10px #3333335c;
+  overflow: hidden;
+  width: 250px;
+  height: 200px;
+}
+
+.category img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.category a {
+  height: 190px;
+  display: grid;
+  place-items: center;
+}
+
+.category p {
+  display: flex;
+  align-items: center;
+  color: var(--main-color);
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .category {
+    margin: 5px;
+    display: flex;
+    height: 150px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    background: var(--sup-color);
+    width: 175px;
+    height: 150px;
+  }
+  .category a {
+    height: 100px;
+  }
+}
+
+@media (max-width: 550px) {
+  .category {
+    margin: 5px;
+    border-radius: 5px;
+    background: var(--sup-color);
+    width: 150px;
+    height: 125px;
+  }
+  .category a {
+    height: 100px;
+  }
+}
+
+@media (max-width: 330px) {
+  .category {
+    font-size: 12px;
+  }
+}
+
+.categoryO {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.countainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }

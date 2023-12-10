@@ -4,7 +4,7 @@ export default class extends AbstractViews {
   constructor(params, auth) {
     super(params, auth);
     this.auth = auth;
-    this.setTitle("Register");
+    this.setTitle("Alwadi | تسجيل حساب");
     this.setStyle("/static/css/login.css");
   }
   async getHtml() {
@@ -12,7 +12,7 @@ export default class extends AbstractViews {
       location.replace("/");
     } else {
       loading(true);
-      fetch("/static/siteJs/register.js")
+      fetch("/static/oldJs/register.js")
         .then(function (response) {
           if (!response.ok) {
             return false;
@@ -32,7 +32,11 @@ export default class extends AbstractViews {
           sc.setAttribute("defer", "");
           sc.setAttribute("data-script", "");
           sc.setAttribute("type", "text/javascript");
+
           document.head.appendChild(sc);
+          sc.onload = () => {
+            URL.revokeObjectURL(objectURL);
+          };
         });
       loading(false);
       return `

@@ -5,14 +5,14 @@ export default class extends AbstractViews {
     super(params, auth);
     const compony = decodeURI(params.name);
     this.company = compony;
-    this.setTitle(compony);
+    this.setTitle("Alwadi | " + this.company);
     this.setStyle("/static/css/company.css");
   }
   async getHtml() {
     loading(true);
 
     const response = await fetch(
-      "https://smarket-api-5o9n.onrender.com/company/" + this.company
+      "http://192.168.1.5:5500/company/" + this.company
     );
     const data = await response.json();
     const products = data.Products;
@@ -20,45 +20,39 @@ export default class extends AbstractViews {
       .map((product, index) => {
         function isAvailable() {
           let ava = "product";
-          if (product.available !== 1 && product.inStock == 0) {
+          if (product.Available !== 1) {
             ava += " notavailable";
           } else {
             ava;
           }
-          if (product.offer > 0) {
+          if (product.Offer > 0) {
             ava += " offer";
           }
           return ava;
         }
 
         function isOffer() {
-          if (product.offer > 0) {
+          if (product.Offer > 0) {
             return `<p class="price offer">${
-              product.price + product.offer
+              product.Price + product.Offer
             } ج</p>
-            <p class="price">${product.price} ج</p>
+            <p class="price">${product.Price} ج</p>
             `;
           } else {
-            return `<p class="price">${product.price} ج</p>`;
+            return `<p class="price">${product.Price} ج</p>`;
           }
         }
-        let name = product.name.substr(0, 20);
+        let name = product.Name.substr(0, 20);
+       const imageId =
+        "https://drive.google.com/uc?export=view&id=" +
+        product.Image.split("/")[5];
         return `
-      <div class='${isAvailable()}' id='${product.id}' key='${index}'>
-        <input type="hidden" value="${product.id}" id="productId" />
-        <input type="hidden" value="${product.name}" id="productName" />
-        <input type="hidden" value="${product.image}" id="productImage" />
-        <input type="hidden" value="${product.price}" id="productPrice" />
-        <input type="hidden" value="${product.inStock}" id="productInStock" />
-        <input type="hidden" value="1" id="productQuantity" />
-        <button id='addtocart' onclick="addItemToCart(${
-          product.id
-        })"><i class='bx bxs-cart-download'></i></button>
+      <div class='${isAvailable()}' id='${product.Id}' key='${index}'>
         <button id='addtofav' onclick='addToFav(${
-          product.id
+          product.Id
         })'><i class="bx bxs-heart"></i></button>
-        <a href='/product/${product.id}' data-link>
-            <img class='image' src='/static/${product.image}' />
+        <a href='/product/${product.Id}' data-link>
+            <img class='image' src='${imageId}' />
           <div class='body'>
             <p>${name}</p>
           </div>
@@ -88,7 +82,11 @@ export default class extends AbstractViews {
         sc.setAttribute("defer", "");
         sc.setAttribute("data-script", "");
         sc.setAttribute("type", "text/javascript");
+
         document.head.appendChild(sc);
+        sc.onload = () => {
+          URL.revokeObjectURL(objectURL);
+        };
       });
     loading(false);
     return `

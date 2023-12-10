@@ -3,19 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Talgtna</title>
+    <title>Alwadi Markets</title>
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
     <link rel="stylesheet" data-style />
     <link rel="stylesheet" href="/static/css/nav.css" />
-    <script type="module" src="/static/dist/bundle.js"></script>
+    <script type="module" src="/static/js/index.mjs"></script>
     <script defer src="/static/siteJs/nav.js"></script>
   </head>
   <body>
     <nav id="PC">
-      <h3>logo</h3>
+      <h3>أسواق الوادي</h3>
       <form id="search">
         <input type="search" name="search" placeholder="ابحث عن المنتجات هنا" />
         <button type="submit"><i class="bx bx-search-alt-2"></i></button>
@@ -28,11 +28,11 @@
         <i class="bx bx-dots-horizontal-rounded"></i>
       </button>
       <ul id="menu">
+        <img src="/static/img/logo.png" />
         <li><a id="navLink" data-link href="/">الصفحة الرئيسية</a></li>
         <li><a id="navLink" data-link href="/orderHistory">طلباتك</a></li>
         <li><a id="navLink" data-link href="/profile">حسابك</a></li>
         <li><a id="navLink" data-link href="/offers">عروض</a></li>
-        <li><a id="navLink" data-link href="/foryou">منتجات لك</a></li>
       </ul>
     </nav>
     <div id="MO">
@@ -68,10 +68,6 @@
         <a href="/offers" data-link>
           <i class="bx bxs-offer"></i>
           <p>عروض</p>
-        </a>
-        <a href="/foryou" data-link>
-          <i class="bx bxs-hand-up"></i>
-          <p>منتجات لك</p>
         </a>
       </nav>
     </div>
