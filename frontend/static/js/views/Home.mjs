@@ -15,7 +15,7 @@ export default class extends AbstractViews {
     } else {
       localStorage.setItem("home", "loded");
     }
-    const response = await fetch("http://192.168.1.5:5500/");
+    const response = await fetch("http://localhost:5500/");
 
     const data = await response.json();
 

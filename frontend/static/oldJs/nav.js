@@ -28,11 +28,10 @@ function cartLength() {
   const Thecart = JSON.parse(localStorage.getItem("cart"));
   var length = 0;
   if (Thecart.length > 0) {
-    Thecart.forEach(p => {
+    Thecart.forEach((p) => {
       length += parseInt(p.quantity);
     });
   }
-  console.log(length)
   if (width >= 551) {
     if (length !== 0) {
       quantityInCart.innerHTML = length;

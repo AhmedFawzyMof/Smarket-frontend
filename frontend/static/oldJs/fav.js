@@ -1,5 +1,5 @@
 async function delToFav(productId) {
-  const response = await fetch("http://192.168.1.5:5500/fav/delete", {
+  const response = await fetch("http://localhost:5500/fav/delete", {
     method: "DELETE",
     body: JSON.stringify({
       product: productId,

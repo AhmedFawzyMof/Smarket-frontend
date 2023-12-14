@@ -57,7 +57,6 @@ function getProductsInCart() {
       }
     });
   });
-  console.log(ProductsInCart);
   replaceBtns(ProductsInCart);
 }
 
@@ -75,7 +74,6 @@ function replaceBtns(products) {
     Quantity.setAttribute("id", "Quantity");
     newBtnDiv.append(PlusBtn, Quantity, MinusBtn);
     const p = document.getElementById(product.id.toString());
-    console.log(p);
     if (p !== null) {
       const button = p.querySelector("#addtocart");
       const fav = p.querySelector("#addtofav");
@@ -151,7 +149,7 @@ if (cartLength() > 0) {
 
 async function addToFav(productId) {
   if (localStorage.getItem("AuthToken")) {
-    const response = await fetch("http://192.168.1.5:5500/fav/add", {
+    const response = await fetch("http://localhost:5500/fav/add", {
       method: "post",
       body: JSON.stringify({
         product: productId,

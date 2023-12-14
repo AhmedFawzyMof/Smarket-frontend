@@ -14,7 +14,7 @@ function _delToFav() {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return fetch("http://192.168.1.5:5500/fav/delete", {
+          return fetch("http://localhost:5500/fav/delete", {
             method: "DELETE",
             body: JSON.stringify({
               product: productId,

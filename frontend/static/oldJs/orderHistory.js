@@ -1,6 +1,6 @@
 async function CancelOrder(OrderId, Confirmed) {
-  const deleteOrder = await fetch("http://192.168.1.5:5500/order/delete", {
-    method: "post",
+  const cancel_order = await fetch("http://localhost:5500/delete", {
+    method: "DELETE",
     body: JSON.stringify({
       token: localStorage.getItem("AuthToken"),
       order: OrderId,
@@ -8,10 +8,9 @@ async function CancelOrder(OrderId, Confirmed) {
     }),
   });
 
-  const response = await deleteOrder.json();
-  console.log(response);
+  const response = await cancel_order.json();
 
-  if (response.Error) {
+  if (!response.Error) {
     CreateToast({
       type: "success",
       message: "تم الغاء الطلب بنجاح",

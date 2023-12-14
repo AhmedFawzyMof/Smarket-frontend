@@ -13,7 +13,7 @@ export default class extends AbstractViews {
     loading(true);
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
-         const response = await fetch("http://192.168.1.5:5500/order/"+this.id, {
+        const response = await fetch("http://localhost:5500/order/" + this.id, {
           method: "post",
           body: JSON.stringify({
             token: localStorage.getItem("AuthToken"),
@@ -22,11 +22,9 @@ export default class extends AbstractViews {
 
         const data = await response.json();
 
-        const order = data.Order[0]
+        const order = data.Order;
 
-        order["cart"] = data.Products
-
-        console.log(order)
+        order["cart"] = data.Products;
         fetch("/static/siteJs/orderMethod.js")
           .then(function (response) {
             if (!response.ok) {
@@ -53,47 +51,49 @@ export default class extends AbstractViews {
               URL.revokeObjectURL(objectURL);
             };
           });
-                  
-          function isDilvered() {
-            if (order.Delivered == 1) {
-              return `
+
+        function isDilvered() {
+          if (order.Delivered == 1) {
+            return `
               <div class="Delivered True">
                  تسليم الطلب: نعم
               </div>`;
-            } else {
-              return `
+          } else {
+            return `
               <div class="Delivered">
                  تسليم الطلب: لا
               </div>`;
-            }
           }
-          function isPaid() {
-            if (order.Paid == 1) {
-              return `
+        }
+        function isPaid() {
+          if (order.Paid == 1) {
+            return `
               <div class="Paid True">
                  تم الدفع: نعم
               </div>`;
-            } else {
-              return `
+          } else {
+            return `
               <div class="Paid">
                  تم الدفع: لا
               </div>`;
-            }
           }
-          function Total() {
-            let Total = 0;
-            order.cart.map((product) => {
-              Total += product.Price * product.Quantity;
-            });
-            return Total;
-          }
-          let orderId = order.Id;
-          orderId = orderId.substr(0, 8);
-          let date = order.Date.replace("T", " ").replace("Z", " ").split('.')[0]
-          const mappedItems = order.cart
-            .map((product, index) => {
-                        const imageId = "https://drive.google.com/uc?export=view&id=" + product.Image.split("/")[5];
-              return `
+        }
+        function Total() {
+          let Total = 0;
+          order.cart.map((product) => {
+            Total += product.Price * product.Quantity;
+          });
+          return Total;
+        }
+        let orderId = order.Id;
+        orderId = orderId.substr(0, 8);
+        let date = order.Date.replace("T", " ").replace("Z", " ").split(".")[0];
+        const mappedItems = order.cart
+          .map((product, index) => {
+            const imageId =
+              "https://drive.google.com/uc?export=view&id=" +
+              product.Image.split("/")[5];
+            return `
           <div class="orderitem">
             <img src="${imageId}" alt="${product.Name}">
             <div class="itemInfo">
@@ -107,9 +107,9 @@ export default class extends AbstractViews {
             </div>
           </div>
         `;
-            })
-            .join("");
-         const mappedOrder = `
+          })
+          .join("");
+        const mappedOrder = `
           <div class="orderRec">
         <p>معرف الطلب: ${orderId}</p>
         <div class="date">
@@ -126,7 +126,6 @@ export default class extends AbstractViews {
           ${isPaid()}
       </div>
           `;
-        
 
         loading(false);
         return `${mappedOrder}`;

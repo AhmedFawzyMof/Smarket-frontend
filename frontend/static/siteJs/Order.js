@@ -10,7 +10,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var OrderForm = document.getElementById("Order");
 OrderForm.addEventListener("submit", /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-    var products, form, formData, _iterator, _step, pair, key, value, order, res;
+    var products, form, formData, _iterator, _step, pair, key, value, order;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -39,9 +39,8 @@ OrderForm.addEventListener("submit", /*#__PURE__*/function () {
           } finally {
             _iterator.f();
           }
-          _context.prev = 8;
-          _context.next = 11;
-          return fetch("http://192.168.1.5:5500/order", {
+          _context.next = 10;
+          return fetch("http://localhost:5500/order", {
             method: "POST",
             body: JSON.stringify({
               products: products,
@@ -50,60 +49,56 @@ OrderForm.addEventListener("submit", /*#__PURE__*/function () {
               token: localStorage.getItem("AuthToken")
             })
           });
-        case 11:
+        case 10:
           order = _context.sent;
-          if (!order.ok) {
-            localStorage.removeItem("AuthToken");
-            localStorage.removeItem("Cart");
-            CreateToast({
-              type: "error",
-              message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
-              time: 2000
-            });
-            setTimeout(function () {
-              location.replace("/");
-            }, 1000);
-          }
-          _context.next = 15;
-          return order.json();
-        case 15:
-          res = _context.sent;
-          if (res.Error) {
-            localStorage.removeItem("AuthToken");
-            localStorage.removeItem("Cart");
-            CreateToast({
-              type: "error",
-              message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
-              time: 2000
-            });
-            setTimeout(function () {
-              location.replace("/");
-            }, 1000);
-          }
-          loading(false);
-          localStorage.removeItem("method");
-          localStorage.setItem("cart", "[]");
-          location.replace("/order/success");
-          _context.next = 29;
-          break;
-        case 23:
-          _context.prev = 23;
-          _context.t0 = _context["catch"](8);
-          localStorage.removeItem("AuthToken");
-          localStorage.removeItem("Cart");
-          CreateToast({
-            type: "error",
-            message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
-            time: 2000
-          });
-          setTimeout(function () {
-            location.replace("/");
-          }, 1000);
-        case 29:
+          console.log(order.ok);
+
+          // if (!order.ok) {
+          //   localStorage.removeItem("AuthToken");
+          //   localStorage.removeItem("Cart");
+          //   CreateToast({
+          //     type: "error",
+          //     message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
+          //     time: 2000,
+          //   });
+          //   setTimeout(() => {
+          //     location.replace("/");
+          //   }, 1000);
+          // }
+          //   const res = await order.json();
+
+          //   if (res.Error) {
+          //     localStorage.removeItem("AuthToken");
+          //     localStorage.removeItem("Cart");
+          //     CreateToast({
+          //       type: "error",
+          //       message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
+          //       time: 2000,
+          //     });
+          //     setTimeout(() => {
+          //       location.replace("/");
+          //     }, 1000);
+          //   }
+          //   loading(false);
+          //   localStorage.removeItem("method");
+          //   localStorage.setItem("cart", "[]");
+          //   location.replace("/order/success");
+          // } catch (error) {
+          //   localStorage.removeItem("AuthToken");
+          //   localStorage.removeItem("Cart");
+          //   CreateToast({
+          //     type: "error",
+          //     message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
+          //     time: 2000,
+          //   });
+          //   setTimeout(() => {
+          //     location.replace("/");
+          //   }, 1000);
+        case 12:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[8, 23]]);
+    }, _callee);
   }));
   return function (_x) {
     return _ref.apply(this, arguments);

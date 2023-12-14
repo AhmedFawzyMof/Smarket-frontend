@@ -10,7 +10,7 @@ export default class extends AbstractViews {
   async getHtml() {
     loading(true);
     const response = await fetch(
-      "http://192.168.1.5:5500/product/" + this.productId
+      "http://localhost:5500/product/" + this.productId
     );
     const data = await response.json();
     const product = data.Product;

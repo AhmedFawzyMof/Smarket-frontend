@@ -32,7 +32,7 @@ function login() {
               _iterator.f();
             }
             _context.next = 7;
-            return fetch("http://192.168.1.5:5500/user/login", {
+            return fetch("http://localhost:5500/user/login", {
               method: "post",
               body: JSON.stringify(form)
             });

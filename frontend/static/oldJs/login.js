@@ -13,7 +13,7 @@ function login() {
       form[key] = value;
     }
 
-    const response = await fetch("http://192.168.1.5:5500/user/login", {
+    const response = await fetch("http://localhost:5500/user/login", {
       method: "post",
       body: JSON.stringify(form),
     });

@@ -12,7 +12,7 @@ export default class extends AbstractViews {
     loading(true);
 
     const response = await fetch(
-      "http://192.168.1.5:5500/company/" + this.company
+      "http://localhost:5500/company/" + this.company
     );
     const data = await response.json();
     const products = data.Products;

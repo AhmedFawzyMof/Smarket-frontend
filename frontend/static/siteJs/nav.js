@@ -31,7 +31,6 @@ function cartLength() {
       length += parseInt(p.quantity);
     });
   }
-  console.log(length);
   if (width >= 551) {
     if (length !== 0) {
       quantityInCart.innerHTML = length;

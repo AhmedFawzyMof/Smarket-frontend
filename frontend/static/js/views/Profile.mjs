@@ -12,7 +12,7 @@ export default class extends AbstractViews {
       loading(true);
 
       if (localStorage.getItem("AuthToken")) {
-        const response = await fetch("http://192.168.1.5:5500/profile", {
+        const response = await fetch("http://localhost:5500/profile", {
           method: "post",
           body: JSON.stringify({
             token: localStorage.getItem("AuthToken"),

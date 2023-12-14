@@ -11,7 +11,7 @@ export default class extends AbstractViews {
     loading(true);
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
-        const response = await fetch("http://192.168.1.5:5500/fav", {
+        const response = await fetch("http://localhost:5500/fav", {
           method: "post",
           body: JSON.stringify({
             token: localStorage.getItem("AuthToken"),

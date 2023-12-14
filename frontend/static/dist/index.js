@@ -75,7 +75,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 0:
                   loading(!0), localStorage.getItem("home") ? (localStorage.removeItem("home"), location.reload()) : localStorage.setItem("home", "loded");
                   _context3.next = 3;
-                  return fetch("http://192.168.1.5:5500/");
+                  return fetch("http://localhost:5500/");
                 case 3:
                   t = _context3.sent;
                   _context3.next = 6;
@@ -180,7 +180,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     break;
                   }
                   _context4.next = 4;
-                  return fetch("http://192.168.1.5:5500/profile", {
+                  return fetch("http://localhost:5500/profile", {
                     method: "post",
                     body: JSON.stringify({
                       token: localStorage.getItem("AuthToken")
@@ -240,20 +240,20 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         key: "getHtml",
         value: function () {
           var _getHtml4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-            var _t8, _e4, n;
+            var _t8, _e4, n, _a;
             return _regeneratorRuntime().wrap(function _callee4$(_context5) {
               while (1) switch (_context5.prev = _context5.next) {
                 case 0:
                   if (!(loading(!0), this.auth)) {
-                    _context5.next = 11;
+                    _context5.next = 13;
                     break;
                   }
                   if (!localStorage.getItem("AuthToken")) {
-                    _context5.next = 10;
+                    _context5.next = 12;
                     break;
                   }
                   _context5.next = 4;
-                  return fetch("http://192.168.1.5:5500/orderhistory", {
+                  return fetch("http://localhost:5500/orderhistory", {
                     method: "post",
                     body: JSON.stringify({
                       token: localStorage.getItem("AuthToken")
@@ -265,11 +265,13 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   return _t8.json();
                 case 7:
                   _e4 = _context5.sent;
-                  n = _e4.Orders.map(function (t) {
+                  n = _e4.Orders;
+                  console.log(n);
+                  _a = n.map(function (t) {
                     var e = t.Id.substr(0, 8),
                       n = t.Date.replace("T", " ").replace(".", " ").substr(0, 20);
                     return "<div class=\"order\">\n            <div class=\"TH\">\n              <h3>\u0631\u0642\u0645 \u0627\u0644\u0637\u0644\u0628</h3>\n              <h3>\u0627\u0644\u062A\u0627\u0631\u064A\u062E</h3>\n              <h3>\u0637\u0631\u064A\u0642\u0629 \u0627\u0644\u062F\u0641\u0639</h3>\n              <h3>\u0645\u062F\u0641\u0648\u0639</h3>\n              <h3>\u062A\u0645 \u0627\u0644\u062A\u0648\u0635\u064A\u0644</h3>\n              <h3>\u062A\u0645 \u062A\u0623\u0643\u064A\u062F</h3>\n              <a href=\"/order/".concat(t.Id, "\">\u062A\u0641\u0627\u0635\u064A\u0644</a>\n            </div>\n            <div class=\"TB\">\n              <p>").concat(e, "</p>\n              <p>").concat(n, "</p>\n              <p>").concat(t.Method, "</p>\n              <p>").concat(1 == t.Paid ? "نعم" : "لا", "</p>\n              <p>").concat(1 == t.Delivered ? "نعم" : "لا", "</p>\n              <p>").concat(1 == t.Confirmed ? "نعم" : "لا", "</p>\n              ").concat(1 == t.Confirmed ? '<p class="cancel off">الغاء الطلب</p>' : "<button class=\"cancel\" onclick=\"CancelOrder('".concat(t.Id, "', ").concat(t.Confirmed, ")\">\u0627\u0644\u063A\u0627\u0621 \u0627\u0644\u0637\u0644\u0628</button>"), "\n            </div>\n           </div>");
-                  });
+                  }).join("");
                   return _context5.abrupt("return", (_e4.Error && (localStorage.removeItem("AuthToken"), CreateToast({
                     type: "error",
                     msg: "حدث خطأ ما، يرجى تسجيل الدخول",
@@ -287,10 +289,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     n.setAttribute("src", e), n.setAttribute("defer", ""), n.setAttribute("data-script", ""), n.setAttribute("type", "text/javascript"), document.head.appendChild(n), n.onload = function () {
                       URL.revokeObjectURL(e);
                     };
-                  }), loading(!1), "\n          <div class=\"table\">\n          ".concat(n, "\n          </div>\n        ")));
-                case 10:
+                  }), loading(!1), "\n          <div class=\"table\">\n          ".concat(_a, "\n          </div>\n        ")));
+                case 12:
                   return _context5.abrupt("return", (loading(!1), "\n        <div class='notLoginPop'>\n          <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n          <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n          <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n          <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n        </div>\n        "));
-                case 11:
+                case 13:
                 case "end":
                   return _context5.stop();
               }
@@ -325,7 +327,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 0:
                   loading(!0);
                   _context6.next = 3;
-                  return fetch("http://192.168.1.5:5500/product/" + this.productId);
+                  return fetch("http://localhost:5500/product/" + this.productId);
                 case 3:
                   t = _context6.sent;
                   _context6.next = 6;
@@ -394,7 +396,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 0:
                   loading(!0);
                   _context7.next = 3;
-                  return fetch("http://192.168.1.5:5500/company/" + this.company);
+                  return fetch("http://localhost:5500/company/" + this.company);
                 case 3:
                   t = _context7.sent;
                   _context7.next = 6;
@@ -455,7 +457,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 0:
                   loading(!0);
                   _context8.next = 3;
-                  return fetch("http://192.168.1.5:5500/category/" + this.category);
+                  return fetch("http://localhost:5500/category/" + this.category);
                 case 3:
                   t = _context8.sent;
                   _context8.next = 6;
@@ -694,7 +696,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   return _context12.abrupt("return", (loading(!1), "\n          <div class='notLoginPop'>\n            <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n            <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n            <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n            <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n          </div>\n        "));
                 case 3:
                   _context12.next = 5;
-                  return fetch("http://192.168.1.5:5500/fav", {
+                  return fetch("http://localhost:5500/fav", {
                     method: "post",
                     body: JSON.stringify({
                       token: localStorage.getItem("AuthToken")
@@ -922,7 +924,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 0:
                   loading(!0);
                   _context17.next = 3;
-                  return fetch("http://192.168.1.5:5500/offers");
+                  return fetch("http://localhost:5500/offers");
                 case 3:
                   t = _context17.sent;
                   e = [];
@@ -931,7 +933,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 7:
                   a = _context17.sent.Products;
                   _loop2 = /*#__PURE__*/_regeneratorRuntime().mark(function _loop2() {
-                    var n, _t25, _a;
+                    var n, _t25, _a2;
                     return _regeneratorRuntime().wrap(function _loop2$(_context16) {
                       while (1) switch (_context16.prev = _context16.next) {
                         case 0:
@@ -943,8 +945,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                             products: []
                           });
                           for (_t25 = 0; _t25 < e.length; _t25++) {
-                            _a = e[_t25];
-                            n.Category === _a.name && _a.products.push(n);
+                            _a2 = e[_t25];
+                            n.Category === _a2.name && _a2.products.push(n);
                           }
                         case 3:
                         case "end":
@@ -1019,7 +1021,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 0:
                   loading(!0);
                   _context18.next = 3;
-                  return fetch("http://192.168.1.5:5500/subcategory/" + this.category);
+                  return fetch("http://localhost:5500/subcategory/" + this.category);
                 case 3:
                   t = _context18.sent;
                   _context18.next = 6;
@@ -1099,7 +1101,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     }), t;
                   };
                   _context19.next = 7;
-                  return fetch("http://192.168.1.5:5500/order/" + this.id, {
+                  return fetch("http://localhost:5500/order/" + this.id, {
                     method: "post",
                     body: JSON.stringify({
                       token: localStorage.getItem("AuthToken")
@@ -1111,8 +1113,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   return _t28.json();
                 case 10:
                   _e9 = _context19.sent;
-                  n = _e9.Order[0];
-                  n.cart = _e9.Products, console.log(n), fetch("/static/siteJs/orderMethod.js").then(function (t) {
+                  n = _e9.Order;
+                  console.log(_e9), n.cart = _e9.Products, fetch("/static/siteJs/orderMethod.js").then(function (t) {
                     return !!t.ok && t.blob();
                   }).then(function (t) {
                     var e = URL.createObjectURL(t);
@@ -1128,7 +1130,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   _r = _r.substr(0, 8);
                   _c = n.Date.replace("T", " ").replace("Z", " ").split(".")[0];
                   _o = n.cart.map(function (t, e) {
-                    return "\n          <div class=\"orderitem\">\n            <img src=\"/static/".concat(t.Image, "\" alt=\"").concat(t.Name, "\">\n            <div class=\"itemInfo\">\n              <p>").concat(t.Name, "</p>\n              <p>\u0627\u0644\u0643\u0645\u064A\u0629: ").concat(t.Quantity, "</p>\n              <p>\u0627\u0644\u0633\u0639\u0631: ").concat(t.Price, " \u062C</p>\n              <p>\u0627\u0644\u0648\u0632\u0646: ").concat(t.Portion, " ").concat(t.Uint, "</p>\n              <p>\u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A \u0644\u0644\u0645\u0646\u062A\u062C: ").concat(t.Price * t.Quantity, " \u062C</p>\n            </div>\n          </div>\n        ");
+                    return "\n          <div class=\"orderitem\">\n            <img src=\"".concat("https://drive.google.com/uc?export=view&id=" + t.Image.split("/")[5], "\" alt=\"").concat(t.Name, "\">\n            <div class=\"itemInfo\">\n              <p>").concat(t.Name, "</p>\n              <p>\u0627\u0644\u0643\u0645\u064A\u0629: ").concat(t.Quantity, "</p>\n              <p>\u0627\u0644\u0633\u0639\u0631: ").concat(t.Price, " \u062C</p>\n              <p>\u0627\u0644\u0648\u0632\u0646: ").concat(t.Portion, " ").concat(t.Uint, "</p>\n              <p>\u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A \u0644\u0644\u0645\u0646\u062A\u062C: ").concat(t.Price * t.Quantity, " \u062C</p>\n            </div>\n          </div>\n        ");
                   }).join(""), _l = "\n          <div class=\"orderRec\">\n        <p>\u0645\u0639\u0631\u0641 \u0627\u0644\u0637\u0644\u0628: ".concat(_r, "</p>\n        <div class=\"date\">\n          <p>\n            \u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0637\u0644\u0628:\n          </p>\n          <h4 dir=\"ltr\" style=\"color: #b3b2b2\">\n            ").concat(_c, "\n          </h4>\n        </div>\n        <p>\u0627\u0644\u0645\u062C\u0645\u0648\u0639: ").concat(_s(), " \u062C</p>\n        ").concat(_o, "\n          ").concat(a(), "\n          ").concat(i(), "\n      </div>\n          ");
                   return _context19.abrupt("return", (loading(!1), "".concat(_l)));
                 case 18:

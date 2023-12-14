@@ -9,13 +9,13 @@ function CancelOrder(_x, _x2) {
 }
 function _CancelOrder() {
   _CancelOrder = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(OrderId, Confirmed) {
-    var deleteOrder, response;
+    var cancel_order, response;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return fetch("http://192.168.1.5:5500/order/delete", {
-            method: "post",
+          return fetch("http://localhost:5500/delete", {
+            method: "DELETE",
             body: JSON.stringify({
               token: localStorage.getItem("AuthToken"),
               order: OrderId,
@@ -23,13 +23,12 @@ function _CancelOrder() {
             })
           });
         case 2:
-          deleteOrder = _context.sent;
+          cancel_order = _context.sent;
           _context.next = 5;
-          return deleteOrder.json();
+          return cancel_order.json();
         case 5:
           response = _context.sent;
-          console.log(response);
-          if (response.Error) {
+          if (!response.Error) {
             CreateToast({
               type: "success",
               message: "تم الغاء الطلب بنجاح",
@@ -48,7 +47,7 @@ function _CancelOrder() {
               location.reload();
             }, 1000);
           }
-        case 8:
+        case 7:
         case "end":
           return _context.stop();
       }

@@ -11,7 +11,7 @@ export default class extends AbstractViews {
     loading(true);
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
-        const response = await fetch("http://192.168.1.5:5500/orderhistory", {
+        const response = await fetch("http://localhost:5500/orderhistory", {
           method: "post",
           body: JSON.stringify({
             token: localStorage.getItem("AuthToken"),
@@ -20,6 +20,7 @@ export default class extends AbstractViews {
 
         const data = await response.json();
         const orders = data.Orders;
+        console.log(orders)
 
         const mapedOrders = orders.map((o) => {
           function IsConfirmed() {
@@ -73,7 +74,7 @@ export default class extends AbstractViews {
               ${IsConfirmed()}
             </div>
            </div>`;
-        });
+        }).join("")
 
         if (data.Error) {
           localStorage.removeItem("AuthToken");

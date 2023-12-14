@@ -9,7 +9,7 @@ export default class extends AbstractViews {
   }
   async getHtml() {
     loading(true);
-    const getOffer = await fetch("http://192.168.1.5:5500/offers");
+    const getOffer = await fetch("http://localhost:5500/offers");
     const data = await getOffer.json();
     const category = [];
     let products = data.Products;
