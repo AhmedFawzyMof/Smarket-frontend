@@ -14,7 +14,7 @@ function _CancelOrder() {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return fetch("http://localhost:5500/delete", {
+          return fetch("http://192.168.1.7:5500/delete", {
             method: "DELETE",
             body: JSON.stringify({
               token: localStorage.getItem("AuthToken"),
@@ -35,7 +35,7 @@ function _CancelOrder() {
               time: 2000
             });
             setTimeout(function () {
-              location.reload();
+              reload();
             }, 1000);
           } else {
             CreateToast({
@@ -44,7 +44,7 @@ function _CancelOrder() {
               time: 2000
             });
             setTimeout(function () {
-              location.reload();
+              reload();
             }, 1000);
           }
         case 7:
@@ -54,4 +54,13 @@ function _CancelOrder() {
     }, _callee);
   }));
   return _CancelOrder.apply(this, arguments);
+}
+function reload() {
+  var a = document.createElement("a");
+  a.href = "/fav";
+  a.setAttribute("data-link", "");
+  var body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
 }

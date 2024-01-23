@@ -15,7 +15,7 @@ export default class extends AbstractViews {
     } else {
       localStorage.setItem("home", "loded");
     }
-    const response = await fetch("http://localhost:5500/");
+    const response = await fetch("http://192.168.1.7:5500/");
 
     const data = await response.json();
 
@@ -35,11 +35,11 @@ export default class extends AbstractViews {
     for (let index = 0; index < Offers.length; index++) {
       const offer = Offers[index];
 
-      const imageId = "https://drive.google.com/uc?export=view&id=" + offer.Image.split("/")[5];
+      const imageId = offer.Image;
 
       mappedOfferImage += `
           <a data-link href='/product/${offer.Id}' key='${index}'>
-            <img id='carousel' src="${imageId}" />
+            <img id='carousel' src="http://localhost:5500/${imageId}" />
           </a>
       `;
 
@@ -53,12 +53,12 @@ export default class extends AbstractViews {
     for (let index = 0; index < Categories.length; index++) {
       const category = Categories[index];
 
-      const imageId = "https://drive.google.com/uc?export=view&id=" + category.Image.split("/")[5];
+      const imageId = category.Image;
 
       mappedCategories += `
       <div class='category' key="${index}">
         <a data-link href="/category/${category.Name}">
-          <img src="${imageId}" />
+          <img src="http://localhost:5500/${imageId}" />
         </a>
         <p>${category.Name}</p>
       </div>
@@ -88,13 +88,13 @@ export default class extends AbstractViews {
             <p class="price">${product.Price} ج</p>
             `;
         } else {
-        return `<p class="price">${product.Price} ج</p>`;
+          return `<p class="price">${product.Price} ج</p>`;
         }
       }
 
       const name = product.Name.substr(0, 17) + "...";
 
-      const imageId = "https://drive.google.com/uc?export=view&id=" + product.Image.split("/")[5];
+      const imageId = product.Image;
 
       mappedProducts += `
       <div class='${isAvailable()}' id='${product.Id}' key='${index}'>
@@ -102,7 +102,7 @@ export default class extends AbstractViews {
         <i class="bx bxs-heart"></i>
         </button>
         <a href='/product/${product.Id}' data-link>
-            <img class='image' src='${imageId}' />
+            <img class='image' src='http://localhost:5500/${imageId}' />
           <div class='body'>
             <p>${name}</p>
           </div>

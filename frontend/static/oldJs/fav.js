@@ -1,5 +1,5 @@
 async function delToFav(productId) {
-  const response = await fetch("http://localhost:5500/fav/delete", {
+  const response = await fetch("http://192.168.1.7:5500/fav/delete", {
     method: "DELETE",
     body: JSON.stringify({
       product: productId,
@@ -15,7 +15,7 @@ async function delToFav(productId) {
     });
     localStorage.removeItem("AuthToken");
     setTimeout(() => {
-      window.location = "/login";
+      redirect();
     }, 2000);
   } else {
     CreateToast({
@@ -24,7 +24,27 @@ async function delToFav(productId) {
       time: 2000,
     });
     setTimeout(() => {
-      location.reload();
+      reload();
     }, 2000);
   }
+}
+
+function reload() {
+  const a = document.createElement("a");
+  a.href = "/fav";
+  a.setAttribute("data-link", "");
+  const body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
+}
+
+function redirect() {
+  const a = document.createElement("a");
+  a.href = "/";
+  a.setAttribute("data-link", "");
+  const body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
 }

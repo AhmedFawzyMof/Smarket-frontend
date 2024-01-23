@@ -1,5 +1,5 @@
 async function CancelOrder(OrderId, Confirmed) {
-  const cancel_order = await fetch("http://localhost:5500/delete", {
+  const cancel_order = await fetch("http://192.168.1.7:5500/delete", {
     method: "DELETE",
     body: JSON.stringify({
       token: localStorage.getItem("AuthToken"),
@@ -17,7 +17,7 @@ async function CancelOrder(OrderId, Confirmed) {
       time: 2000,
     });
     setTimeout(() => {
-      location.reload();
+      reload();
     }, 1000);
   } else {
     CreateToast({
@@ -27,7 +27,17 @@ async function CancelOrder(OrderId, Confirmed) {
     });
 
     setTimeout(() => {
-      location.reload();
+      reload();
     }, 1000);
   }
+}
+
+function reload() {
+  const a = document.createElement("a");
+  a.href = "/fav";
+  a.setAttribute("data-link", "");
+  const body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
 }

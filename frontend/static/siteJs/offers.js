@@ -18,7 +18,7 @@ function _addToFav() {
             break;
           }
           _context.next = 3;
-          return fetch("http://localhost:5500/fav/add", {
+          return fetch("http://192.168.1.7:5500/fav/add", {
             method: "post",
             body: JSON.stringify({
               product: productId,
@@ -39,7 +39,7 @@ function _addToFav() {
             });
             localStorage.removeItem("AuthToken");
             setTimeout(function () {
-              window.location = "/login";
+              redirect();
             }, 5000);
           } else {
             if (data.Message === undefined) {
@@ -72,10 +72,12 @@ function _addToFav() {
   }));
   return _addToFav.apply(this, arguments);
 }
-var images = document.querySelectorAll("img");
-for (var i = 0; i < images.length; i++) {
-  var src = images[i].src;
-  if (src.startsWith("blob:")) {
-    URL.revokeObjectURL(src);
-  }
+function redirect() {
+  var a = document.createElement("a");
+  a.href = "/";
+  a.setAttribute("data-link", "");
+  var body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
 }

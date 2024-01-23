@@ -10,7 +10,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var OrderForm = document.getElementById("Order");
 OrderForm.addEventListener("submit", /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-    var products, form, formData, _iterator, _step, pair, key, value, order;
+    var products, form, formData, _iterator, _step, pair, key, value, order, res;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -40,7 +40,7 @@ OrderForm.addEventListener("submit", /*#__PURE__*/function () {
             _iterator.f();
           }
           _context.next = 10;
-          return fetch("http://localhost:5500/order", {
+          return fetch("http://192.168.1.7:5500/order", {
             method: "POST",
             body: JSON.stringify({
               products: products,
@@ -51,50 +51,42 @@ OrderForm.addEventListener("submit", /*#__PURE__*/function () {
           });
         case 10:
           order = _context.sent;
-          console.log(order.ok);
-
-          // if (!order.ok) {
-          //   localStorage.removeItem("AuthToken");
-          //   localStorage.removeItem("Cart");
-          //   CreateToast({
-          //     type: "error",
-          //     message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
-          //     time: 2000,
-          //   });
-          //   setTimeout(() => {
-          //     location.replace("/");
-          //   }, 1000);
-          // }
-          //   const res = await order.json();
-
-          //   if (res.Error) {
-          //     localStorage.removeItem("AuthToken");
-          //     localStorage.removeItem("Cart");
-          //     CreateToast({
-          //       type: "error",
-          //       message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
-          //       time: 2000,
-          //     });
-          //     setTimeout(() => {
-          //       location.replace("/");
-          //     }, 1000);
-          //   }
-          //   loading(false);
-          //   localStorage.removeItem("method");
-          //   localStorage.setItem("cart", "[]");
-          //   location.replace("/order/success");
-          // } catch (error) {
-          //   localStorage.removeItem("AuthToken");
-          //   localStorage.removeItem("Cart");
-          //   CreateToast({
-          //     type: "error",
-          //     message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
-          //     time: 2000,
-          //   });
-          //   setTimeout(() => {
-          //     location.replace("/");
-          //   }, 1000);
-        case 12:
+          if (!order.ok) {
+            localStorage.removeItem("AuthToken");
+            localStorage.removeItem("Cart");
+            CreateToast({
+              type: "error",
+              message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
+              time: 2000
+            });
+            setTimeout(function () {
+              redirect();
+            }, 1000);
+          }
+          _context.next = 14;
+          return order.json();
+        case 14:
+          res = _context.sent;
+          console.log(res);
+          if (res.Error) {
+            localStorage.removeItem("AuthToken");
+            localStorage.removeItem("Cart");
+            CreateToast({
+              type: "error",
+              message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
+              time: 2000
+            });
+            setTimeout(function () {
+              redirect();
+            }, 1000);
+          } else {
+            localStorage.removeItem("method");
+            localStorage.setItem("cart", "[]");
+            location.replace("/order/success");
+            redirectS();
+          }
+          loading(false);
+        case 18:
         case "end":
           return _context.stop();
       }
@@ -104,3 +96,21 @@ OrderForm.addEventListener("submit", /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }());
+function redirect() {
+  var a = document.createElement("a");
+  a.href = "/";
+  a.setAttribute("data-link", "");
+  var body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
+}
+function redirectS() {
+  var a = document.createElement("a");
+  a.href = "/order/success";
+  a.setAttribute("data-link", "");
+  var body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
+}

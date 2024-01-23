@@ -41,11 +41,11 @@ export default class extends AbstractViews {
         }
         let Products = "";
         Cart.forEach((product) => {
-      const imageId = "https://drive.google.com/uc?export=view&id=" + product.image.split("/")[5];
+          const imageId = product.image;
 
           return (Products += `
-        <div id='${product.id}' class='productB'>
-            <img src="${imageId}"/>
+        <div id='${product.id}${product.weight}' class='productB'>
+            <img src="http://localhost:5500/${imageId}"/>
             <div class="ditails">
               <a data-link href="/product/${product.id}">
                 ${isLong(product)}
@@ -54,17 +54,23 @@ export default class extends AbstractViews {
             </div>
             <div class='quantityDiv'>
                 <div id="productFunc">
-                    <button id='inc' onclick='inc(${product.id})'>
+                    <button id='inc' onclick='inc(${product.id}, ${
+            product.weight
+          })'>
                         <i class='bx bx-plus'></i>
                     </button>
                         <p id='quan'>${product.quantity}</p>
-                    <button id='dec' onclick='dec(${product.id})'>
+                    <button id='dec' onclick='dec(${product.id}, ${
+            product.weight
+          })'>
                         <i class='bx bx-minus'></i>
                     </button>
                 </div>
                 <div id="productTotal">
                     <p id='PT'>${product.price * product.quantity} ج<p>
-                    <button onclick="removeProduct(${product.id})">
+                    <button onclick="removeProduct(${product.id}, ${
+            product.weight
+          })">
                     <i class='bx bxs-trash'></i>
                     </button>
                 </div>
@@ -78,7 +84,7 @@ export default class extends AbstractViews {
     <div class='Thecart'>
         <div class='head'>
             <p>سلة التسوق</p>
-            <button onclick='removeAll()'><i class='bx bxs-trash'></i> إزالة جميع المنتجات</button>
+            <p></p>
         </div>
         <div class='body'>
             ${productsIncart()}

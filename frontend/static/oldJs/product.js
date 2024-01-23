@@ -1,6 +1,16 @@
 var labels = document.querySelectorAll(".types label");
 var radios = document.querySelectorAll('.types input[type="radio"]');
 
+const types = document.querySelector(".types");
+let numberOfChildren = types.childElementCount;
+
+if (numberOfChildren == 1) {
+  const type = types.querySelector(".type");
+  type.style.gridColumn = "1/3";
+}
+
+console.log(numberOfChildren);
+
 radios.forEach(function (radio, i) {
   const label = labels[i];
 
@@ -38,11 +48,13 @@ function addTo(id, image, name) {
   const product = checkedRadio.parentElement;
   const ProductId = id;
   const weightId = product.id;
+  const weight = parseInt(product.querySelector(".weight").id);
   const price = product.querySelector("#price").value;
   const size = product.querySelector("#size").value;
   const CartProduct = {
     id: parseInt(ProductId),
     name: name,
+    weight: weight,
     price: parseInt(price),
     image: image,
     size: size,
@@ -60,7 +72,9 @@ function addTo(id, image, name) {
   } else {
     var CartItem = Cart.find(function (element, index) {
       Object.assign(element, { index: index });
-      return element.id == CartProduct.id;
+      return (
+        element.id == CartProduct.id && element.weight == CartProduct.weight
+      );
     });
     if (CartItem == undefined) {
       Cart.push(CartProduct);

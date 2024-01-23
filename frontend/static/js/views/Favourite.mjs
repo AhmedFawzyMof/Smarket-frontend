@@ -4,14 +4,14 @@ export default class extends AbstractViews {
   constructor(params, auth) {
     super(params, auth);
     this.auth = auth;
-    this.setTitle("my Favourite");
+    this.setTitle("Alwadi | Favourite");
     this.setStyle("/static/css/company.css");
   }
   async getHtml() {
     loading(true);
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
-        const response = await fetch("http://localhost:5500/fav", {
+        const response = await fetch("http://192.168.1.7:5500/fav", {
           method: "post",
           body: JSON.stringify({
             token: localStorage.getItem("AuthToken"),
@@ -65,9 +65,7 @@ export default class extends AbstractViews {
               }
               const name = product.Name.substr(0, 17) + "...";
 
-              const imageId =
-                "https://drive.google.com/uc?export=view&id=" +
-                product.Image.split("/")[5];
+              const imageId = product.Image;
 
               return `
         <div class='${isAvailable()}' id='${product.Id}' key='${index}'>
@@ -75,7 +73,7 @@ export default class extends AbstractViews {
             product.Id
           })'><i class='bx bxs-x-circle'></i></button>
           <a href='/product/${product.Id}' data-link>
-              <img class='image' src='${imageId}' />
+              <img class='image' src='http://localhost:5500/${imageId}' />
             <div class='body'>
               <p>${name}</p>
             </div>

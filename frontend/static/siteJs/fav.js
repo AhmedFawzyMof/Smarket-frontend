@@ -14,7 +14,7 @@ function _delToFav() {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return fetch("http://localhost:5500/fav/delete", {
+          return fetch("http://192.168.1.7:5500/fav/delete", {
             method: "DELETE",
             body: JSON.stringify({
               product: productId,
@@ -35,7 +35,7 @@ function _delToFav() {
             });
             localStorage.removeItem("AuthToken");
             setTimeout(function () {
-              window.location = "/login";
+              redirect();
             }, 2000);
           } else {
             CreateToast({
@@ -44,7 +44,7 @@ function _delToFav() {
               time: 2000
             });
             setTimeout(function () {
-              location.reload();
+              reload();
             }, 2000);
           }
         case 7:
@@ -54,4 +54,22 @@ function _delToFav() {
     }, _callee);
   }));
   return _delToFav.apply(this, arguments);
+}
+function reload() {
+  var a = document.createElement("a");
+  a.href = "/fav";
+  a.setAttribute("data-link", "");
+  var body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
+}
+function redirect() {
+  var a = document.createElement("a");
+  a.href = "/";
+  a.setAttribute("data-link", "");
+  var body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
 }

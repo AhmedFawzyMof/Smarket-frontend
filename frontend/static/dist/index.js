@@ -69,29 +69,29 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         key: "getHtml",
         value: function () {
           var _getHtml2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-            var t, _e2, n, a, i, s, r, _d, _p, _u, c, _h, _v, _m, o, _loop, _f, l;
+            var t, _e2, n, a, s, i, r, _d, _p, _u, c, _h, _v, _m, o, _loop, _f, l;
             return _regeneratorRuntime().wrap(function _callee2$(_context3) {
               while (1) switch (_context3.prev = _context3.next) {
                 case 0:
                   loading(!0), localStorage.getItem("home") ? (localStorage.removeItem("home"), location.reload()) : localStorage.setItem("home", "loded");
                   _context3.next = 3;
-                  return fetch("http://localhost:5500/");
+                  return fetch("http://192.168.1.7:5500/");
                 case 3:
                   t = _context3.sent;
                   _context3.next = 6;
                   return t.json();
                 case 6:
                   _e2 = _context3.sent;
-                  delete _e2.exp, _e2.Home ? (n = _e2.Home.Categories, a = _e2.Home.Offers, i = _e2.Home.Products) : (n = _e2.Categories, a = _e2.Offers, i = _e2.Products);
-                  s = "", r = "";
+                  delete _e2.exp, _e2.Home ? (n = _e2.Home.Categories, a = _e2.Home.Offers, s = _e2.Home.Products) : (n = _e2.Categories, a = _e2.Offers, s = _e2.Products);
+                  i = "", r = "";
                   for (_d = 0; _d < a.length; _d++) {
-                    _p = a[_d], _u = "https://drive.google.com/uc?export=view&id=" + _p.Image.split("/")[5];
-                    s += "\n          <a data-link href='/product/".concat(_p.Id, "' key='").concat(_d, "'>\n            <img id='carousel' src=\"").concat(_u, "\" />\n          </a>\n      "), r += "\n      <div class='dot' id='d".concat(_d + 1, "'></div>\n      ");
+                    _p = a[_d], _u = _p.Image;
+                    i += "\n          <a data-link href='/product/".concat(_p.Id, "' key='").concat(_d, "'>\n            <img id='carousel' src=\"http://localhost:5500/").concat(_u, "\" />\n          </a>\n      "), r += "\n      <div class='dot' id='d".concat(_d + 1, "'></div>\n      ");
                   }
                   c = "";
                   for (_h = 0; _h < n.length; _h++) {
-                    _v = n[_h], _m = "https://drive.google.com/uc?export=view&id=" + _v.Image.split("/")[5];
-                    c += "\n      <div class='category' key=\"".concat(_h, "\">\n        <a data-link href=\"/category/").concat(_v.Name, "\">\n          <img src=\"").concat(_m, "\" />\n        </a>\n        <p>").concat(_v.Name, "</p>\n      </div>\n      ");
+                    _v = n[_h], _m = _v.Image;
+                    c += "\n      <div class='category' key=\"".concat(_h, "\">\n        <a data-link href=\"/category/").concat(_v.Name, "\">\n          <img src=\"http://localhost:5500/").concat(_m, "\" />\n        </a>\n        <p>").concat(_v.Name, "</p>\n      </div>\n      ");
                   }
                   o = "";
                   _loop = /*#__PURE__*/_regeneratorRuntime().mark(function _loop() {
@@ -106,9 +106,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                             var t = "product";
                             return 1 !== b.Available && (t += " notavailable"), b.Offer > 0 && (t += " offer"), t;
                           };
-                          b = i[_f];
-                          $ = b.Name.substr(0, 17) + "...", k = "https://drive.google.com/uc?export=view&id=" + b.Image.split("/")[5];
-                          o += "\n      <div class='".concat(g(), "' id='").concat(b.Id, "' key='").concat(_f, "'>\n        <button id='addtofav' onclick='addToFav(").concat(b.Id, ")'>\n        <i class=\"bx bxs-heart\"></i>\n        </button>\n        <a href='/product/").concat(b.Id, "' data-link>\n            <img class='image' src='").concat(k, "' />\n          <div class='body'>\n            <p>").concat($, "</p>\n          </div>\n        </a>\n        ").concat(y(), "\n      </div>\n      ");
+                          b = s[_f];
+                          $ = b.Name.substr(0, 17) + "...", k = b.Image;
+                          o += "\n      <div class='".concat(g(), "' id='").concat(b.Id, "' key='").concat(_f, "'>\n        <button id='addtofav' onclick='addToFav(").concat(b.Id, ")'>\n        <i class=\"bx bxs-heart\"></i>\n        </button>\n        <a href='/product/").concat(b.Id, "' data-link>\n            <img class='image' src='http://localhost:5500/").concat(k, "' />\n          <div class='body'>\n            <p>").concat($, "</p>\n          </div>\n        </a>\n        ").concat(y(), "\n      </div>\n      ");
                         case 5:
                         case "end":
                           return _context2.stop();
@@ -117,7 +117,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   });
                   _f = 0;
                 case 15:
-                  if (!(_f < i.length)) {
+                  if (!(_f < s.length)) {
                     _context3.next = 20;
                     break;
                   }
@@ -127,7 +127,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   _context3.next = 15;
                   break;
                 case 20:
-                  l = "\n       <div class=\"wrapper\">\n    <div class=\"carousel\">\n    ".concat(s, "\n    </div>\n    <div class='dots'>\n    ").concat(r, "\n    </div>\n    </div>\n    <div class='container'>\n    ").concat(c, "\n    </div>\n    <div class=\"containerProducts\">\n    ").concat(o, "\n    </div>\n    ");
+                  l = "\n       <div class=\"wrapper\">\n    <div class=\"carousel\">\n    ".concat(i, "\n    </div>\n    <div class='dots'>\n    ").concat(r, "\n    </div>\n    </div>\n    <div class='container'>\n    ").concat(c, "\n    </div>\n    <div class=\"containerProducts\">\n    ").concat(o, "\n    </div>\n    ");
                   return _context3.abrupt("return", (localStorage.getItem("cart") || localStorage.setItem("cart", "[]"), fetch("/static/siteJs/index.js").then(function (t) {
                     return !!t.ok && t.blob();
                   }).then(function (t) {
@@ -180,7 +180,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     break;
                   }
                   _context4.next = 4;
-                  return fetch("http://localhost:5500/profile", {
+                  return fetch("http://192.168.1.7:5500/profile", {
                     method: "post",
                     body: JSON.stringify({
                       token: localStorage.getItem("AuthToken")
@@ -253,7 +253,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     break;
                   }
                   _context5.next = 4;
-                  return fetch("http://localhost:5500/orderhistory", {
+                  return fetch("http://192.168.1.7:5500/orderhistory", {
                     method: "post",
                     body: JSON.stringify({
                       token: localStorage.getItem("AuthToken")
@@ -306,18 +306,18 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       }]);
       return a;
     }(t),
-    i = /*#__PURE__*/function (_t9) {
-      _inherits(i, _t9);
-      var _super4 = _createSuper(i);
-      function i(t, e) {
+    s = /*#__PURE__*/function (_t9) {
+      _inherits(s, _t9);
+      var _super4 = _createSuper(s);
+      function s(t, e) {
         var _this4;
-        _classCallCheck(this, i);
+        _classCallCheck(this, s);
         _this4 = _super4.call(this, t, e);
         var n = decodeURI(t.id);
         _this4.productId = n, _this4.setStyle("/static/css/product.css");
         return _this4;
       }
-      _createClass(i, [{
+      _createClass(s, [{
         key: "getHtml",
         value: function () {
           var _getHtml5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
@@ -327,7 +327,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 0:
                   loading(!0);
                   _context6.next = 3;
-                  return fetch("http://localhost:5500/product/" + this.productId);
+                  return fetch("http://192.168.1.7:5500/product/" + this.productId);
                 case 3:
                   t = _context6.sent;
                   _context6.next = 6;
@@ -335,21 +335,21 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 6:
                   e = _context6.sent.Product;
                   this.setTitle("Alwadi | " + e.Name);
-                  n = "\n    <div class='image'>\n      <img src='https://drive.google.com/uc?export=view&id=".concat(e.Image.split("/")[5], "' />\n    </div>\n    <div class='details'>\n      <div class='box1'>\n        <p class='compony'>\u062A\u0631\u064A\u062F \u0631\u0624\u064A\u0629 \u0645\u0646\u062A\u062C\u0627\u062A \u0623\u062E\u0631\u0649 \u0645\u0646 : <a href='/compony/").concat(e.Company, "' data-link class='seemore'>").concat(e.Company, "</a></p>\n        <div class='prices'>\n          ").concat(function (t) {
+                  n = "\n    <div class='image'>\n      <img src='http://localhost:5500/".concat(e.Image, "' />\n    </div>\n    <div class='details'>\n      <div class='box1'>\n        <p class='compony'>\u062A\u0631\u064A\u062F \u0631\u0624\u064A\u0629 \u0645\u0646\u062A\u062C\u0627\u062A \u0623\u062E\u0631\u0649 \u0645\u0646 : <a href='/compony/").concat(e.Company, "' data-link class='seemore'>").concat(e.Company, "</a></p>\n        <div class='prices'>\n          ").concat(function (t) {
                     var e = t.Price + t.Offer,
                       n = Math.abs(e - t.Price) / e * 100;
                     return t.Offer > 0 ? "\n        <h2 class='price'>".concat(t.Price, " \u062C</h2>\n        <p class='offer'>").concat(t.Price + t.Offer, " \u062C</p>\n        <p class='percent'>").concat(Math.trunc(n), "%</p>\n        ") : "\n        <h2 class='price'>".concat(t.Price, " \u062C</h2>\n        ");
                   }(e), "\n        </div>\n        <h2>").concat(e.Name, "</h2>\n        <p>").concat(e.Description, "</p>\n      </div>\n      <div class='box2'>\n          ").concat(function (t) {
                     if (1 == t.Available) {
                       var _e5 = "";
-                      var _n2 = "https://drive.google.com/uc?export=view&id=" + t.Image.split("/")[5];
+                      var _n2 = t.Image;
                       return t.Types.forEach(function (t, a) {
-                        _e5 += "\n        <div class=\"type\" id=\"".concat(t.Id, "\">\n          <label for=\"pt").concat(a, "\">\n          <img src=\"").concat(_n2, "\" />\n           ").concat(t.Offer > 0 ? "<p class=\"price offer\">\u0627\u0644\u0633\u0639\u0631: ".concat(t.Price + t.Offer, " \u062C</p>\n                <p class=\"price\">").concat(t.Price, " \u062C</p>\n                ") : "<p class=\"price\">\u0627\u0644\u0633\u0639\u0631: ".concat(t.Price, " \u062C</p>"), "\n          <p class=\"weight\">\u0627\u0644\u0648\u0632\u0646: ").concat(t.Portion, " ").concat(t.Uint, "</p>\n          </label>\n          <input type=\"radio\" id=\"pt").concat(a, "\" name=\"pt1\">\n          <input type=\"hidden\" id=\"price\" value=\"").concat(t.Price, "\">\n          <input type=\"hidden\" id=\"size\" value=\"").concat(t.Portion, " ").concat(t.Uint, "\">\n        </div>\n        ");
+                        _e5 += "\n        <div class=\"type\" id=\"".concat(t.Id, "\">\n          <label for=\"pt").concat(a, "\">\n          <img src=\"http://localhost:5500/").concat(_n2, "\" />\n           ").concat(t.Offer > 0 ? "<p class=\"price offer\">\u0627\u0644\u0633\u0639\u0631: ".concat(t.Price + t.Offer, " \u062C</p>\n                <p class=\"price\">").concat(t.Price, " \u062C</p>\n                ") : "<p class=\"price\">\u0627\u0644\u0633\u0639\u0631: ".concat(t.Price, " \u062C</p>"), "\n          <p class=\"weight\" id=\"").concat(t.Portion, "\">\u0627\u0644\u0648\u0632\u0646: ").concat(t.Portion, " ").concat(t.Uint, "</p>\n          </label>\n          <input type=\"radio\" id=\"pt").concat(a, "\" name=\"pt1\">\n          <input type=\"hidden\" id=\"price\" value=\"").concat(t.Price, "\">\n          <input type=\"hidden\" id=\"size\" value=\"").concat(t.Portion, " ").concat(t.Uint, "\">\n        </div>\n        ");
                       }), "\n        <div class=\"types\">\n        ".concat(_e5, "\n        </div>\n        <button class=\"addToCart\" onclick=\"addTo(").concat(t.Id, ", '").concat(t.Image, "', '").concat(t.Name, "')\">\n        \u0623\u0636\u0641 \u0625\u0644\u0649 \u0633\u0644\u0629 \u0627\u0644\u062A\u0633\u0648\u0642 <i class='bx bxs-cart-add'></i>\n        </button>\n        ");
                     }
                     return "\n        <div class='unAvailable'>\n         <h2>غير متاح</h2>\n        </div>";
                   }(e), "\n      </div>\n    </div>\n    ");
-                  return _context6.abrupt("return", (fetch("/static/siteJs/product.js").then(function (t) {
+                  return _context6.abrupt("return", (fetch("/static/oldJs/product.js").then(function (t) {
                     return !!t.ok && t.blob();
                   }).then(function (t) {
                     var e = URL.createObjectURL(t);
@@ -373,20 +373,20 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           return getHtml;
         }()
       }]);
-      return i;
+      return s;
     }(t),
-    s = /*#__PURE__*/function (_t10) {
-      _inherits(s, _t10);
-      var _super5 = _createSuper(s);
-      function s(t, e) {
+    i = /*#__PURE__*/function (_t10) {
+      _inherits(i, _t10);
+      var _super5 = _createSuper(i);
+      function i(t, e) {
         var _this5;
-        _classCallCheck(this, s);
+        _classCallCheck(this, i);
         _this5 = _super5.call(this, t, e);
         var n = decodeURI(t.name);
         _this5.company = n, _this5.setTitle("Alwadi | " + _this5.company), _this5.setStyle("/static/css/company.css");
         return _this5;
       }
-      _createClass(s, [{
+      _createClass(i, [{
         key: "getHtml",
         value: function () {
           var _getHtml6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
@@ -396,7 +396,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 0:
                   loading(!0);
                   _context7.next = 3;
-                  return fetch("http://localhost:5500/company/" + this.company);
+                  return fetch("http://192.168.1.7:5500/company/" + this.company);
                 case 3:
                   t = _context7.sent;
                   _context7.next = 6;
@@ -404,11 +404,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 6:
                   e = _context7.sent.Products.map(function (t, e) {
                     var n = t.Name.substr(0, 20);
-                    var a = "https://drive.google.com/uc?export=view&id=" + t.Image.split("/")[5];
+                    var a = t.Image;
                     return "\n      <div class='".concat(function () {
                       var e = "product";
                       return 1 !== t.Available && (e += " notavailable"), t.Offer > 0 && (e += " offer"), e;
-                    }(), "' id='").concat(t.Id, "' key='").concat(e, "'>\n        <button id='addtofav' onclick='addToFav(").concat(t.Id, ")'><i class=\"bx bxs-heart\"></i></button>\n        <a href='/product/").concat(t.Id, "' data-link>\n            <img class='image' src='").concat(a, "' />\n          <div class='body'>\n            <p>").concat(n, "</p>\n          </div>\n        </a>\n        ").concat(t.Offer > 0 ? "<p class=\"price offer\">".concat(t.Price + t.Offer, " \u062C</p>\n            <p class=\"price\">").concat(t.Price, " \u062C</p>\n            ") : "<p class=\"price\">".concat(t.Price, " \u062C</p>"), "\n      </div>\n      ");
+                    }(), "' id='").concat(t.Id, "' key='").concat(e, "'>\n        <button id='addtofav' onclick='addToFav(").concat(t.Id, ")'><i class=\"bx bxs-heart\"></i></button>\n        <a href='/product/").concat(t.Id, "' data-link>\n            <img class='image' src='http://localhost:5500/").concat(a, "' />\n          <div class='body'>\n            <p>").concat(n, "</p>\n          </div>\n        </a>\n        ").concat(t.Offer > 0 ? "<p class=\"price offer\">".concat(t.Price + t.Offer, " \u062C</p>\n            <p class=\"price\">").concat(t.Price, " \u062C</p>\n            ") : "<p class=\"price\">".concat(t.Price, " \u062C</p>"), "\n      </div>\n      ");
                   }).join("");
                   return _context7.abrupt("return", (fetch("/static/siteJs/compony.js").then(function (t) {
                     return !!t.ok && t.blob();
@@ -434,7 +434,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           return getHtml;
         }()
       }]);
-      return s;
+      return i;
     }(t),
     r = /*#__PURE__*/function (_t11) {
       _inherits(r, _t11);
@@ -451,13 +451,13 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         key: "getHtml",
         value: function () {
           var _getHtml7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-            var t, e, n, a, i, _t12, _e6, _n3, s;
+            var t, e, n, a, s, _t12, _e6, _n3, i;
             return _regeneratorRuntime().wrap(function _callee7$(_context8) {
               while (1) switch (_context8.prev = _context8.next) {
                 case 0:
                   loading(!0);
                   _context8.next = 3;
-                  return fetch("http://localhost:5500/category/" + this.category);
+                  return fetch("http://192.168.1.7:5500/category/" + this.category);
                 case 3:
                   t = _context8.sent;
                   _context8.next = 6;
@@ -466,18 +466,18 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   e = _context8.sent;
                   n = e.Products;
                   a = e.SubCategories;
-                  i = "";
+                  s = "";
                   for (_t12 = 0; _t12 < a.length; _t12++) {
-                    _e6 = a[_t12], _n3 = "https://drive.google.com/uc?export=view&id=" + _e6.Image.split("/")[5];
-                    i += "\n      <div class='category' key=\"".concat(_t12, "\">\n        <a data-link href=\"/subcategory/").concat(_e6.Name, "\">\n          <img src=\"").concat(_n3, "\" />\n        </a>\n        <p>").concat(_e6.Name, "</p>\n      </div>\n      ");
+                    _e6 = a[_t12], _n3 = _e6.Image;
+                    s += "\n      <div class='category' key=\"".concat(_t12, "\">\n        <a data-link href=\"/subcategory/").concat(_e6.Name, "\">\n          <img src=\"http://localhost:5500/").concat(_n3, "\" />\n        </a>\n        <p>").concat(_e6.Name, "</p>\n      </div>\n      ");
                   }
-                  s = n.map(function (t, e) {
+                  i = n.map(function (t, e) {
                     var n = t.Name.substr(0, 17);
-                    var a = "https://drive.google.com/uc?export=view&id=" + t.Image.split("/")[5];
+                    var a = t.Image;
                     return "\n      <div class='".concat(function () {
                       var e = "product";
                       return 1 !== t.Available && (e += " notavailable"), t.Offer > 0 && (e += " offer"), e;
-                    }(), "' id='").concat(t.Id, "' key='").concat(e, "'>\n        <button id='addtofav' onclick='addToFav(").concat(t.Id, ")'>\n          <i class=\"bx bxs-heart\"></i>\n        </button>\n        <a href='/product/").concat(t.Id, "' data-link>\n            <img class='image' src='").concat(a, "' />\n          <div class='body'>\n            <p>").concat(n, "</p>\n          </div>\n        </a>\n        ").concat(t.offer > 0 ? "<p class=\"price offer\">".concat(t.Price + t.Offer, " \u062C</p>\n            <p class=\"price\">").concat(t.Price, " \u062C</p>\n            ") : "<p class=\"price\">".concat(t.Price, " \u062C</p>"), "\n      </div>\n      ");
+                    }(), "' id='").concat(t.Id, "' key='").concat(e, "'>\n        <button id='addtofav' onclick='addToFav(").concat(t.Id, ")'>\n          <i class=\"bx bxs-heart\"></i>\n        </button>\n        <a href='/product/").concat(t.Id, "' data-link>\n            <img class='image' src='http://localhost:5500/").concat(a, "' />\n          <div class='body'>\n            <p>").concat(n, "</p>\n          </div>\n        </a>\n        ").concat(t.offer > 0 ? "<p class=\"price offer\">".concat(t.Price + t.Offer, " \u062C</p>\n            <p class=\"price\">").concat(t.Price, " \u062C</p>\n            ") : "<p class=\"price\">".concat(t.Price, " \u062C</p>"), "\n      </div>\n      ");
                   }).join("");
                   return _context8.abrupt("return", (fetch("/static/siteJs/compony.js").then(function (t) {
                     return !!t.ok && t.blob();
@@ -490,7 +490,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     n.setAttribute("src", e), n.setAttribute("defer", ""), n.setAttribute("data-script", ""), n.setAttribute("type", "text/javascript"), document.head.appendChild(n), n.onload = function () {
                       URL.revokeObjectURL(e);
                     };
-                  }), loading(!1), "\n    <div class=\"countainer\">\n    ".concat(i, "\n    </div>\n    <div class='containerProducts'>\n     ").concat(s, "\n    </div>\n    ")));
+                  }), loading(!1), "\n    <div class=\"countainer\">\n    ".concat(s, "\n    </div>\n    <div class='containerProducts'>\n     ").concat(i, "\n    </div>\n    ")));
                 case 13:
                 case "end":
                   return _context8.stop();
@@ -536,14 +536,14 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                     var t = screen.width;
                     var e = "";
                     return Cart.forEach(function (n) {
-                      var a = "https://drive.google.com/uc?export=view&id=" + n.image.split("/")[5];
-                      return e += "\n        <div id='".concat(n.id, "' class='productB'>\n            <img src=\"").concat(a, "\"/>\n            <div class=\"ditails\">\n              <a data-link href=\"/product/").concat(n.id, "\">\n                ").concat(function (e) {
+                      var a = n.image;
+                      return e += "\n        <div id='".concat(n.id).concat(n.weight, "' class='productB'>\n            <img src=\"http://localhost:5500/").concat(a, "\"/>\n            <div class=\"ditails\">\n              <a data-link href=\"/product/").concat(n.id, "\">\n                ").concat(function (e) {
                         return t >= 551 ? e.name : e.name.substr(0, 15) + "...";
-                      }(n), "\n              </a>\n              <p class=\"weight\">\u0627\u0644\u0648\u0632\u0646: ").concat(n.size, "</p>\n            </div>\n            <div class='quantityDiv'>\n                <div id=\"productFunc\">\n                    <button id='inc' onclick='inc(").concat(n.id, ")'>\n                        <i class='bx bx-plus'></i>\n                    </button>\n                        <p id='quan'>").concat(n.quantity, "</p>\n                    <button id='dec' onclick='dec(").concat(n.id, ")'>\n                        <i class='bx bx-minus'></i>\n                    </button>\n                </div>\n                <div id=\"productTotal\">\n                    <p id='PT'>").concat(n.price * n.quantity, " \u062C<p>\n                    <button onclick=\"removeProduct(").concat(n.id, ")\">\n                    <i class='bx bxs-trash'></i>\n                    </button>\n                </div>\n            </div>\n        </div>\n        ");
+                      }(n), "\n              </a>\n              <p class=\"weight\">\u0627\u0644\u0648\u0632\u0646: ").concat(n.size, "</p>\n            </div>\n            <div class='quantityDiv'>\n                <div id=\"productFunc\">\n                    <button id='inc' onclick='inc(").concat(n.id, ", ").concat(n.weight, ")'>\n                        <i class='bx bx-plus'></i>\n                    </button>\n                        <p id='quan'>").concat(n.quantity, "</p>\n                    <button id='dec' onclick='dec(").concat(n.id, ", ").concat(n.weight, ")'>\n                        <i class='bx bx-minus'></i>\n                    </button>\n                </div>\n                <div id=\"productTotal\">\n                    <p id='PT'>").concat(n.price * n.quantity, " \u062C<p>\n                    <button onclick=\"removeProduct(").concat(n.id, ", ").concat(n.weight, ")\">\n                    <i class='bx bxs-trash'></i>\n                    </button>\n                </div>\n            </div>\n        </div>\n        ");
                     }), e;
                   };
                   _t14 = screen.width;
-                  a = "\n    <div class='Thecart'>\n        <div class='head'>\n            <p>\u0633\u0644\u0629 \u0627\u0644\u062A\u0633\u0648\u0642</p>\n            <button onclick='removeAll()'><i class='bx bxs-trash'></i> \u0625\u0632\u0627\u0644\u0629 \u062C\u0645\u064A\u0639 \u0627\u0644\u0645\u0646\u062A\u062C\u0627\u062A</button>\n        </div>\n        <div class='body'>\n            ".concat(n(), "\n        </div>\n        <div class='bottomT'>\n            <div class='total'>\n                <div>\n                    <h3>\u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A</h3>\n                    <p id='TotalPro'>\u0645\u0646\u062A\u062C\u0627\u062A ").concat(cartLength(), "</p>\n                </div>\n                <h2 id='TP'>").concat(_e7(), " \u062C</h2>\n            </div>\n            <a href=\"/OrderMethod\" data-link>\u0627\u0644\u062F\u0641\u0639</a>\n        </div>\n    </div>\n    ");
+                  a = "\n    <div class='Thecart'>\n        <div class='head'>\n            <p>\u0633\u0644\u0629 \u0627\u0644\u062A\u0633\u0648\u0642</p>\n            <p></p>\n        </div>\n        <div class='body'>\n            ".concat(n(), "\n        </div>\n        <div class='bottomT'>\n            <div class='total'>\n                <div>\n                    <h3>\u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A</h3>\n                    <p id='TotalPro'>\u0645\u0646\u062A\u062C\u0627\u062A ").concat(cartLength(), "</p>\n                </div>\n                <h2 id='TP'>").concat(_e7(), " \u062C</h2>\n            </div>\n            <a href=\"/OrderMethod\" data-link>\u0627\u0644\u062F\u0641\u0639</a>\n        </div>\n    </div>\n    ");
                   return _context9.abrupt("return", (fetch("/static/siteJs/cart.js").then(function (t) {
                     return !!t.ok && t.blob();
                   }).then(function (t) {
@@ -674,7 +674,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       function d(t, e) {
         var _this10;
         _classCallCheck(this, d);
-        _this10 = _super10.call(this, t, e), _this10.auth = e, _this10.setTitle("my Favourite"), _this10.setStyle("/static/css/company.css");
+        _this10 = _super10.call(this, t, e), _this10.auth = e, _this10.setTitle("Alwadi | Favourite"), _this10.setStyle("/static/css/company.css");
         return _this10;
       }
       _createClass(d, [{
@@ -696,7 +696,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   return _context12.abrupt("return", (loading(!1), "\n          <div class='notLoginPop'>\n            <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n            <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n            <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n            <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n          </div>\n        "));
                 case 3:
                   _context12.next = 5;
-                  return fetch("http://localhost:5500/fav", {
+                  return fetch("http://192.168.1.7:5500/fav", {
                     method: "post",
                     body: JSON.stringify({
                       token: localStorage.getItem("AuthToken")
@@ -722,11 +722,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   }
                   _t19 = n.map(function (t, e) {
                     var n = t.Name.substr(0, 17) + "...",
-                      a = "https://drive.google.com/uc?export=view&id=" + t.Image.split("/")[5];
+                      a = t.Image;
                     return "\n        <div class='".concat(function () {
                       var e = "product";
                       return 1 !== t.Available && (e += " notavailable"), t.Offer > 0 && (e += " offer"), e;
-                    }(), "' id='").concat(t.Id, "' key='").concat(e, "'>\n          <button id='addtofav' onclick='delToFav(").concat(t.Id, ")'><i class='bx bxs-x-circle'></i></button>\n          <a href='/product/").concat(t.Id, "' data-link>\n              <img class='image' src='").concat(a, "' />\n            <div class='body'>\n              <p>").concat(n, "</p>\n            </div>\n          </a>\n          ").concat(t.Offer > 0 ? "<p class=\"price offer\">".concat(t.Price + t.Offer, " \u062C</p>\n              <p class=\"price\">").concat(t.Price, " \u062C</p>\n              ") : "<p class=\"price\">".concat(t.Price, " \u062C</p>"), "\n        </div>\n        ");
+                    }(), "' id='").concat(t.Id, "' key='").concat(e, "'>\n          <button id='addtofav' onclick='delToFav(").concat(t.Id, ")'><i class='bx bxs-x-circle'></i></button>\n          <a href='/product/").concat(t.Id, "' data-link>\n              <img class='image' src='http://localhost:5500/").concat(a, "' />\n            <div class='body'>\n              <p>").concat(n, "</p>\n            </div>\n          </a>\n          ").concat(t.Offer > 0 ? "<p class=\"price offer\">".concat(t.Price + t.Offer, " \u062C</p>\n              <p class=\"price\">").concat(t.Price, " \u062C</p>\n              ") : "<p class=\"price\">".concat(t.Price, " \u062C</p>"), "\n        </div>\n        ");
                   }).join("");
                   return _context12.abrupt("return", (fetch("/static/siteJs/fav.js").then(function (t) {
                     return !!t.ok && t.blob();
@@ -924,7 +924,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 0:
                   loading(!0);
                   _context17.next = 3;
-                  return fetch("http://localhost:5500/offers");
+                  return fetch("http://192.168.1.7:5500/offers");
                 case 3:
                   t = _context17.sent;
                   e = [];
@@ -980,11 +980,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   }), n = e.length > 0 ? e.map(function (t, e) {
                     var n = t.products.map(function (t, e) {
                       var n = t.Name.substr(0, 17) + "...";
-                      var a = "https://drive.google.com/uc?export=view&id=" + t.Image.split("/")[5];
+                      var a = t.Image;
                       return "\n      <div class='".concat(function () {
                         var e = "Product";
                         return 1 !== t.Available && (e += " Notavailable"), t.Offer > 0 && (e += " offer"), e;
-                      }(), "' id='").concat(t.Id, "' key='").concat(e, "'>\n        <button id='addtofav' onclick='addToFav(").concat(t.Id, ")'><i class=\"bx bxs-heart\"></i></button>\n        <a href='/product/").concat(t.Id, "' data-link>\n            <img class='image' src='").concat(a, "' />\n          <div class='body'>\n            <p>").concat(n, "</p>\n          </div>\n        </a>\n        ").concat(t.Offer > 0 ? "<p class=\"price offer\">".concat(t.Price + t.Offer, " \u062C</p>\n            <p class=\"price\">").concat(t.Price, " \u062C</p>\n            ") : "<p class=\"price\">".concat(t.Price, " \u062C</p>"), "\n      </div>\n      ");
+                      }(), "' id='").concat(t.Id, "' key='").concat(e, "'>\n        <button id='addtofav' onclick='addToFav(").concat(t.Id, ")'><i class=\"bx bxs-heart\"></i></button>\n        <a href='/product/").concat(t.Id, "' data-link>\n            <img class='image' src='http://localhost:5500/").concat(a, "' />\n          <div class='body'>\n            <p>").concat(n, "</p>\n          </div>\n        </a>\n        ").concat(t.Offer > 0 ? "<p class=\"price offer\">".concat(t.Price + t.Offer, " \u062C</p>\n            <p class=\"price\">").concat(t.Price, " \u062C</p>\n            ") : "<p class=\"price\">".concat(t.Price, " \u062C</p>"), "\n      </div>\n      ");
                     }).join("");
                     return "\n      <div class=\"categoryO\">\n        <h3>".concat(t.name, "</h3>\n        <div id=\"").concat(t.name, "\" class=\"CategoryProducts\" key=\"").concat(e, "\">\n          ").concat(n, "\n        </div>\n      </div>\n      ");
                   }).join("") : "no products found", loading(!1), "".concat(n)));
@@ -1021,7 +1021,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 0:
                   loading(!0);
                   _context18.next = 3;
-                  return fetch("http://localhost:5500/subcategory/" + this.category);
+                  return fetch("http://192.168.1.7:5500/subcategory/" + this.category);
                 case 3:
                   t = _context18.sent;
                   _context18.next = 6;
@@ -1029,11 +1029,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 6:
                   e = _context18.sent.Products.map(function (t, e) {
                     var n = t.Name.substr(0, 20);
-                    var a = "https://drive.google.com/uc?export=view&id=" + t.Image.split("/")[5];
+                    var a = t.Image;
                     return "\n      <div class='".concat(function () {
                       var e = "product";
                       return 1 !== t.Available && (e += " notavailable"), t.Offer > 0 && (e += " offer"), e;
-                    }(), "' id='").concat(t.Id, "' key='").concat(e, "'>\n        <button id='addtofav' onclick='addToFav(").concat(t.Id, ")'><i class=\"bx bxs-heart\"></i></button>\n        <a href='/product/").concat(t.Id, "' data-link>\n            <img class='image' src='").concat(a, "' />\n          <div class='body'>\n            <p>").concat(n, "</p>\n          </div>\n        </a>\n        ").concat(t.Offer > 0 ? "<p class=\"price offer\">".concat(t.Price + t.Offer, " \u062C</p>\n            <p class=\"price\">").concat(t.Price, " \u062C</p>\n            ") : "<p class=\"price\">".concat(t.Price, " \u062C</p>"), "\n      </div>\n      ");
+                    }(), "' id='").concat(t.Id, "' key='").concat(e, "'>\n        <button id='addtofav' onclick='addToFav(").concat(t.Id, ")'><i class=\"bx bxs-heart\"></i></button>\n        <a href='/product/").concat(t.Id, "' data-link>\n            <img class='image' src='http://localhost:5500/").concat(a, "' />\n          <div class='body'>\n            <p>").concat(n, "</p>\n          </div>\n        </a>\n        ").concat(t.Offer > 0 ? "<p class=\"price offer\">".concat(t.Price + t.Offer, " \u062C</p>\n            <p class=\"price\">").concat(t.Price, " \u062C</p>\n            ") : "<p class=\"price\">".concat(t.Price, " \u062C</p>"), "\n      </div>\n      ");
                   }).join("");
                   return _context18.abrupt("return", (fetch("/static/siteJs/compony.js").then(function (t) {
                     return !!t.ok && t.blob();
@@ -1076,7 +1076,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         key: "getHtml",
         value: function () {
           var _getHtml17 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee17() {
-            var a, i, _s, _t28, _e9, n, _r, _c, _o, _l;
+            var a, s, _i, _t28, _e9, n, _r, _c, _o, _l;
             return _regeneratorRuntime().wrap(function _callee17$(_context19) {
               while (1) switch (_context19.prev = _context19.next) {
                 case 0:
@@ -1091,17 +1091,17 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   a = function a() {
                     return 1 == n.Delivered ? '\n              <div class="Delivered True">\n                 تسليم الطلب: نعم\n              </div>' : '\n              <div class="Delivered">\n                 تسليم الطلب: لا\n              </div>';
                   };
-                  i = function i() {
+                  s = function s() {
                     return 1 == n.Paid ? '\n              <div class="Paid True">\n                 تم الدفع: نعم\n              </div>' : '\n              <div class="Paid">\n                 تم الدفع: لا\n              </div>';
                   };
-                  _s = function _s() {
+                  _i = function _i() {
                     var t = 0;
                     return n.cart.map(function (e) {
                       t += e.Price * e.Quantity;
                     }), t;
                   };
                   _context19.next = 7;
-                  return fetch("http://localhost:5500/order/" + this.id, {
+                  return fetch("http://192.168.1.7:5500/order/" + this.id, {
                     method: "post",
                     body: JSON.stringify({
                       token: localStorage.getItem("AuthToken")
@@ -1114,7 +1114,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 case 10:
                   _e9 = _context19.sent;
                   n = _e9.Order;
-                  console.log(_e9), n.cart = _e9.Products, fetch("/static/siteJs/orderMethod.js").then(function (t) {
+                  n.cart = _e9.Products, fetch("/static/siteJs/orderMethod.js").then(function (t) {
                     return !!t.ok && t.blob();
                   }).then(function (t) {
                     var e = URL.createObjectURL(t);
@@ -1130,8 +1130,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   _r = _r.substr(0, 8);
                   _c = n.Date.replace("T", " ").replace("Z", " ").split(".")[0];
                   _o = n.cart.map(function (t, e) {
-                    return "\n          <div class=\"orderitem\">\n            <img src=\"".concat("https://drive.google.com/uc?export=view&id=" + t.Image.split("/")[5], "\" alt=\"").concat(t.Name, "\">\n            <div class=\"itemInfo\">\n              <p>").concat(t.Name, "</p>\n              <p>\u0627\u0644\u0643\u0645\u064A\u0629: ").concat(t.Quantity, "</p>\n              <p>\u0627\u0644\u0633\u0639\u0631: ").concat(t.Price, " \u062C</p>\n              <p>\u0627\u0644\u0648\u0632\u0646: ").concat(t.Portion, " ").concat(t.Uint, "</p>\n              <p>\u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A \u0644\u0644\u0645\u0646\u062A\u062C: ").concat(t.Price * t.Quantity, " \u062C</p>\n            </div>\n          </div>\n        ");
-                  }).join(""), _l = "\n          <div class=\"orderRec\">\n        <p>\u0645\u0639\u0631\u0641 \u0627\u0644\u0637\u0644\u0628: ".concat(_r, "</p>\n        <div class=\"date\">\n          <p>\n            \u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0637\u0644\u0628:\n          </p>\n          <h4 dir=\"ltr\" style=\"color: #b3b2b2\">\n            ").concat(_c, "\n          </h4>\n        </div>\n        <p>\u0627\u0644\u0645\u062C\u0645\u0648\u0639: ").concat(_s(), " \u062C</p>\n        ").concat(_o, "\n          ").concat(a(), "\n          ").concat(i(), "\n      </div>\n          ");
+                    return "\n          <div class=\"orderitem\">\n            <img src=\"http://localhost:5500/".concat("https://drive.google.com/uc?export=view&id=" + t.Image.split("/")[5], "\" alt=\"").concat(t.Name, "\">\n            <div class=\"itemInfo\">\n              <p>").concat(t.Name, "</p>\n              <p>\u0627\u0644\u0643\u0645\u064A\u0629: ").concat(t.Quantity, "</p>\n              <p>\u0627\u0644\u0633\u0639\u0631: ").concat(t.Price, " \u062C</p>\n              <p>\u0627\u0644\u0648\u0632\u0646: ").concat(t.Portion, " ").concat(t.Uint, "</p>\n              <p>\u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A \u0644\u0644\u0645\u0646\u062A\u062C: ").concat(t.Price * t.Quantity, " \u062C</p>\n            </div>\n          </div>\n        ");
+                  }).join(""), _l = "\n          <div class=\"orderRec\">\n        <p>\u0645\u0639\u0631\u0641 \u0627\u0644\u0637\u0644\u0628: ".concat(_r, "</p>\n        <div class=\"date\">\n          <p>\n            \u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0637\u0644\u0628:\n          </p>\n          <h4 dir=\"ltr\" style=\"color: #b3b2b2\">\n            ").concat(_c, "\n          </h4>\n        </div>\n        <p>\u0627\u0644\u0645\u062C\u0645\u0648\u0639: ").concat(_i(), " \u062C</p>\n        ").concat(_o, "\n          ").concat(a(), "\n          ").concat(s(), "\n      </div>\n          ");
                   return _context19.abrupt("return", (loading(!1), "".concat(_l)));
                 case 18:
                   return _context19.abrupt("return", (loading(!1), "\n        <div class='notLoginPop'>\n          <a href=\"/\" data-link class=\"backToHome\"><i class='bx bxs-x-circle'></i></a>\n          <p>للأسف تحتاج إلى تسجيل الدخول للوصول إلى هذه الصفحة</p>\n          <a href='/login' data-link class=\"log\">تسجيل الدخول</a>\n          <a href='/register' data-link class=\"log\">تسجيل حساب</a>\n        </div>\n        "));
@@ -1180,11 +1180,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 auth: !0
               }, {
                 path: "/product/:id",
-                view: i,
+                view: s,
                 auth: !1
               }, {
                 path: "/compony/:name",
-                view: s,
+                view: i,
                 auth: !1
               }, {
                 path: "/category/:name",

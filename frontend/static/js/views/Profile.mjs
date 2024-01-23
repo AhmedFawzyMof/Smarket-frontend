@@ -12,7 +12,7 @@ export default class extends AbstractViews {
       loading(true);
 
       if (localStorage.getItem("AuthToken")) {
-        const response = await fetch("http://localhost:5500/profile", {
+        const response = await fetch("http://192.168.1.7:5500/profile", {
           method: "post",
           body: JSON.stringify({
             token: localStorage.getItem("AuthToken"),
@@ -20,7 +20,7 @@ export default class extends AbstractViews {
         });
 
         const data = await response.json();
-        const user = data.User
+        const user = data.User;
         if (data.Error) {
           localStorage.removeItem("AuthToken");
           CreateToast({

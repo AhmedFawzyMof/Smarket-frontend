@@ -1,14 +1,14 @@
 "use strict";
 
-function inc(productId) {
+function inc(productId, productWeight) {
   var inCart = Cart.find(function (product, index) {
     Object.assign(product, {
       index: index
     });
-    return product.id === productId;
+    return product.id === productId && product.weight === productWeight;
   });
   if (inCart !== undefined) {
-    var productDiv = document.getElementById(productId.toString());
+    var productDiv = document.getElementById(productId.toString() + "" + productWeight.toString());
     var PT = productDiv.querySelector("#PT");
     var quan = productDiv.querySelector("#quan");
     if (inCart.quantity <= 20) {
@@ -20,12 +20,12 @@ function inc(productId) {
     TotalT();
   }
 }
-function dec(productId) {
+function dec(productId, productWeight) {
   var inCart = Cart.find(function (product) {
-    return product.id === productId;
+    return product.id === productId && product.weight === productWeight;
   });
   if (inCart !== undefined) {
-    var productDiv = document.getElementById(productId.toString());
+    var productDiv = document.getElementById(productId.toString() + "" + productWeight.toString());
     var PT = productDiv.querySelector("#PT");
     var quan = productDiv.querySelector("#quan");
     if (inCart.quantity !== 1) {
@@ -52,26 +52,24 @@ function TotalT() {
   TP.innerHTML = productTotal + " ج";
   TotalPro.innerHTML = "منتجات " + cartLength();
 }
-function removeAll() {
-  localStorage.setItem("cart", "[]");
-  cartLength();
-  location.reload();
-}
-function removeProduct(Product) {
+function removeProduct(Product, Weight) {
   var TheProduct = Cart.find(function (product, index) {
     Object.assign(product, {
       index: index
     });
-    return product.id === Product;
+    return product.id === Product && product.weight === Weight;
   });
   Cart.splice(TheProduct.index, 1);
   localStorage.setItem("cart", JSON.stringify(Cart));
-  location.reload();
+  cartLength();
+  reload();
 }
-var images = document.querySelectorAll("img");
-for (var i = 0; i < images.length; i++) {
-  var src = images[i].src;
-  if (src.startsWith("blob:")) {
-    URL.revokeObjectURL(src);
-  }
+function reload() {
+  var a = document.createElement("a");
+  a.href = "/cart";
+  a.setAttribute("data-link", "");
+  var body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
 }

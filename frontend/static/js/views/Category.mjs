@@ -12,7 +12,7 @@ export default class extends AbstractViews {
     loading(true);
 
     const response = await fetch(
-      "http://localhost:5500/category/" + this.category
+      "http://192.168.1.7:5500/category/" + this.category
     );
     const data = await response.json();
     const products = data.Products;
@@ -22,14 +22,12 @@ export default class extends AbstractViews {
     for (let index = 0; index < subcategories.length; index++) {
       const subcategory = subcategories[index];
 
-      const imageId =
-        "https://drive.google.com/uc?export=view&id=" +
-        subcategory.Image.split("/")[5];
+      const imageId = subcategory.Image;
 
       mappedCategories += `
       <div class='category' key="${index}">
         <a data-link href="/subcategory/${subcategory.Name}">
-          <img src="${imageId}" />
+          <img src="http://localhost:5500/${imageId}" />
         </a>
         <p>${subcategory.Name}</p>
       </div>
@@ -63,16 +61,14 @@ export default class extends AbstractViews {
           }
         }
         let name = product.Name.substr(0, 17);
-        const imageId =
-          "https://drive.google.com/uc?export=view&id=" +
-          product.Image.split("/")[5];
+        const imageId = product.Image;
         return `
       <div class='${isAvailable()}' id='${product.Id}' key='${index}'>
         <button id='addtofav' onclick='addToFav(${product.Id})'>
           <i class="bx bxs-heart"></i>
         </button>
         <a href='/product/${product.Id}' data-link>
-            <img class='image' src='${imageId}' />
+            <img class='image' src='http://localhost:5500/${imageId}' />
           <div class='body'>
             <p>${name}</p>
           </div>

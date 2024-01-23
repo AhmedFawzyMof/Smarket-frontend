@@ -41,7 +41,7 @@ setTimeout(() => {
 
 async function addToFav(productId) {
   if (localStorage.getItem("AuthToken")) {
-    const response = await fetch("http://localhost:5500/fav/add", {
+    const response = await fetch("http://192.168.1.7:5500/fav/add", {
       method: "post",
       body: JSON.stringify({
         product: productId,
@@ -57,7 +57,7 @@ async function addToFav(productId) {
       });
       localStorage.removeItem("AuthToken");
       setTimeout(() => {
-        window.location = "/login";
+        redirect();
       }, 5000);
     } else {
       if (data.Message === undefined) {
@@ -81,4 +81,14 @@ async function addToFav(productId) {
       time: 5000,
     });
   }
+}
+
+function redirect() {
+  const a = document.createElement("a");
+  a.href = "/";
+  a.setAttribute("data-link", "");
+  const body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
 }

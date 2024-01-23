@@ -10,16 +10,15 @@ export default class extends AbstractViews {
   async getHtml() {
     loading(true);
     const response = await fetch(
-      "http://localhost:5500/product/" + this.productId
+      "http://192.168.1.7:5500/product/" + this.productId
     );
     const data = await response.json();
     const product = data.Product;
     this.setTitle("Alwadi | " + product.Name);
-
     function productIsAvailable(product) {
       if (product.Available == 1) {
         let types = "";
-        const imageId = "https://drive.google.com/uc?export=view&id=" + product.Image.split("/")[5];
+        const imageId = product.Image;
         product.Types.forEach((pt, i) => {
           function isOffer() {
             if (pt.Offer > 0) {
@@ -33,9 +32,11 @@ export default class extends AbstractViews {
           types += `
         <div class="type" id="${pt.Id}">
           <label for="pt${i}">
-          <img src="${imageId}" />
+          <img src="http://localhost:5500/${imageId}" />
            ${isOffer()}
-          <p class="weight">الوزن: ${pt.Portion} ${pt.Uint}</p>
+          <p class="weight" id="${pt.Portion}">الوزن: ${pt.Portion} ${
+            pt.Uint
+          }</p>
           </label>
           <input type="radio" id="pt${i}" name="pt1">
           <input type="hidden" id="price" value="${pt.Price}">
@@ -70,17 +71,17 @@ export default class extends AbstractViews {
         <p class='percent'>${Math.trunc(percent)}%</p>
         `;
       } else {
-      return `
+        return `
         <h2 class='price'>${product.Price} ج</h2>
         `;
       }
     }
 
-    const imageId = product.Image.split("/")[5];
+    const imageId = product.Image;
 
     const theProduct = `
     <div class='image'>
-      <img src='https://drive.google.com/uc?export=view&id=${imageId}' />
+      <img src='http://localhost:5500/${imageId}' />
     </div>
     <div class='details'>
       <div class='box1'>

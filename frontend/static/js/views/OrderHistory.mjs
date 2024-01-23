@@ -11,7 +11,7 @@ export default class extends AbstractViews {
     loading(true);
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
-        const response = await fetch("http://localhost:5500/orderhistory", {
+        const response = await fetch("http://192.168.1.7:5500/orderhistory", {
           method: "post",
           body: JSON.stringify({
             token: localStorage.getItem("AuthToken"),
@@ -20,41 +20,44 @@ export default class extends AbstractViews {
 
         const data = await response.json();
         const orders = data.Orders;
-        console.log(orders)
+        console.log(orders);
 
-        const mapedOrders = orders.map((o) => {
-          function IsConfirmed() {
-            if (o.Confirmed == 1) {
-              return `<p class="cancel off">الغاء الطلب</p>`;
-            } else {
-              return `<button class="cancel" onclick="CancelOrder('${o.Id}', ${o.Confirmed})">الغاء الطلب</button>`;
+        const mapedOrders = orders
+          .map((o) => {
+            function IsConfirmed() {
+              if (o.Confirmed == 1) {
+                return `<p class="cancel off">الغاء الطلب</p>`;
+              } else {
+                return `<button class="cancel" onclick="CancelOrder('${o.Id}', ${o.Confirmed})">الغاء الطلب</button>`;
+              }
             }
-          }
-          function Confirmed() {
-            if (o.Confirmed == 1) {
-              return `نعم`;
-            } else {
-              return `لا`;
+            function Confirmed() {
+              if (o.Confirmed == 1) {
+                return `نعم`;
+              } else {
+                return `لا`;
+              }
             }
-          }
-          function Delivered() {
-            if (o.Delivered == 1) {
-              return `نعم`;
-            } else {
-              return `لا`;
+            function Delivered() {
+              if (o.Delivered == 1) {
+                return `نعم`;
+              } else {
+                return `لا`;
+              }
             }
-          }
-          function Paid() {
-            if (o.Paid == 1) {
-              return `نعم`;
-            } else {
-              return `لا`;
+            function Paid() {
+              if (o.Paid == 1) {
+                return `نعم`;
+              } else {
+                return `لا`;
+              }
             }
-          }
 
-          const id = o.Id.substr(0, 8);
-          const date = o.Date.replace("T", " ").replace(".", " ").substr(0, 20);
-          return `<div class="order">
+            const id = o.Id.substr(0, 8);
+            const date = o.Date.replace("T", " ")
+              .replace(".", " ")
+              .substr(0, 20);
+            return `<div class="order">
             <div class="TH">
               <h3>رقم الطلب</h3>
               <h3>التاريخ</h3>
@@ -74,7 +77,8 @@ export default class extends AbstractViews {
               ${IsConfirmed()}
             </div>
            </div>`;
-        }).join("")
+          })
+          .join("");
 
         if (data.Error) {
           localStorage.removeItem("AuthToken");

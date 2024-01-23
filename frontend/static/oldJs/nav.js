@@ -1,3 +1,6 @@
+if (!localStorage.getItem("cart")) {
+  localStorage.setItem("cart", "[]");
+}
 const menuBtn = document.getElementById("menuBtn");
 const menu = document.getElementById("menu");
 const resultSearch = document.querySelector(".resFS");
@@ -90,8 +93,4 @@ function loading(condition) {
     app.style.display = "flex";
     loadingPage.style.display = "none";
   }
-}
-
-if (!localStorage.getItem("cart")) {
-  localStorage.setItem("cart", "[]");
 }

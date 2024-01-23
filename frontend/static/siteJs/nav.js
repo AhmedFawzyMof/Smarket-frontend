@@ -1,5 +1,8 @@
 "use strict";
 
+if (!localStorage.getItem("cart")) {
+  localStorage.setItem("cart", "[]");
+}
 var menuBtn = document.getElementById("menuBtn");
 var menu = document.getElementById("menu");
 var resultSearch = document.querySelector(".resFS");
@@ -85,7 +88,4 @@ function loading(condition) {
     app.style.display = "flex";
     loadingPage.style.display = "none";
   }
-}
-if (!localStorage.getItem("cart")) {
-  localStorage.setItem("cart", "[]");
 }

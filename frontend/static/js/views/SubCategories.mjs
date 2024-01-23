@@ -11,7 +11,7 @@ export default class extends AbstractViews {
     loading(true);
 
     const response = await fetch(
-      "http://localhost:5500/subcategory/" + this.category
+      "http://192.168.1.7:5500/subcategory/" + this.category
     );
     const data = await response.json();
     const products = data.Products;
@@ -42,16 +42,14 @@ export default class extends AbstractViews {
           }
         }
         let name = product.Name.substr(0, 20);
-       const imageId =
-        "https://drive.google.com/uc?export=view&id=" +
-        product.Image.split("/")[5];
+        const imageId = product.Image;
         return `
       <div class='${isAvailable()}' id='${product.Id}' key='${index}'>
         <button id='addtofav' onclick='addToFav(${
           product.Id
         })'><i class="bx bxs-heart"></i></button>
         <a href='/product/${product.Id}' data-link>
-            <img class='image' src='${imageId}' />
+            <img class='image' src='http://localhost:5500/${imageId}' />
           <div class='body'>
             <p>${name}</p>
           </div>

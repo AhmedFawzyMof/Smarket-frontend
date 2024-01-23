@@ -19,58 +19,68 @@ OrderForm.addEventListener("submit", async (e) => {
     const value = pair[1];
     form[key] = value;
   }
-    const order = await fetch("http://localhost:5500/order", {
-      method: "POST",
-      body: JSON.stringify({
-        products: products,
-        address: form,
-        method: localStorage.getItem("method"),
-        token: localStorage.getItem("AuthToken"),
-      }),
+  const order = await fetch("http://192.168.1.7:5500/order", {
+    method: "POST",
+    body: JSON.stringify({
+      products: products,
+      address: form,
+      method: localStorage.getItem("method"),
+      token: localStorage.getItem("AuthToken"),
+    }),
+  });
+
+  if (!order.ok) {
+    localStorage.removeItem("AuthToken");
+    localStorage.removeItem("Cart");
+    CreateToast({
+      type: "error",
+      message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
+      time: 2000,
     });
+    setTimeout(() => {
+      redirect();
+    }, 1000);
+  }
+  const res = await order.json();
 
-    console.log(order.ok);
+  console.log(res);
 
-    // if (!order.ok) {
-    //   localStorage.removeItem("AuthToken");
-    //   localStorage.removeItem("Cart");
-    //   CreateToast({
-    //     type: "error",
-    //     message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
-    //     time: 2000,
-    //   });
-    //   setTimeout(() => {
-    //     location.replace("/");
-    //   }, 1000);
-    // }
-  //   const res = await order.json();
-
-  //   if (res.Error) {
-  //     localStorage.removeItem("AuthToken");
-  //     localStorage.removeItem("Cart");
-  //     CreateToast({
-  //       type: "error",
-  //       message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
-  //       time: 2000,
-  //     });
-  //     setTimeout(() => {
-  //       location.replace("/");
-  //     }, 1000);
-  //   }
-  //   loading(false);
-  //   localStorage.removeItem("method");
-  //   localStorage.setItem("cart", "[]");
-  //   location.replace("/order/success");
-  // } catch (error) {
-  //   localStorage.removeItem("AuthToken");
-  //   localStorage.removeItem("Cart");
-  //   CreateToast({
-  //     type: "error",
-  //     message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
-  //     time: 2000,
-  //   });
-  //   setTimeout(() => {
-  //     location.replace("/");
-  //   }, 1000);
-  
+  if (res.Error) {
+    localStorage.removeItem("AuthToken");
+    localStorage.removeItem("Cart");
+    CreateToast({
+      type: "error",
+      message: "للأسف حدث خطأ برجاء المحاولة مرة اخرى",
+      time: 2000,
+    });
+    setTimeout(() => {
+      redirect();
+    }, 1000);
+  } else {
+    localStorage.removeItem("method");
+    localStorage.setItem("cart", "[]");
+    location.replace("/order/success");
+    redirectS();
+  }
+  loading(false);
 });
+
+function redirect() {
+  const a = document.createElement("a");
+  a.href = "/";
+  a.setAttribute("data-link", "");
+  const body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
+}
+
+function redirectS() {
+  const a = document.createElement("a");
+  a.href = "/order/success";
+  a.setAttribute("data-link", "");
+  const body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
+}

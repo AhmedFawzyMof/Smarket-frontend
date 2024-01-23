@@ -13,12 +13,15 @@ export default class extends AbstractViews {
     loading(true);
     if (this.auth) {
       if (localStorage.getItem("AuthToken")) {
-        const response = await fetch("http://localhost:5500/order/" + this.id, {
-          method: "post",
-          body: JSON.stringify({
-            token: localStorage.getItem("AuthToken"),
-          }),
-        });
+        const response = await fetch(
+          "http://192.168.1.7:5500/order/" + this.id,
+          {
+            method: "post",
+            body: JSON.stringify({
+              token: localStorage.getItem("AuthToken"),
+            }),
+          }
+        );
 
         const data = await response.json();
 
@@ -95,7 +98,7 @@ export default class extends AbstractViews {
               product.Image.split("/")[5];
             return `
           <div class="orderitem">
-            <img src="${imageId}" alt="${product.Name}">
+            <img src="http://localhost:5500/${imageId}" alt="${product.Name}">
             <div class="itemInfo">
               <p>${product.Name}</p>
               <p>الكمية: ${product.Quantity}</p>

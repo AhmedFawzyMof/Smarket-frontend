@@ -13,7 +13,7 @@ function login() {
       form[key] = value;
     }
 
-    const response = await fetch("http://localhost:5500/user/login", {
+    const response = await fetch("http://192.168.1.7:5500/user/login", {
       method: "post",
       body: JSON.stringify(form),
     });
@@ -33,9 +33,19 @@ function login() {
         time: 2000,
       });
       setTimeout(() => {
-        location.replace("/");
+        redirect();
       }, 2000);
     }
   });
 }
 login();
+
+function redirect() {
+  const a = document.createElement("a");
+  a.href = "/";
+  a.setAttribute("data-link", "");
+  const body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
+}

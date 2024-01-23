@@ -32,7 +32,7 @@ function register() {
               _iterator.f();
             }
             _context.next = 7;
-            return fetch("http://localhost:5500/user/register", {
+            return fetch("http://192.168.1.7:5500/user/register", {
               method: "post",
               body: JSON.stringify(form)
             });
@@ -61,7 +61,7 @@ function register() {
                 time: 2000
               });
               setTimeout(function () {
-                location.replace("/");
+                redirect();
               }, 2000);
             }
           case 12:
@@ -76,3 +76,12 @@ function register() {
   }());
 }
 register();
+function redirect() {
+  var a = document.createElement("a");
+  a.href = "/";
+  a.setAttribute("data-link", "");
+  var body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
+}

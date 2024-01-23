@@ -1,29 +1,33 @@
-function inc(productId) {
+function inc(productId, productWeight) {
   const inCart = Cart.find((product, index) => {
     Object.assign(product, { index: index });
-    return product.id === productId;
+    return product.id === productId && product.weight === productWeight;
   });
   if (inCart !== undefined) {
-    const productDiv = document.getElementById(productId.toString());
+    const productDiv = document.getElementById(
+      productId.toString() + "" + productWeight.toString()
+    );
     const PT = productDiv.querySelector("#PT");
     const quan = productDiv.querySelector("#quan");
     if (inCart.quantity <= 20) {
       inCart.quantity += 1;
     }
-
     localStorage.setItem("cart", JSON.stringify(Cart));
     PT.innerHTML = inCart.price * inCart.quantity + " ج";
+
     quan.innerHTML = inCart.quantity;
     TotalT();
   }
 }
 
-function dec(productId) {
+function dec(productId, productWeight) {
   const inCart = Cart.find((product) => {
-    return product.id === productId;
+    return product.id === productId && product.weight === productWeight;
   });
   if (inCart !== undefined) {
-    const productDiv = document.getElementById(productId.toString());
+    const productDiv = document.getElementById(
+      productId.toString() + "" + productWeight.toString()
+    );
     const PT = productDiv.querySelector("#PT");
     const quan = productDiv.querySelector("#quan");
     if (inCart.quantity !== 1) {
@@ -55,28 +59,23 @@ function TotalT() {
   TotalPro.innerHTML = "منتجات " + cartLength();
 }
 
-function removeAll() {
-  localStorage.setItem("cart", "[]");
-  cartLength();
-  location.reload();
-}
-
-function removeProduct(Product) {
+function removeProduct(Product, Weight) {
   const TheProduct = Cart.find((product, index) => {
     Object.assign(product, { index: index });
-    return product.id === Product;
+    return product.id === Product && product.weight === Weight;
   });
-
   Cart.splice(TheProduct.index, 1);
   localStorage.setItem("cart", JSON.stringify(Cart));
-  location.reload();
+  cartLength();
+  reload();
 }
 
-let images = document.querySelectorAll("img");
-for (let i = 0; i < images.length; i++) {
-  let src = images[i].src;
-
-  if (src.startsWith("blob:")) {
-    URL.revokeObjectURL(src);
-  }
+function reload() {
+  const a = document.createElement("a");
+  a.href = "/cart";
+  a.setAttribute("data-link", "");
+  const body = document.body;
+  body.appendChild(a);
+  a.style.zIndex = -10;
+  a.click();
 }
